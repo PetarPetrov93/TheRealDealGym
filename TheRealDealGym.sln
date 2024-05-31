@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRealDealGym", "TheRealDealGym\TheRealDealGym.csproj", "{7617C2AA-DA86-40FC-930D-4D2F90499621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheRealDealGym", "TheRealDealGym\TheRealDealGym.csproj", "{7617C2AA-DA86-40FC-930D-4D2F90499621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRealDealGym.Infrastructure", "TheRealDealGym.Infrastructure\TheRealDealGym.Infrastructure.csproj", "{0108ECD5-EDB0-4D3D-B066-004B15637B94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRealDealGym.Core", "TheRealDealGym.Core\TheRealDealGym.Core.csproj", "{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{7617C2AA-DA86-40FC-930D-4D2F90499621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7617C2AA-DA86-40FC-930D-4D2F90499621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7617C2AA-DA86-40FC-930D-4D2F90499621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0108ECD5-EDB0-4D3D-B066-004B15637B94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0108ECD5-EDB0-4D3D-B066-004B15637B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0108ECD5-EDB0-4D3D-B066-004B15637B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0108ECD5-EDB0-4D3D-B066-004B15637B94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
