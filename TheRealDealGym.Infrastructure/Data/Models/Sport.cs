@@ -1,25 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForSportType;
+using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForSport;
 
 namespace TheRealDealGym.Infrastructure.Data.Models
 {
     /// <summary>
-    /// The SportType holds the title of a given sport and its category (type of sport)
+    /// The Sport holds the title of a given sport and its category (type of sport)
     /// </summary>
-    [Comment("The SportType holds the title of a given sport and its category (type of sport)")]
-    public class SportType
+    [Comment("The Sport holds the title of a given sport and its category (type of sport)")]
+    public class Sport
     {
-        public SportType()
+        public Sport()
         {
             Id = Guid.NewGuid();
         }
 
         /// <summary>
-        /// SportType identifier.
+        /// Sport identifier.
         /// </summary>
         [Key]
-        [Comment("SportType identifier")]
+        [Comment("Sport identifier")]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -43,5 +43,11 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// </summary>
         [Comment("Serves a soft delete purpose")]
         public bool IsDeleted { get; set; } = false;
+
+        /// <summary>
+        /// Collection of all the trainers that are qualified to teach a specific Sport.
+        /// </summary>
+        [Comment("Collection of all the trainers that are qualified to teach a specific Sport")]
+        public ICollection<Trainer> Trainers { get; set; } = new HashSet<Trainer>();
     }
 }

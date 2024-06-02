@@ -31,5 +31,11 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         [StringLength(LastNameMaxLength)]
         [Comment("LastName property - extension to the default User")]
         public string LastName { get; set; } = null!;
+
+        /// <summary>
+        /// Navigation property. It helps you check if the signed-in user is a trainer.
+        /// </summary>
+        [Comment("Navigation property. It helps you check if the signed-in user is a trainer")]
+        public Trainer? Trainer { get; set; }
     }
 }
