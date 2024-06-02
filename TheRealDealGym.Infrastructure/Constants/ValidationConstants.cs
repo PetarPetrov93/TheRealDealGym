@@ -16,5 +16,12 @@
             public const int MinCapacity = 10;
             public const int MaxCapacity = 40;
         }
+        public static class ForSportType
+        {
+            public const int TitleMinLength = 2;
+            public const int TitleMaxLength = 40;
+            public const int CategoryMinLength = 2;
+            public const int CategoryMaxLength = 40;
+        }
     }
 }
