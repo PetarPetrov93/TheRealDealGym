@@ -11,5 +11,15 @@ namespace TheRealDealGym.Infrastructure.Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<TrainerSport>(entity =>
+            {
+                entity.HasKey(ts => new { ts.TrainerId, ts.SportId });
+            });
+
+            base.OnModelCreating(builder);
+        }
     }
 }
