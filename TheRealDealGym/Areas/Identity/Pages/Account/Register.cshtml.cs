@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using TheRealDealGym.Infrastructure.Data.Models;
+using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForApplicationUser;
 
 namespace TheRealDealGym.Areas.Identity.Pages.Account
 {
@@ -94,12 +95,12 @@ namespace TheRealDealGym.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "First Name")]
-            [StringLength(40, MinimumLength = 1)]
+            [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
             public string FirstName { get; set; }
 
             [Required]
             [Display(Name = "Last Name")]
-            [StringLength(40, MinimumLength = 1)]
+            [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
             public string LastName { get; set; }
         }
 
