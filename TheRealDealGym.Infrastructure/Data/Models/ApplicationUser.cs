@@ -37,5 +37,11 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// </summary>
         [Comment("Navigation property. It helps you check if the signed-in user is a trainer")]
         public Trainer? Trainer { get; set; }
+
+        /// <summary>
+        /// One ApplicationUser can have many bookings. He should be a customer, not a trainer (Trainer = null).
+        /// </summary>
+        [Comment("One ApplicationUser can have many bookings")]
+        public ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
     }
 }

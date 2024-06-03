@@ -34,6 +34,5 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// </summary>
         [Comment("Navigation property for SportId")]
         public Sport Sport { get; set; } = null!;
-
     }
 }

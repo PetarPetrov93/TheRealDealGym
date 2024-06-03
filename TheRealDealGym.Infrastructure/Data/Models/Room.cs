@@ -44,5 +44,11 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// </summary>
         [Comment("Serves a soft delete purpose")]
         public bool IsDeleted { get; set; } = false;
+
+        /// <summary>
+        /// One Room can have many Classes.
+        /// </summary>
+        [Comment("One Room can have many Classes")]
+        public ICollection<Class> Classes { get; set; } = new HashSet<Class>();
     }
 }
