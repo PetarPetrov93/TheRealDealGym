@@ -37,11 +37,31 @@ namespace TheRealDealGym.Infrastructure.Data
 
             builder.Entity<Booking>(entity =>
             {
+                entity.HasOne(b => b.Class)
+                      .WithMany(c => c.Bookings)
+                      .HasForeignKey(b => b.ClassId)
+                      .OnDelete(DeleteBehavior.NoAction);
+
                 entity.HasQueryFilter(b => !b.IsDeleted);
             });
 
             builder.Entity<Class>(entity =>
             {
+                entity.HasOne(c => c.Trainer)
+                      .WithMany(t => t.Classes)
+                      .HasForeignKey(c => c.TrainerId)
+                      .OnDelete(DeleteBehavior.NoAction);
+
+                entity.HasOne(c => c.Sport)
+                      .WithMany(s => s.Classes)
+                      .HasForeignKey(c => c.SportId)
+                      .OnDelete(DeleteBehavior.NoAction);
+
+                entity.HasOne(c => c.Room)
+                      .WithMany(r => r.Classes)
+                      .HasForeignKey(c => c.RoomId)
+                      .OnDelete(DeleteBehavior.NoAction);
+
                 entity.HasQueryFilter(c => !c.IsDeleted);
             });
 
@@ -54,7 +74,7 @@ namespace TheRealDealGym.Infrastructure.Data
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<Sport> Sports { get; set; } = null!;
         public DbSet<Trainer> Trainers { get; set; } = null!;
-        public DbSet<TrainerSport> TrainerSports { get; set; } = null!;
+        public DbSet<TrainerSport> TrainersSports { get; set; } = null!;
         public DbSet<Booking> Bookings { get; set; } = null!;
         public DbSet<Class> Classes { get; set; } = null!;
     }

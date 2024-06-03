@@ -48,7 +48,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// Collection of all the trainers that are qualified to teach a specific Sport.
         /// </summary>
         [Comment("Collection of all the trainers that are qualified to teach a specific Sport")]
-        public ICollection<Trainer> Trainers { get; set; } = new HashSet<Trainer>();
+        public ICollection<TrainerSport> TrainersSports { get; set; } = new HashSet<TrainerSport>();
 
         /// <summary>
         /// One Sport can have many Classes.
