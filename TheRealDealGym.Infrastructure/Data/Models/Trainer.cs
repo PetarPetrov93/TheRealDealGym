@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForTrainer;
 
 namespace TheRealDealGym.Infrastructure.Data.Models
 {
@@ -26,6 +27,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// Trainer's age.
         /// </summary>
         [Required]
+        [Range(MinAge, MaxAge)]
         [Comment("Trainer's age")]
         public int Age { get; set; }
 
@@ -33,6 +35,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// Trainer's years of experience.
         /// </summary>
         [Required]
+        [Range(MinYearsOfExperience, MaxYearsOfExperience)]
         [Comment("Trainer's years of experience.")]
         public int YearsOfExperience { get; set; }
 
@@ -47,6 +50,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// <summary>
         /// Foreign key to ApplicationUser.
         /// </summary>
+        [Required]
         [ForeignKey(nameof(User))]
         [Comment("Foreign key to ApplicationUser")]
         public Guid UserId { get; set; }
