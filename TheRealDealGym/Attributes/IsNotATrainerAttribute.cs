@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace TheRealDealGym.Attributes
 {
