@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TheRealDealGym.Infrastructure.Data.Common
 {
@@ -10,34 +9,46 @@ namespace TheRealDealGym.Infrastructure.Data.Common
         {
             context = _context;
         }
-        public Task AddAsync<T>(T entity) where T : class
+
+        private DbSet<T> DbSet<T>() where T : class
         {
-            throw new NotImplementedException();
+            return context.Set<T>();
+        }
+
+        public async Task AddAsync<T>(T entity) where T : class
+        {
+            await DbSet<T>().AddAsync(entity);
         }
 
         public IQueryable<T> All<T>() where T : class
         {
-            throw new NotImplementedException();
+            return DbSet<T>();
         }
 
         public IQueryable<T> AllReadOnly<T>() where T : class
         {
-            throw new NotImplementedException();
+            return DbSet<T>().AsNoTracking();
         }
 
-        public Task DeleteAsync<T>(object id) where T : class
+        public async Task DeleteAsync<T>(object id) where T : class
         {
-            throw new NotImplementedException();
+            T? entity = await GetByIdAsync<T>(id);
+
+            if (entity != null)
+            {
+                var property = entity.GetType().GetProperty("IsDeleted");
+                property!.SetValue(entity, true);
+            }
         }
 
-        public Task<T?> GetByIdAsync<T>(object id) where T : class
+        public async Task<T?> GetByIdAsync<T>(object id) where T : class
         {
-            throw new NotImplementedException();
+            return await DbSet<T>().FindAsync(id);
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return await context.SaveChangesAsync();
         }
     }
 }
