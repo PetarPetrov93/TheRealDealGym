@@ -1,5 +1,9 @@
 ﻿namespace TheRealDealGym.Infrastructure.Data.Common
 {
+    /// <summary>
+    /// This repository interface adds another layer of abstraction and would be helpful in case we decide to change the database in the future.
+    /// It is implemented in the Repository class.
+    /// </summary>
     public interface IRepository
     {
         IQueryable<T> All<T>() where T : class;
