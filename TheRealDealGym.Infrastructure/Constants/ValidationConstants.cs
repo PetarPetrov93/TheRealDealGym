@@ -1,5 +1,8 @@
 ﻿namespace TheRealDealGym.Infrastructure.Constants
 {
+    /// <summary>
+    /// These are validation constants.
+    /// </summary>
     public static class ValidationConstants
     {
         public static class ForApplicationUser
