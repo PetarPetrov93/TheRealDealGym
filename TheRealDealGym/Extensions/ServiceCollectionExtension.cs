@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Infrastructure.Data;
+using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -19,13 +20,24 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            services.AddScoped<IRepository, Repository>();
+
             return services;
         }
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
-                .AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultIdentity<ApplicationUser>(options => 
+                { 
+                    options.SignIn.RequireConfirmedAccount = config.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+
+                    options.Password.RequireNonAlphanumeric = config.GetValue<bool>("Identity:SignIn:RequireNonAlphanumeric");
+                    options.Password.RequireDigit = config.GetValue<bool>("Identity:SignIn:RequireDigit");
+                    options.Password.RequireLowercase = config.GetValue<bool>("Identity:SignIn:RequireLowercase");
+                    options.Password.RequireUppercase = config.GetValue<bool>("Identity:SignIn:RequireUppercase");
+                    options.Password.RequiredLength = config.GetValue<int>("Identity:SignIn:RequiredLength");
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;
