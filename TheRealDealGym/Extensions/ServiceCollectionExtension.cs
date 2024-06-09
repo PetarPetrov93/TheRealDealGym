@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Infrastructure.Data;
+using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -18,6 +19,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             return services;
         }
