@@ -5,6 +5,9 @@ using TheRealDealGym.Models;
 
 namespace TheRealDealGym.Controllers
 {
+    /// <summary>
+    /// The controller for the homepage and the about pages of the app.
+    /// </summary>
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
