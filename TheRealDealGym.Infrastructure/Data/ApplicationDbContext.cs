@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TheRealDealGym.Infrastructure.Data.Configurations;
 using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Infrastructure.Data
@@ -14,56 +15,13 @@ namespace TheRealDealGym.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Room>(entity =>
-            {
-                entity.HasQueryFilter(r => !r.IsDeleted);
-            });
-
-            builder.Entity<Sport>(entity =>
-            {
-                entity.HasQueryFilter(s => !s.IsDeleted);
-            });
-
-            builder.Entity<Trainer>(entity =>
-            {
-                entity.HasQueryFilter(t => !t.IsDeleted);
-            });
-
-            builder.Entity<TrainerSport>(entity =>
-            {
-                entity.HasKey(ts => new { ts.TrainerId, ts.SportId });
-                entity.HasQueryFilter(ts => !ts.Trainer.IsDeleted && !ts.Sport.IsDeleted);
-            });
-
-            builder.Entity<Booking>(entity =>
-            {
-                entity.HasOne(b => b.Class)
-                      .WithMany(c => c.Bookings)
-                      .HasForeignKey(b => b.ClassId)
-                      .OnDelete(DeleteBehavior.NoAction);
-
-                entity.HasQueryFilter(b => !b.IsDeleted);
-            });
-
-            builder.Entity<Class>(entity =>
-            {
-                entity.HasOne(c => c.Trainer)
-                      .WithMany(t => t.Classes)
-                      .HasForeignKey(c => c.TrainerId)
-                      .OnDelete(DeleteBehavior.NoAction);
-
-                entity.HasOne(c => c.Sport)
-                      .WithMany(s => s.Classes)
-                      .HasForeignKey(c => c.SportId)
-                      .OnDelete(DeleteBehavior.NoAction);
-
-                entity.HasOne(c => c.Room)
-                      .WithMany(r => r.Classes)
-                      .HasForeignKey(c => c.RoomId)
-                      .OnDelete(DeleteBehavior.NoAction);
-
-                entity.HasQueryFilter(c => !c.IsDeleted);
-            });
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new TrainerConfiguration());
+            builder.ApplyConfiguration(new SportConfiguration());
+            builder.ApplyConfiguration(new TrainerSportConfiguration());
+            builder.ApplyConfiguration(new RoomConfiguration());
+            builder.ApplyConfiguration(new ClassConfiguration());
+            builder.ApplyConfiguration(new BookingConfiguration());
 
             base.OnModelCreating(builder);
         }

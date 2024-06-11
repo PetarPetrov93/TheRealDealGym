@@ -16,7 +16,7 @@
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 40;
-            public const int MinCapacity = 10;
+            public const int MinCapacity = 1;
             public const int MaxCapacity = 40;
         }
         public static class ForSport
@@ -32,6 +32,8 @@
             public const int MaxAge = 65;
             public const int MinYearsOfExperience = 1;
             public const int MaxYearsOfExperience = 47;
+            public const int MinBio = 10;
+            public const int MaxBio = 2000;
         }
         public static class ForClass
         {

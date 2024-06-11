@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TheRealDealGym.Controllers
 {
+    /// <summary>
+    /// Controller for trainers.
+    /// Accesible through "My Profile" button.
+    /// </summary>
     public class TrainerController : BaseController
     {
         [AllowAnonymous]
