@@ -43,6 +43,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// More information about the trainer (Biography).
         /// </summary>
         [Required]
+        [StringLength(MaxBio, MinimumLength = MinBio)]
         [Comment("More information about the trainer (Biography)")]
         public string Bio { get; set; } = null!;
 
