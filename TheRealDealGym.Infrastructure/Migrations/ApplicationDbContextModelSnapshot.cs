@@ -241,7 +241,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f55ea46f-5842-45d0-bd12-6878bbda6139",
+                            ConcurrencyStamp = "38677e91-e5a2-4b9f-9fe6-38f5c3befaa3",
                             Email = "FightingTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Trainer",
@@ -249,8 +249,9 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "FIGHTINGTRAINER@TRDG.COM",
                             NormalizedUserName = "FIGHTINGTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFGS/N6ad/RVrBNTPixyShBVnlpMKX3XKfV3UzHKlDywtlcW1s04v6pLIeDbJudC5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGsCRAnO4o5WLsqll0HdFNmdxfCjggNEJwLiTcMqXjMLZhW6+1XNCKPiOpQZfGahig==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "78f47fd7-d3d5-4fa4-bedc-e1ce253f5f6f",
                             TwoFactorEnabled = false,
                             UserName = "FightingTrainer@trdg.com"
                         },
@@ -258,7 +259,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef1e1ad8-f0ce-4275-b000-9e01a844b651",
+                            ConcurrencyStamp = "ed839df7-b3a9-4ee7-a778-22f5e87a9b27",
                             Email = "WaterTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Michael",
@@ -266,8 +267,9 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "WATERTRAINER@TRDG.COM",
                             NormalizedUserName = "WATERTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELs9bo65UNqxNFoQk9V6V4NHeY1L9OcAgu4MShiV4jyEA/hid5Zb2lX4KYtfINgVzQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN+HUmryY3EJWLns993laN1Nw69r997oCXNVj06qfWmiO8LVrxMsdoZfEaq3z4LaBg==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "0cecaf15-dc12-427f-8118-5f537802d729",
                             TwoFactorEnabled = false,
                             UserName = "WaterTrainer@trdg.com"
                         },
@@ -275,7 +277,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1fb76e7-2b2e-44d3-ab2d-d58a5c6741b0",
+                            ConcurrencyStamp = "1db3ac6c-6dd7-4eff-8ab3-5b72d689cd9e",
                             Email = "StretchingTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Katie",
@@ -283,8 +285,9 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STRETCHINGTRAINER@TRDG.COM",
                             NormalizedUserName = "STRETCHINGTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM09r3SDV6QiNDjMPBkm3csqMchitmxstT4MByedhV/1B7f4IdV3a8sIedldgUf3Sw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIjoUqd6/OyJqRYFLcUNtsjMJbNUthFjyf3/H8Q0dGxO7d4OcRQNOoMqm50+OV7ZUQ==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "5160ac97-f58f-479a-9d26-6b1caa75bad5",
                             TwoFactorEnabled = false,
                             UserName = "StretchingTrainer@trdg.com"
                         },
@@ -292,7 +295,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "89923b9b-1c4b-4e8f-b5d5-70f953a3e467",
+                            ConcurrencyStamp = "a6807a45-a594-44a5-832a-30273bf9a74d",
                             Email = "firstGuest@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Pete",
@@ -300,8 +303,9 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "FIRSTGUEST@TRDG.COM",
                             NormalizedUserName = "FIRSTGUEST@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMXF+5vef0dKKhCmpygi08DceuIGkOEyrKbz3/F30Zh01BBDz97RrUFzeUTmHxlLZw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP4HAklTm+L/Ttg2hb9qAhglIbxvFJ9gfwVNvWY/ssDTBQblyYle1Rwx/2eysmuC2Q==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "e7326130-1924-49a0-9912-e1f874200182",
                             TwoFactorEnabled = false,
                             UserName = "firstGuest@trdg.com"
                         },
@@ -309,7 +313,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("ce0dc4d9-e723-4df4-8cb0-80d8afc9122a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a9e44232-9c50-4fea-8db2-e0ebc16b2b13",
+                            ConcurrencyStamp = "9a485611-6d5d-4520-b505-7011a0bedd26",
                             Email = "secondGuest@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Stella",
@@ -317,8 +321,9 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SECONDGUEST@TRDG.COM",
                             NormalizedUserName = "SECONDGUEST@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGl82a0lONOnLVLln1lXuShUnZGqUGUwutTDcBEk1RWfP/u8pDdEOFUGXdsvFwR2CQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELLbCVdrv8xjMAEx/4yCkW5hIT2ksrpwiGu5z96vyXwMgFTWnXgKoTaEggvhXOENMQ==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "bae0779c-fe46-4361-a8b4-2e5e5b705e64",
                             TwoFactorEnabled = false,
                             UserName = "secondGuest@trdg.com"
                         });
