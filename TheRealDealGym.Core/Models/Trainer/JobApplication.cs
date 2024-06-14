@@ -13,23 +13,14 @@ namespace TheRealDealGym.Core.Models.Trainer
     {
         [Required]
         [Range(MinAge, MaxAge)]
-        [Comment("Trainer's age")]
         public int Age { get; set; }
 
-        /// <summary>
-        /// Trainer's years of experience.
-        /// </summary>
         [Required]
         [Range(MinYearsOfExperience, MaxYearsOfExperience)]
-        [Comment("Trainer's years of experience.")]
         public int YearsOfExperience { get; set; }
 
-        /// <summary>
-        /// More information about the trainer (Biography).
-        /// </summary>
         [Required]
         [StringLength(MaxBio, MinimumLength = MinBio)]
-        [Comment("More information about the trainer (Biography)")]
         public string Bio { get; set; } = null!;
     }
 }
