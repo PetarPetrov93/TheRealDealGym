@@ -7,6 +7,9 @@ using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Core.Services
 {
+    /// <summary>
+    /// The service responsible for operations with Class entity.
+    /// </summary>
     public class ClassService : IClassService
     {
         private readonly IRepository repository;
@@ -16,7 +19,10 @@ namespace TheRealDealGym.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<ClassModel>> AllUserBookingsAsync()
+        /// <summary>
+        /// This method gets all the classes which are currently created.
+        /// </summary>
+        public async Task<IEnumerable<ClassModel>> AllClassesAsync()
         {
             return await repository.AllReadOnly<Class>()
                 .Include(c => c.Trainer)
@@ -37,6 +43,9 @@ namespace TheRealDealGym.Core.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// This private method gets the count of all bookings made for a given class so far.
+        /// </summary>
         private int BookingsForCurrentClass(Guid classId)
         {
             return repository.AllReadOnly<Booking>()

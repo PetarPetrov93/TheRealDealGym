@@ -4,6 +4,6 @@ namespace TheRealDealGym.Core.Contracts
 {
     internal interface IClassService
     {
-        Task<IEnumerable<ClassModel>> AllUserBookingsAsync();
+        Task<IEnumerable<ClassModel>> AllClassesAsync();
     }
 }
