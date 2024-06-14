@@ -1,12 +1,14 @@
-﻿using TheRealDealGym.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Booking;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
 
 namespace TheRealDealGym.Core.Services
 {
+    /// <summary>
+    /// The service responsible for operations with Booking entity.
+    /// </summary>
     public class BookingService : IBookingService
     {
         private readonly IRepository repository;
@@ -16,6 +18,9 @@ namespace TheRealDealGym.Core.Services
             repository = _repository;
         }
 
+        /// <summary>
+        /// This method returns all bookings made by the signed-in user.
+        /// </summary>
         public async Task<IEnumerable<BookingModel>> AllUserBookingsAsync(Guid userId)
         {
             return await repository.AllReadOnly<Booking>()
@@ -30,6 +35,5 @@ namespace TheRealDealGym.Core.Services
                 })
                 .ToListAsync();
         }
-
     }
 }
