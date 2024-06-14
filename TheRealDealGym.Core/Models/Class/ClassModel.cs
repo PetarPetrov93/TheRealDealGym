@@ -14,9 +14,9 @@ namespace TheRealDealGym.Core.Models.Class
 
         public string Description { get; set; } = null!;
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; } = null!;
 
-        public DateTime Time { get; set; }
+        public string Time { get; set; } = null!;
 
         public decimal Price { get; set; }
 
