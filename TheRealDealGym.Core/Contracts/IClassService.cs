@@ -1,9 +1,18 @@
-﻿using TheRealDealGym.Core.Models.Class;
+﻿using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Class;
 
 namespace TheRealDealGym.Core.Contracts
 {
-    internal interface IClassService
+    public interface IClassService
     {
-        Task<IEnumerable<ClassModel>> AllClassesAsync();
+        Task<IEnumerable<ClassScheduleModel>> AllClassesAsync();
+        Task<ClassDetailsModel> ClassDetailsAsync(Guid classId);
+        Task<ClassQueryModel> AllAsync(
+            string? category = null,
+            string? searchTerm = null,
+            ClassSorting sorting = ClassSorting.DateAscending,
+            int currentPage = 1,
+            int classesPerPage = 1);
+        Task<IEnumerable<string>> AllSportCategoriesAsync();
     }
 }

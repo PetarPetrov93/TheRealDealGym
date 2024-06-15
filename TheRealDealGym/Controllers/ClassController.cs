@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Class;
 
 namespace TheRealDealGym.Controllers
 {
@@ -10,8 +12,32 @@ namespace TheRealDealGym.Controllers
     /// </summary>
     public class ClassController : BaseController
     {
+        private readonly IClassService classService;
+
+        public ClassController(IClassService _classService)
+        {
+            classService = _classService;
+        }
+
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index([FromQuery] AllClassesQueryModel model)
+        {
+            var classes = await classService.AllAsync(
+                model.Category,
+                model.SearchTerm,
+                model.Sorting,
+                model.CurrentPage,
+                model.ClassesPerPage);
+
+            model.TotalClassesCount = classes.TotalClassesCount;
+            model.Classes = classes.Classes;
+            model.Categories = await classService.AllSportCategoriesAsync();
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult Info()
         {
             return View();
         }

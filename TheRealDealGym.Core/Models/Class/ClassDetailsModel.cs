@@ -5,7 +5,7 @@ namespace TheRealDealGym.Core.Models.Class
     /// <summary>
     /// This ViewModel displays the class information in the schedule
     /// </summary>
-    public class ClassModel
+    public class ClassDetailsModel
     {
 
         public Guid Id { get; set; }

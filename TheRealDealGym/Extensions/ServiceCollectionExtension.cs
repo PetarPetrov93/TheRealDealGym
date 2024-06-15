@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
@@ -9,6 +11,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IClassService, ClassService>();
+            services.AddScoped<ITrainerService, TrainerService>();
             return services;
         }
 
