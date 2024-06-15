@@ -11,17 +11,17 @@
                 Price Per Month:
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </h6>
-            @* <br />
-            <a asp-controller="House" asp-action="Details" asp-route-id="@Model.Id"
+            <br />
+            <a asp-controller="Class" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
-                <a asp-controller="House" asp-action="Edit" asp-route-id="@Model.Id"
+                <a asp-controller="Class" asp-action="Edit" asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
-                <a asp-controller="House" asp-action="Delete" asp-route-id="@Model.Id"
+                <a asp-controller="Class" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger">Delete</a>
                 <p></p>
-                @if (!Model.IsRented)
+                @* @if (!Model.IsRented)
                 {
                     <form class="input-group-sm" asp-controller="House"
                           asp-action="Rent" asp-route-id="@Model.Id" method="post">
@@ -34,8 +34,8 @@
                           asp-route-id="@Model.Id" method="post">
                         <input class="btn btn-primary" type="submit" value="Leave" />
                     </form>
-                }
-            } *@
+                } *@
+            }
         </div>
     </div>
 </div>
