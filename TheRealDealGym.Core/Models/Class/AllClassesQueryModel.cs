@@ -3,6 +3,9 @@ using TheRealDealGym.Core.Enums;
 
 namespace TheRealDealGym.Core.Models.Class
 {
+    /// <summary>
+    /// This ViewModel is used for the implementation of the search bar and the filtering options.
+    /// </summary>
     public class AllClassesQueryModel
     {
         public int ClassesPerPage { get; } = 1;

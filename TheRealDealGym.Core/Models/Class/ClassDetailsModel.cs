@@ -3,7 +3,7 @@
 namespace TheRealDealGym.Core.Models.Class
 {
     /// <summary>
-    /// This ViewModel displays the class information in the schedule
+    /// This ViewModel displays the full class information when the "Details" button is pressed.
     /// </summary>
     public class ClassDetailsModel
     {
