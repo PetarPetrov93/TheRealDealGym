@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Security.Cryptography.X509Certificates;
 using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Infrastructure.Data.Configurations
@@ -63,6 +62,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 LastName = "Gae"
             };
 
+            TrainerUserFighting.SecurityStamp = "78f47fd7-d3d5-4fa4-bedc-e1ce253f5f6f";
+
             TrainerUserFighting.PasswordHash =
                  hasher.HashPassword(TrainerUserFighting, "123456");
 
@@ -77,6 +78,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 LastName = "Phelps"
             };
 
+            TrainerUserWater.SecurityStamp = "0cecaf15-dc12-427f-8118-5f537802d729";
+
             TrainerUserWater.PasswordHash =
                  hasher.HashPassword(TrainerUserWater, "123456");
 
@@ -90,6 +93,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 FirstName = "Katie",
                 LastName = "Thompson"
             };
+
+            TrainerUserStretching.SecurityStamp = "5160ac97-f58f-479a-9d26-6b1caa75bad5";
 
             TrainerUserStretching.PasswordHash =
                  hasher.HashPassword(TrainerUserStretching, "123456");
@@ -106,6 +111,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 LastName = "Johnson"
             };
 
+            GuestUserBooked.SecurityStamp = "e7326130-1924-49a0-9912-e1f874200182";
+
             GuestUserBooked.PasswordHash =
             hasher.HashPassword(GuestUserBooked, "123456");
 
@@ -119,6 +126,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 FirstName = "Stella",
                 LastName = "Clay"
             };
+
+            GuestUserNotBooked.SecurityStamp = "bae0779c-fe46-4361-a8b4-2e5e5b705e64";
 
             GuestUserNotBooked.PasswordHash =
             hasher.HashPassword(GuestUserNotBooked, "123456");

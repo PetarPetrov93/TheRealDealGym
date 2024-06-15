@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TheRealDealGym.Infrastructure.Migrations
 {
-    public partial class Databaseseeded : Migration
+    public partial class dataseed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,11 +25,11 @@ namespace TheRealDealGym.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"), 0, "f1fb76e7-2b2e-44d3-ab2d-d58a5c6741b0", "StretchingTrainer@trdg.com", false, "Katie", "Thompson", false, null, "STRETCHINGTRAINER@TRDG.COM", "STRETCHINGTRAINER@TRDG.COM", "AQAAAAEAACcQAAAAEM09r3SDV6QiNDjMPBkm3csqMchitmxstT4MByedhV/1B7f4IdV3a8sIedldgUf3Sw==", null, false, null, false, "StretchingTrainer@trdg.com" },
-                    { new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"), 0, "ef1e1ad8-f0ce-4275-b000-9e01a844b651", "WaterTrainer@trdg.com", false, "Michael", "Phelps", false, null, "WATERTRAINER@TRDG.COM", "WATERTRAINER@TRDG.COM", "AQAAAAEAACcQAAAAELs9bo65UNqxNFoQk9V6V4NHeY1L9OcAgu4MShiV4jyEA/hid5Zb2lX4KYtfINgVzQ==", null, false, null, false, "WaterTrainer@trdg.com" },
-                    { new Guid("ce0dc4d9-e723-4df4-8cb0-80d8afc9122a"), 0, "a9e44232-9c50-4fea-8db2-e0ebc16b2b13", "secondGuest@trdg.com", false, "Stella", "Clay", false, null, "SECONDGUEST@TRDG.COM", "SECONDGUEST@TRDG.COM", "AQAAAAEAACcQAAAAEGl82a0lONOnLVLln1lXuShUnZGqUGUwutTDcBEk1RWfP/u8pDdEOFUGXdsvFwR2CQ==", null, false, null, false, "secondGuest@trdg.com" },
-                    { new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"), 0, "89923b9b-1c4b-4e8f-b5d5-70f953a3e467", "firstGuest@trdg.com", false, "Pete", "Johnson", false, null, "FIRSTGUEST@TRDG.COM", "FIRSTGUEST@TRDG.COM", "AQAAAAEAACcQAAAAEMXF+5vef0dKKhCmpygi08DceuIGkOEyrKbz3/F30Zh01BBDz97RrUFzeUTmHxlLZw==", null, false, null, false, "firstGuest@trdg.com" },
-                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "f55ea46f-5842-45d0-bd12-6878bbda6139", "FightingTrainer@trdg.com", false, "Trainer", "Gae", false, null, "FIGHTINGTRAINER@TRDG.COM", "FIGHTINGTRAINER@TRDG.COM", "AQAAAAEAACcQAAAAEFGS/N6ad/RVrBNTPixyShBVnlpMKX3XKfV3UzHKlDywtlcW1s04v6pLIeDbJudC5A==", null, false, null, false, "FightingTrainer@trdg.com" }
+                    { new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"), 0, "1db3ac6c-6dd7-4eff-8ab3-5b72d689cd9e", "StretchingTrainer@trdg.com", false, "Katie", "Thompson", false, null, "STRETCHINGTRAINER@TRDG.COM", "STRETCHINGTRAINER@TRDG.COM", "AQAAAAEAACcQAAAAEIjoUqd6/OyJqRYFLcUNtsjMJbNUthFjyf3/H8Q0dGxO7d4OcRQNOoMqm50+OV7ZUQ==", null, false, "5160ac97-f58f-479a-9d26-6b1caa75bad5", false, "StretchingTrainer@trdg.com" },
+                    { new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"), 0, "ed839df7-b3a9-4ee7-a778-22f5e87a9b27", "WaterTrainer@trdg.com", false, "Michael", "Phelps", false, null, "WATERTRAINER@TRDG.COM", "WATERTRAINER@TRDG.COM", "AQAAAAEAACcQAAAAEN+HUmryY3EJWLns993laN1Nw69r997oCXNVj06qfWmiO8LVrxMsdoZfEaq3z4LaBg==", null, false, "0cecaf15-dc12-427f-8118-5f537802d729", false, "WaterTrainer@trdg.com" },
+                    { new Guid("ce0dc4d9-e723-4df4-8cb0-80d8afc9122a"), 0, "9a485611-6d5d-4520-b505-7011a0bedd26", "secondGuest@trdg.com", false, "Stella", "Clay", false, null, "SECONDGUEST@TRDG.COM", "SECONDGUEST@TRDG.COM", "AQAAAAEAACcQAAAAELLbCVdrv8xjMAEx/4yCkW5hIT2ksrpwiGu5z96vyXwMgFTWnXgKoTaEggvhXOENMQ==", null, false, "bae0779c-fe46-4361-a8b4-2e5e5b705e64", false, "secondGuest@trdg.com" },
+                    { new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"), 0, "a6807a45-a594-44a5-832a-30273bf9a74d", "firstGuest@trdg.com", false, "Pete", "Johnson", false, null, "FIRSTGUEST@TRDG.COM", "FIRSTGUEST@TRDG.COM", "AQAAAAEAACcQAAAAEP4HAklTm+L/Ttg2hb9qAhglIbxvFJ9gfwVNvWY/ssDTBQblyYle1Rwx/2eysmuC2Q==", null, false, "e7326130-1924-49a0-9912-e1f874200182", false, "firstGuest@trdg.com" },
+                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "38677e91-e5a2-4b9f-9fe6-38f5c3befaa3", "FightingTrainer@trdg.com", false, "Trainer", "Gae", false, null, "FIGHTINGTRAINER@TRDG.COM", "FIGHTINGTRAINER@TRDG.COM", "AQAAAAEAACcQAAAAEGsCRAnO4o5WLsqll0HdFNmdxfCjggNEJwLiTcMqXjMLZhW6+1XNCKPiOpQZfGahig==", null, false, "78f47fd7-d3d5-4fa4-bedc-e1ce253f5f6f", false, "FightingTrainer@trdg.com" }
                 });
 
             migrationBuilder.InsertData(
