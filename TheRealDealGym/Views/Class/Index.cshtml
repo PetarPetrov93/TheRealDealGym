@@ -1,13 +1,100 @@
-﻿@{
-    ViewData["Title"] = "Gym's classes schedule";
+﻿@model AllClassesQueryModel
+
+@{
+    ViewBag.Title = "All Classes";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This will be the page which displays the gym schedule</h1>
-    <p>It will have a list of the current available classes for a certain period of time (3-5-7-10 days, will see which one will implement, could be the option to chose).</p>
-    <p>There will be a search bar which will have the option to filter by date, sport type, sport name, key word field.</p>
-    <p>A Registered user will be able to book for a class by clicking a button and will also be able to cancel booking. These buttons will lead to Bookings controller</p>
-    <p>A Trainer will be able to edit or cancel a class by clicking buttons.</p>
-    <p>Editing or canceling a class by trainer should notify the users (should thing about using SignalR, a pop-up notification should be displayed upon user logging-on, or if they are already logged-on - live)</p>
-    <p>If a class is full, the "Book" button should be disabled and somehere should be displayed "This class is full".</p>
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="type word">
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Date Ascending</option>
+                    <option value="1">Date Descending</option>
+                    <option value="2">Time Ascending</option>
+                    <option value="3">Time Descending</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalClassesCount /
+        Model.ClassesPerPage);
+}
+
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Class"
+           asp-action="Index"
+           asp-route-currentPage="@previousPage"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    </div>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Classes.Any();
+    }
+
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+           @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Class"
+           asp-action="Index"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)">>></a>
+    </div>
+</div>
+
+@if (!Model.Classes.Any())
+{
+    <h2 class="text-center">No houses found by the given criteria!</h2>
+}
+
+<div class="row">
+    @foreach (var cl in Model.Classes)
+    {
+        <partial name="_ClassPartial" model="@cl" />
+    }
 </div>
