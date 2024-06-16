@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Security.Claims;
+using TheRealDealGym.Core.Contracts;
 
 namespace TheRealDealGym.Attributes
 {
@@ -13,17 +16,17 @@ namespace TheRealDealGym.Attributes
         {
             base.OnActionExecuting(context);
 
-            //ITrainerService? trainerService = context.HttpContext.RequestServices.GetService<ITrainerService>();
+            ITrainerService? trainerService = context.HttpContext.RequestServices.GetService<ITrainerService>();
 
-            //if (trainerService == null)
-            //{
-            //    context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            //}
+            if (trainerService == null)
+            {
+                context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
 
-            //if (trainerService != null && trainerService.ExistsByIdAsync(context.HttpContext.User.GetId()).Result)
-            //{
-            //    context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
-            //}
+            if (trainerService != null && trainerService.ExistsByIdAsync(context.HttpContext.User.GetId()).Result)
+            {
+                context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
+            }
         }
     }
 }
