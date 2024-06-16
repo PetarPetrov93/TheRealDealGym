@@ -133,6 +133,16 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method checks the Trainer of the current class.
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId)
+        {
+            return await repository.AllReadOnly<Class>()
+                .AnyAsync(c => c.Id == classId && c.Trainer.UserId == userId);
+        }
+
+        /// <summary>
         /// This private method gets the count of all bookings made for a given class so far.
         /// </summary>
         private int BookingsForCurrentClass(Guid classId)
