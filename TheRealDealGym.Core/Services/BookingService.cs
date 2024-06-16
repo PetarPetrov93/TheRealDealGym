@@ -69,5 +69,11 @@ namespace TheRealDealGym.Core.Services
                 await repository.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> ExistsByIdAsync(Guid bookingId)
+        {
+            return await repository.AllReadOnly<Booking>()
+                .AnyAsync(b => b.Id == bookingId);
+        }
     }
 }
