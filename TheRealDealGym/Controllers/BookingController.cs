@@ -33,6 +33,7 @@ namespace TheRealDealGym.Controllers
         public async Task<IActionResult> Book(Guid classId)
         {
             //No view needed for this action.
+
             Guid userId = User.GetId();
             if (await bookingService.HasUserBookedForThisClass(userId, classId))
             {
@@ -47,10 +48,20 @@ namespace TheRealDealGym.Controllers
         /// This action is responsible for cancelling a booking for a specific class from the "Schedule" page or from the "My Bookings" page.
         /// </summary>
         [HttpPost]
-        public IActionResult CancelBooking()
+        public async Task<IActionResult> CancelBooking(Guid bookingId)
         {
             //No view needed for this action.
-            return RedirectToAction("Index", "Class");
+
+            try
+            {
+                await bookingService.CancelBookingAsync(bookingId);
+                return RedirectToAction("Index", "Class");
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
         }
 
         [AllowAnonymous]
