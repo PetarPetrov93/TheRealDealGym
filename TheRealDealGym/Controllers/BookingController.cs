@@ -4,9 +4,6 @@ using System.Security.Claims;
 using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Booking;
-using TheRealDealGym.Core.Models.Trainer;
-using TheRealDealGym.Core.Services;
-using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Controllers
 {
