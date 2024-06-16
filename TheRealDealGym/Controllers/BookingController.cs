@@ -19,6 +19,7 @@ namespace TheRealDealGym.Controllers
         /// <summary>
         /// This action displays all the bookings the logged-in user has made. Accesible through the "My Bookings" button.
         /// </summary>
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -27,6 +28,7 @@ namespace TheRealDealGym.Controllers
         /// <summary>
         /// This action is responsible for booking for a specific class from the "Schedule" page.
         /// </summary>
+        [HttpPost]
         public IActionResult Book()
         {
             //No view needed for this action.
@@ -37,6 +39,7 @@ namespace TheRealDealGym.Controllers
         /// <summary>
         /// This action is responsible for cancelling a booking for a specific class from the "Schedule" page or from the "My Bookings" page.
         /// </summary>
+        [HttpPost]
         public IActionResult CancelBooking()
         {
             //No view needed for this action.
@@ -44,6 +47,7 @@ namespace TheRealDealGym.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult Info()
         {
             return View();

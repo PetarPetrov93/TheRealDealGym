@@ -18,12 +18,14 @@ namespace TheRealDealGym.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult AboutUs()
         {
             return View();

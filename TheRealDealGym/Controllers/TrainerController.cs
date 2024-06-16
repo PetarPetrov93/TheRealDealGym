@@ -9,6 +9,7 @@ namespace TheRealDealGym.Controllers
     /// </summary>
     public class TrainerController : BaseController
     {
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
 
@@ -17,6 +18,7 @@ namespace TheRealDealGym.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult Info()
         {
             return View();
