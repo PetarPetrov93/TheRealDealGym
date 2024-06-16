@@ -18,6 +18,11 @@ namespace TheRealDealGym.Core.Services
             repository = _repository;
         }
 
+        public Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// This method creates a new Trainer.
         /// </summary>
