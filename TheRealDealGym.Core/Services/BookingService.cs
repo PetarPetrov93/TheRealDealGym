@@ -43,7 +43,7 @@ namespace TheRealDealGym.Core.Services
         {
             var classToBook = await repository.GetByIdAsync<Class>(classId);
 
-            if (classToBook != null)
+            if (classToBook != null && await HasUserBookedForThisClass(userId, classId) == false)
             {
                 var newBooking = new Booking()
                 {
@@ -70,10 +70,25 @@ namespace TheRealDealGym.Core.Services
             }
         }
 
+        /// <summary>
+        /// This method checks if a booking exists by Id.
+        /// </summary>
         public async Task<bool> ExistsByIdAsync(Guid bookingId)
         {
             return await repository.AllReadOnly<Booking>()
                 .AnyAsync(b => b.Id == bookingId);
+        }
+
+        /// <summary>
+        /// This method checks if a user has already booked for the class he is currently trying to book.
+        /// </summary>
+        public async Task<bool> HasUserBookedForThisClass(Guid userId, Guid classId)
+        {
+            var existingBooking = await repository.AllReadOnly<Booking>()
+                .Where(b => b.UserId == userId && b.ClassId == classId)
+                .FirstOrDefaultAsync();
+
+            return existingBooking != null;
         }
     }
 }

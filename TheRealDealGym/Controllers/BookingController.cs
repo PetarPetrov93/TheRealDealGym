@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TheRealDealGym.Core.Contracts;
 
 namespace TheRealDealGym.Controllers
@@ -29,10 +30,16 @@ namespace TheRealDealGym.Controllers
         /// This action is responsible for booking for a specific class from the "Schedule" page.
         /// </summary>
         [HttpPost]
-        public IActionResult Book()
+        public async Task<IActionResult> Book(Guid classId)
         {
             //No view needed for this action.
-            
+            Guid userId = User.GetId();
+            if (await bookingService.HasUserBookedForThisClass(userId, classId))
+            {
+                return BadRequest();
+            }
+
+            await bookingService.BookAsync(classId, userId);
             return RedirectToAction("Index", "Class");
         }
 
