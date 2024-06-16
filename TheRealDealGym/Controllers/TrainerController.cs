@@ -9,9 +9,10 @@ namespace TheRealDealGym.Controllers
     /// </summary>
     public class TrainerController : BaseController
     {
-        [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+
             return View();
         }
 

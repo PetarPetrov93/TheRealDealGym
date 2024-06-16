@@ -35,5 +35,33 @@ namespace TheRealDealGym.Core.Services
                 })
                 .ToListAsync();
         }
+
+        /// <summary>
+        /// This method implements the booking of a class.
+        /// </summary>
+        public async Task BookAsync(Guid classId, Guid userId)
+        {
+            var classToBook = await repository.GetByIdAsync<Class>(classId);
+
+            if (classToBook != null)
+            {
+                var newBooking = new Booking()
+                {
+                    UserId = userId,
+                    ClassId = classId,
+                };
+
+                await repository.AddAsync(newBooking);
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// This method implements the cancellation of a booked class.
+        /// </summary>
+        public async Task CancelBookingAsync(Guid classId, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
