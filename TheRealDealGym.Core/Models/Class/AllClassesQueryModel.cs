@@ -8,7 +8,7 @@ namespace TheRealDealGym.Core.Models.Class
     /// </summary>
     public class AllClassesQueryModel
     {
-        public int ClassesPerPage { get; } = 1;
+        public int ClassesPerPage { get; } = 3;
 
         public string Category { get; set; } = null!;
 
