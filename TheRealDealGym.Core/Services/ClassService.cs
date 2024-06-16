@@ -135,7 +135,6 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method checks the Trainer of the current class.
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId)
         {
             return await repository.AllReadOnly<Class>()
