@@ -31,7 +31,8 @@ namespace TheRealDealGym.Core.Services
                     Id = b.Id,
                     Class = b.Class.Title,
                     Date = b.Class.DateAndTime.ToString("dd/MM/yyyy"),
-                    Time = b.Class.DateAndTime.ToString("HH:mm")
+                    Time = b.Class.DateAndTime.ToString("HH:mm"),
+                    ClassId = b.ClassId
                 })
                 .ToListAsync();
         }
@@ -61,13 +62,12 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         public async Task CancelBookingAsync(Guid bookingId)
         {
-            var bookingToCancel = await repository.GetByIdAsync<Booking>(bookingId);
-
-            if (bookingToCancel != null)
+            if (await ExistsByIdAsync(bookingId))
             {
-                await repository.DeleteAsync<Booking>(bookingToCancel);
+                await repository.DeleteAsync<Booking>(bookingId);
                 await repository.SaveChangesAsync();
             }
+            
         }
 
         /// <summary>

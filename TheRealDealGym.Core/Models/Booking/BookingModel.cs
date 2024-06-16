@@ -11,5 +11,6 @@ namespace TheRealDealGym.Core.Models.Booking
         public string Class { get; set; } = null!;
         public string Date { get; set; } = null!;
         public string Time { get; set; } = null!;
+        public Guid ClassId { get; set; }
     }
 }
