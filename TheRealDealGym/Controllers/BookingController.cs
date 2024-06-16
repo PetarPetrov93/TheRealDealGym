@@ -42,6 +42,7 @@ namespace TheRealDealGym.Controllers
             //No view needed for this action.
 
             Guid userId = User.GetId();
+
             if (await bookingService.HasUserBookedForThisClass(userId, classId))
             {
                 return BadRequest();
