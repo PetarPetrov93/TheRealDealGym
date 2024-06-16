@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Booking;
 using TheRealDealGym.Core.Models.Trainer;
@@ -25,6 +26,7 @@ namespace TheRealDealGym.Controllers
         /// This action displays all the bookings the logged-in user has made. Accesible through the "My Bookings" button.
         /// </summary>
         [HttpGet]
+        [IsNotATrainer]
         public async Task<IActionResult> Index()
         {
             IEnumerable<BookingModel> model;
