@@ -21,7 +21,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This methods gets the infromation about a trainer's classes.
         /// </summary>
-        public async Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid trainerId)
+        public async Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid? trainerId)
         {
             return await repository.AllReadOnly<Class>()
                 .Where(c => c.TrainerId == trainerId)
