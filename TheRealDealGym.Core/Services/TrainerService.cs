@@ -18,9 +18,21 @@ namespace TheRealDealGym.Core.Services
             repository = _repository;
         }
 
-        public Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid userId)
+        /// <summary>
+        /// This methods gets the infromation about a trainer's classes.
+        /// </summary>
+        public async Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid trainerId)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadOnly<Class>()
+                .Where(c => c.TrainerId == trainerId)
+                .Select(c => new TrainerClassModel()
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Date = c.DateAndTime.ToString("dd/MM/yyyy"),
+                    Time = c.DateAndTime.ToString("HH:mm")
+                })
+                .ToListAsync();
         }
 
         /// <summary>
