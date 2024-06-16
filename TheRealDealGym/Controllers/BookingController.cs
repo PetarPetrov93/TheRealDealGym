@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TheRealDealGym.Core.Contracts;
 
 namespace TheRealDealGym.Controllers
 {
@@ -8,6 +9,13 @@ namespace TheRealDealGym.Controllers
     /// </summary>
     public class BookingController : BaseController
     {
+        private readonly IBookingService bookingService;
+
+        public BookingController(IBookingService _bookingService)
+        {
+            bookingService = _bookingService;
+        }
+
         /// <summary>
         /// This action displays all the bookings the logged-in user has made. Accesible through the "My Bookings" button.
         /// </summary>

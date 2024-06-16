@@ -14,5 +14,11 @@ namespace TheRealDealGym.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public IActionResult Info()
+        {
+            return View();
+        }
     }
 }
