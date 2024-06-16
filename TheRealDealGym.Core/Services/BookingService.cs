@@ -79,6 +79,14 @@ namespace TheRealDealGym.Core.Services
                 .AnyAsync(b => b.Id == bookingId);
         }
 
+        public async Task<Guid> GetBookingIdAsync(Guid userId, Guid classId)
+        {
+            return await repository.AllReadOnly<Booking>()
+                .Where(b => b.UserId == userId && b.ClassId == classId)
+                .Select(b => b.Id)
+                .FirstOrDefaultAsync();
+        }
+
         /// <summary>
         /// This method checks if a user has already booked for the class he is currently trying to book.
         /// </summary>
@@ -90,5 +98,6 @@ namespace TheRealDealGym.Core.Services
 
             return existingBooking != null;
         }
+
     }
 }
