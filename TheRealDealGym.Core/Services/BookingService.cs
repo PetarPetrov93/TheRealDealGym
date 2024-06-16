@@ -59,9 +59,15 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method implements the cancellation of a booked class.
         /// </summary>
-        public async Task CancelBookingAsync(Guid classId, Guid userId)
+        public async Task CancelBookingAsync(Guid bookingId)
         {
-            throw new NotImplementedException();
+            var bookingToCancel = await repository.GetByIdAsync<Booking>(bookingId);
+
+            if (bookingToCancel != null)
+            {
+                await repository.DeleteAsync<Booking>(bookingToCancel);
+                await repository.SaveChangesAsync();
+            }
         }
     }
 }

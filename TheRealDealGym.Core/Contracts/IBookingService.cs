@@ -6,6 +6,6 @@ namespace TheRealDealGym.Core.Contracts
     {
         Task<IEnumerable<BookingModel>> AllUserBookingsAsync(Guid userId);
         Task BookAsync(Guid classId, Guid userId);
-        Task CancelBookingAsync(Guid classId, Guid userId);
+        Task CancelBookingAsync(Guid bookingId);
     }
 }
