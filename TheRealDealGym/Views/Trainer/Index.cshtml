@@ -25,10 +25,14 @@
                         <input type="hidden" name="classId" value="@item.Id">
                         <button type="submit" class="btn btn-primary">Details</button>
                     </form>
-                    <a asp-controller="Class" asp-action="Edit" asp-route-id="@item.Id"
-                       class="btn btn-warning">Edit Class</a>
-                    <a asp-controller="Clas" asp-action="Delete" asp-route-id="@item.Id"
-                       class="btn btn-danger">Delete Class</a>
+                    <form asp-controller="Class" asp-action="Edit" method="get">
+                        <input type="hidden" name="classId" value="@item.Id">
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                    </form>
+                    <form asp-controller="Class" asp-action="Delete" method="get">
+                        <input type="hidden" name="classId" value="@item.Id">
+                        <button type="submit" class="btn btn-danger">Delete class</button>
+                    </form>
                 </div>
             </div>
         </div>
