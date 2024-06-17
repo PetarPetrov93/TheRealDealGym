@@ -23,8 +23,6 @@
         {
             public const int TitleMinLength = 2;
             public const int TitleMaxLength = 40;
-            public const int CategoryMinLength = 2;
-            public const int CategoryMaxLength = 40;
         }
         public static class ForTrainer
         {

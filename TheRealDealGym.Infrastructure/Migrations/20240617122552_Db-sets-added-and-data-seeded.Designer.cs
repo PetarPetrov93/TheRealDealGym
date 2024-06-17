@@ -12,8 +12,8 @@ using TheRealDealGym.Infrastructure.Data;
 namespace TheRealDealGym.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240603084517_adding-the-dbsets")]
-    partial class addingthedbsets
+    [Migration("20240617122552_Db-sets-added-and-data-seeded")]
+    partial class Dbsetsaddedanddataseeded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,6 +237,98 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
 
                     b.HasComment("This is an extension to the User. Adds FirstName and LastName properties to the User and changes the Id from string to GUID");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4fc91d77-2058-47eb-8767-0d38edae48fa",
+                            Email = "FightingTrainer@trdg.com",
+                            EmailConfirmed = false,
+                            FirstName = "Trainer",
+                            LastName = "Gae",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FIGHTINGTRAINER@TRDG.COM",
+                            NormalizedUserName = "FIGHTINGTRAINER@TRDG.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP/F8KTmvmCPQJd/xiNUyLRmHzOkJITNZU1ioU4Yz3OHvty8WeR5cJNgO1O9FE/EAw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "78f47fd7-d3d5-4fa4-bedc-e1ce253f5f6f",
+                            TwoFactorEnabled = false,
+                            UserName = "FightingTrainer@trdg.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3f44dfca-fa4d-470e-90d8-fe4c3c3a240d",
+                            Email = "WaterTrainer@trdg.com",
+                            EmailConfirmed = false,
+                            FirstName = "Michael",
+                            LastName = "Phelps",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "WATERTRAINER@TRDG.COM",
+                            NormalizedUserName = "WATERTRAINER@TRDG.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAENG+Aq2dO0qtfsIWZhpeunIpSL/QDVh/n+oX9IUE8qbB4+t5t8v7ays+Cd8v/+ZD8Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0cecaf15-dc12-427f-8118-5f537802d729",
+                            TwoFactorEnabled = false,
+                            UserName = "WaterTrainer@trdg.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "88e63e6d-5862-43af-9cb1-fbfe0a26558d",
+                            Email = "StretchingTrainer@trdg.com",
+                            EmailConfirmed = false,
+                            FirstName = "Katie",
+                            LastName = "Thompson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "STRETCHINGTRAINER@TRDG.COM",
+                            NormalizedUserName = "STRETCHINGTRAINER@TRDG.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEESVZhmvtA8IQyYCKwEL13FuWzgnFKsdFLzHdsdpJjFCcuHqqYHrTOTqLMFBabd59w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5160ac97-f58f-479a-9d26-6b1caa75bad5",
+                            TwoFactorEnabled = false,
+                            UserName = "StretchingTrainer@trdg.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "76bc9bb3-c593-4d30-95aa-1d05847e613b",
+                            Email = "firstGuest@trdg.com",
+                            EmailConfirmed = false,
+                            FirstName = "Pete",
+                            LastName = "Johnson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FIRSTGUEST@TRDG.COM",
+                            NormalizedUserName = "FIRSTGUEST@TRDG.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP1lMUP5pgcbTzIcFZW0v7Y1E2F1cKRKqdlzWnUR0A73Y0HMozOYZe4LIApo3VpFKQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e7326130-1924-49a0-9912-e1f874200182",
+                            TwoFactorEnabled = false,
+                            UserName = "firstGuest@trdg.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("ce0dc4d9-e723-4df4-8cb0-80d8afc9122a"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "790dd16f-5600-4ceb-8a04-e058909de1be",
+                            Email = "secondGuest@trdg.com",
+                            EmailConfirmed = false,
+                            FirstName = "Stella",
+                            LastName = "Clay",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SECONDGUEST@TRDG.COM",
+                            NormalizedUserName = "SECONDGUEST@TRDG.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAED3XzpYO8QDck5kC7UtlmfjKSiPUsGzA73QYGWDuOSHEhKocxTnK1vRSvXjSVbqAbw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "bae0779c-fe46-4361-a8b4-2e5e5b705e64",
+                            TwoFactorEnabled = false,
+                            UserName = "secondGuest@trdg.com"
+                        });
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Booking", b =>
@@ -267,6 +359,15 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("Bookings");
 
                     b.HasComment("Many bookings by different users can be made for one Class. One User can have many bookings for different classes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2283428d-0ed0-4837-9bb2-028485808ac5"),
+                            ClassId = new Guid("86cc93b0-3993-4a88-b41c-c0414538c7f4"),
+                            IsDeleted = false,
+                            UserId = new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef")
+                        });
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Class", b =>
@@ -323,6 +424,44 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("Classes");
 
                     b.HasComment("The Class entity stores information about a specific class");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("86cc93b0-3993-4a88-b41c-c0414538c7f4"),
+                            DateAndTime = new DateTime(2025, 10, 5, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "This is a Muay Thai class suitable for beginners.",
+                            IsDeleted = false,
+                            Price = 15m,
+                            RoomId = new Guid("3db85752-7746-4d29-a638-5a54c2e07075"),
+                            SportId = new Guid("28b80b07-87c8-42f7-9af6-28d832ce7b2b"),
+                            Title = "Muay Thai for beginners",
+                            TrainerId = new Guid("966d1ddc-b505-4aae-b790-595a4c688931")
+                        },
+                        new
+                        {
+                            Id = new Guid("6a05950a-e1bf-4b6c-9577-2c289c3e6de6"),
+                            DateAndTime = new DateTime(2025, 9, 22, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "This is a swimming class for children only.",
+                            IsDeleted = false,
+                            Price = 10m,
+                            RoomId = new Guid("70e053fc-61a0-4ab7-9104-08572c23aa38"),
+                            SportId = new Guid("7e20cc5c-6c1b-4ba6-a070-517660fead98"),
+                            Title = "Swimming for kids",
+                            TrainerId = new Guid("3c944adc-2b2b-4e81-a643-643fcb116262")
+                        },
+                        new
+                        {
+                            Id = new Guid("7a90a874-0c11-4e70-9391-cc3487e60b0e"),
+                            DateAndTime = new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "This is a Yoga class suitable experienced people with at least 1 year of experience in yoga/stretching.",
+                            IsDeleted = false,
+                            Price = 14m,
+                            RoomId = new Guid("d88e930f-8694-4c04-a58a-ca71373b6c22"),
+                            SportId = new Guid("890d3966-eb5e-42f1-97e2-79382ce3ac96"),
+                            Title = "Yoga Advanced",
+                            TrainerId = new Guid("62cf1550-e01e-452b-9fe4-95487b14514e")
+                        });
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Room", b =>
@@ -340,7 +479,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasComment("Serves a soft delete purpose");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
@@ -351,6 +490,29 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("Rooms");
 
                     b.HasComment("The room is the place where a specific type of classes will be taking place.");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3db85752-7746-4d29-a638-5a54c2e07075"),
+                            Capacity = 50,
+                            IsDeleted = false,
+                            Type = "Fighting room"
+                        },
+                        new
+                        {
+                            Id = new Guid("70e053fc-61a0-4ab7-9104-08572c23aa38"),
+                            Capacity = 40,
+                            IsDeleted = false,
+                            Type = "Pool"
+                        },
+                        new
+                        {
+                            Id = new Guid("d88e930f-8694-4c04-a58a-ca71373b6c22"),
+                            Capacity = 1,
+                            IsDeleted = false,
+                            Type = "Open Space room"
+                        });
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Sport", b =>
@@ -359,12 +521,6 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Sport identifier");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasComment("The category of the sport");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
@@ -381,6 +537,26 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("Sports");
 
                     b.HasComment("The Sport holds the title of a given sport and its category (type of sport)");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("28b80b07-87c8-42f7-9af6-28d832ce7b2b"),
+                            IsDeleted = false,
+                            Title = "MuayThai"
+                        },
+                        new
+                        {
+                            Id = new Guid("7e20cc5c-6c1b-4ba6-a070-517660fead98"),
+                            IsDeleted = false,
+                            Title = "Swimming"
+                        },
+                        new
+                        {
+                            Id = new Guid("890d3966-eb5e-42f1-97e2-79382ce3ac96"),
+                            IsDeleted = false,
+                            Title = "Yoga"
+                        });
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Trainer", b =>
@@ -396,7 +572,8 @@ namespace TheRealDealGym.Infrastructure.Migrations
 
                     b.Property<string>("Bio")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)")
                         .HasComment("More information about the trainer (Biography)");
 
                     b.Property<bool>("IsDeleted")
@@ -419,6 +596,35 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("Trainers");
 
                     b.HasComment("Trainer can organize classes and teach all the Sports which he is qualified to teach");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("966d1ddc-b505-4aae-b790-595a4c688931"),
+                            Age = 51,
+                            Bio = "I am one of the best MyaiThai coaches in the world",
+                            IsDeleted = false,
+                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
+                            YearsOfExperience = 25
+                        },
+                        new
+                        {
+                            Id = new Guid("3c944adc-2b2b-4e81-a643-643fcb116262"),
+                            Age = 40,
+                            Bio = "I am one of the best swimmers in the world",
+                            IsDeleted = false,
+                            UserId = new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"),
+                            YearsOfExperience = 19
+                        },
+                        new
+                        {
+                            Id = new Guid("62cf1550-e01e-452b-9fe4-95487b14514e"),
+                            Age = 24,
+                            Bio = "I am very positive person and great professional.",
+                            IsDeleted = false,
+                            UserId = new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"),
+                            YearsOfExperience = 3
+                        });
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.TrainerSport", b =>
@@ -438,6 +644,23 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.ToTable("TrainersSports");
 
                     b.HasComment("Mapping the Trainer and Sport entities");
+
+                    b.HasData(
+                        new
+                        {
+                            TrainerId = new Guid("966d1ddc-b505-4aae-b790-595a4c688931"),
+                            SportId = new Guid("28b80b07-87c8-42f7-9af6-28d832ce7b2b")
+                        },
+                        new
+                        {
+                            TrainerId = new Guid("3c944adc-2b2b-4e81-a643-643fcb116262"),
+                            SportId = new Guid("7e20cc5c-6c1b-4ba6-a070-517660fead98")
+                        },
+                        new
+                        {
+                            TrainerId = new Guid("62cf1550-e01e-452b-9fe4-95487b14514e"),
+                            SportId = new Guid("890d3966-eb5e-42f1-97e2-79382ce3ac96")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

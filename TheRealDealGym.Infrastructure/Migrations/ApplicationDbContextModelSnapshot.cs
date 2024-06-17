@@ -241,7 +241,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "38677e91-e5a2-4b9f-9fe6-38f5c3befaa3",
+                            ConcurrencyStamp = "4fc91d77-2058-47eb-8767-0d38edae48fa",
                             Email = "FightingTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Trainer",
@@ -249,7 +249,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "FIGHTINGTRAINER@TRDG.COM",
                             NormalizedUserName = "FIGHTINGTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsCRAnO4o5WLsqll0HdFNmdxfCjggNEJwLiTcMqXjMLZhW6+1XNCKPiOpQZfGahig==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP/F8KTmvmCPQJd/xiNUyLRmHzOkJITNZU1ioU4Yz3OHvty8WeR5cJNgO1O9FE/EAw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "78f47fd7-d3d5-4fa4-bedc-e1ce253f5f6f",
                             TwoFactorEnabled = false,
@@ -259,7 +259,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ed839df7-b3a9-4ee7-a778-22f5e87a9b27",
+                            ConcurrencyStamp = "3f44dfca-fa4d-470e-90d8-fe4c3c3a240d",
                             Email = "WaterTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Michael",
@@ -267,7 +267,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "WATERTRAINER@TRDG.COM",
                             NormalizedUserName = "WATERTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN+HUmryY3EJWLns993laN1Nw69r997oCXNVj06qfWmiO8LVrxMsdoZfEaq3z4LaBg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENG+Aq2dO0qtfsIWZhpeunIpSL/QDVh/n+oX9IUE8qbB4+t5t8v7ays+Cd8v/+ZD8Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "0cecaf15-dc12-427f-8118-5f537802d729",
                             TwoFactorEnabled = false,
@@ -277,7 +277,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1db3ac6c-6dd7-4eff-8ab3-5b72d689cd9e",
+                            ConcurrencyStamp = "88e63e6d-5862-43af-9cb1-fbfe0a26558d",
                             Email = "StretchingTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Katie",
@@ -285,7 +285,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STRETCHINGTRAINER@TRDG.COM",
                             NormalizedUserName = "STRETCHINGTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIjoUqd6/OyJqRYFLcUNtsjMJbNUthFjyf3/H8Q0dGxO7d4OcRQNOoMqm50+OV7ZUQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEESVZhmvtA8IQyYCKwEL13FuWzgnFKsdFLzHdsdpJjFCcuHqqYHrTOTqLMFBabd59w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5160ac97-f58f-479a-9d26-6b1caa75bad5",
                             TwoFactorEnabled = false,
@@ -295,7 +295,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6807a45-a594-44a5-832a-30273bf9a74d",
+                            ConcurrencyStamp = "76bc9bb3-c593-4d30-95aa-1d05847e613b",
                             Email = "firstGuest@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Pete",
@@ -303,7 +303,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "FIRSTGUEST@TRDG.COM",
                             NormalizedUserName = "FIRSTGUEST@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP4HAklTm+L/Ttg2hb9qAhglIbxvFJ9gfwVNvWY/ssDTBQblyYle1Rwx/2eysmuC2Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP1lMUP5pgcbTzIcFZW0v7Y1E2F1cKRKqdlzWnUR0A73Y0HMozOYZe4LIApo3VpFKQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "e7326130-1924-49a0-9912-e1f874200182",
                             TwoFactorEnabled = false,
@@ -313,7 +313,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("ce0dc4d9-e723-4df4-8cb0-80d8afc9122a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a485611-6d5d-4520-b505-7011a0bedd26",
+                            ConcurrencyStamp = "790dd16f-5600-4ceb-8a04-e058909de1be",
                             Email = "secondGuest@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Stella",
@@ -321,7 +321,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SECONDGUEST@TRDG.COM",
                             NormalizedUserName = "SECONDGUEST@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELLbCVdrv8xjMAEx/4yCkW5hIT2ksrpwiGu5z96vyXwMgFTWnXgKoTaEggvhXOENMQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED3XzpYO8QDck5kC7UtlmfjKSiPUsGzA73QYGWDuOSHEhKocxTnK1vRSvXjSVbqAbw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "bae0779c-fe46-4361-a8b4-2e5e5b705e64",
                             TwoFactorEnabled = false,
@@ -477,7 +477,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasComment("Serves a soft delete purpose");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
@@ -495,21 +495,21 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             Id = new Guid("3db85752-7746-4d29-a638-5a54c2e07075"),
                             Capacity = 50,
                             IsDeleted = false,
-                            Name = "Fighting room"
+                            Type = "Fighting room"
                         },
                         new
                         {
                             Id = new Guid("70e053fc-61a0-4ab7-9104-08572c23aa38"),
                             Capacity = 40,
                             IsDeleted = false,
-                            Name = "Pool"
+                            Type = "Pool"
                         },
                         new
                         {
                             Id = new Guid("d88e930f-8694-4c04-a58a-ca71373b6c22"),
                             Capacity = 1,
                             IsDeleted = false,
-                            Name = "Open Space room"
+                            Type = "Open Space room"
                         });
                 });
 
@@ -519,12 +519,6 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Sport identifier");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasComment("The category of the sport");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
@@ -546,21 +540,18 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("28b80b07-87c8-42f7-9af6-28d832ce7b2b"),
-                            Category = "FightingSports",
                             IsDeleted = false,
                             Title = "MuayThai"
                         },
                         new
                         {
                             Id = new Guid("7e20cc5c-6c1b-4ba6-a070-517660fead98"),
-                            Category = "WaterSports",
                             IsDeleted = false,
                             Title = "Swimming"
                         },
                         new
                         {
                             Id = new Guid("890d3966-eb5e-42f1-97e2-79382ce3ac96"),
-                            Category = "Stretching",
                             IsDeleted = false,
                             Title = "Yoga"
                         });

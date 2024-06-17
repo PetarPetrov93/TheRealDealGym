@@ -25,7 +25,7 @@ namespace TheRealDealGym.Core.Services
         /// This method filters the schedule by keyword or by selected option from the dropdown menu.
         /// </summary>
         public async Task<ClassQueryModel> AllAsync(
-            string? category = null,
+            string? sportTitle = null,
             string? searchTerm = null,
             ClassSorting sorting = ClassSorting.DateAscending,
             int currentPage = 1,
@@ -33,10 +33,10 @@ namespace TheRealDealGym.Core.Services
         {
             var classesToShow = repository.AllReadOnly<Class>();
 
-            if (category != null)
+            if (sportTitle != null)
             {
                 classesToShow = classesToShow
-                    .Where(c => c.Sport.Category == category);
+                    .Where(c => c.Sport.Title == sportTitle);
             }
 
             if (searchTerm != null)
@@ -44,7 +44,7 @@ namespace TheRealDealGym.Core.Services
                 string normalizesSearchTerm = searchTerm.ToLower();
                 classesToShow = classesToShow
                     .Where(c => (c.Title.ToLower().Contains(normalizesSearchTerm)) ||
-                                 c.Sport.Category.Contains(normalizesSearchTerm) ||
+                                 c.Sport.Title.Contains(normalizesSearchTerm) ||
                                  c.Trainer.User.FirstName.Contains(normalizesSearchTerm) ||
                                  c.Trainer.User.LastName.Contains(normalizesSearchTerm));
             }
@@ -107,7 +107,7 @@ namespace TheRealDealGym.Core.Services
         public async Task<IEnumerable<string>> AllRoomNamesAsync()
         {
             return await repository.AllReadOnly<Room>()
-                .Select(r => r.Name)
+                .Select(r => r.Type)
                 .Distinct()
                 .ToListAsync();
         }
@@ -118,7 +118,7 @@ namespace TheRealDealGym.Core.Services
         public async Task<IEnumerable<string>> AllSportCategoriesAsync()
         {
             return await repository.AllReadOnly<Sport>()
-                .Select(s => s.Category)
+                .Select(s => s.Title)
                 .Distinct()
                 .ToListAsync();
         }
@@ -141,7 +141,7 @@ namespace TheRealDealGym.Core.Services
                     Price = c.Price,
                     Trainer = $"{c.Trainer.User.FirstName} {c.Trainer.User.LastName}",
                     Sport = c.Sport.Title,
-                    Room = c.Room.Name,
+                    Room = c.Room.Type,
                     AvaliableSpaces = c.Room.Capacity - BookingsForCurrentClass(classId)
                 })
                 .FirstAsync();
