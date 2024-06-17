@@ -21,8 +21,10 @@
                     <h6>Date: <b>@item.Date</b></h6>
                     <h6>Time: <b>@item.Time</b></h6>
                     <br />
-                    <a asp-controller="Class" asp-action="Details" asp-route-id="@item.ClassId"
-                       class="btn btn-primary">Details</a>
+                    <form asp-controller="Class" asp-action="Details" method="get">
+                        <input type="hidden" name="classId" value="@item.ClassId">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
                        <p></p>
                     <form asp-controller="Booking" asp-action="CancelBooking" method="post">
                         <input type="hidden" name="bookingId" value="@item.Id">
