@@ -115,7 +115,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method gets all sport categories.
         /// </summary>
-        public async Task<IEnumerable<string>> AllSportCategoriesAsync()
+        public async Task<IEnumerable<string>> AllSportNamesAsync()
         {
             return await repository.AllReadOnly<Sport>()
                 .Select(s => s.Title)
@@ -150,7 +150,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method edits a selected by the trainer class.
         /// </summary>
-        public async Task Edit(Guid classId, ClassFormModel model)
+        public async Task EditAsync(Guid classId, ClassFormModel model)
         {
             var classToEdit = await repository.GetByIdAsync<Class>(classId);
 
@@ -197,7 +197,7 @@ namespace TheRealDealGym.Core.Services
 
             if (classToMap != null)
             {
-                classToMap.Sports = await AllSportCategoriesAsync();
+                classToMap.Sports = await AllSportNamesAsync();
                 classToMap.Rooms = await AllRoomNamesAsync();
             }
 

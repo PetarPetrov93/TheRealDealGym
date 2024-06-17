@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using TheRealDealGym.Infrastructure.Data.Models;
+﻿using System.ComponentModel.DataAnnotations;
 using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForClass;
 
 namespace TheRealDealGym.Core.Models.Class
