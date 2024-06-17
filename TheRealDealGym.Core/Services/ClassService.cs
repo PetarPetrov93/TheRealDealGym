@@ -111,29 +111,9 @@ namespace TheRealDealGym.Core.Services
                 .ToListAsync();
         }
 
+        
         /// <summary>
-        /// This method returns the full details of a specific class when "Details" button is pressed.
-        /// </summary>
-        public async Task<ClassDetailsModel> ClassDetailsAsync(Guid classId)
-        {
-            var classEntity = await repository.GetByIdAsync<Class>(classId);
-            var classDetailsModel = new ClassDetailsModel()
-            {
-                Id = classEntity!.Id,
-                Title = classEntity.Title,
-                Description = classEntity.Description,
-                Time = classEntity.DateAndTime.ToString("dd/MM/yyyy"),
-                Price = classEntity.Price,
-                Trainer = $"{classEntity.Trainer.User.FirstName} {classEntity.Trainer.User.LastName}",
-                Sport = classEntity.Sport.Title,
-                Room = classEntity.Room.Name,
-                AvaliableSpaces = classEntity.Room.Capacity - BookingsForCurrentClass(classEntity.Id)
-            };
-            return classDetailsModel;
-        }
-
-        /// <summary>
-        /// This method fetches the full details of a class with a given Id.
+        /// This method fetches the full details of a class with a given Id when the "Detaild" button is pressed.
         /// </summary>
         public async Task<ClassDetailsModel> ClassDetailsByIdAsync(Guid classId)
         {

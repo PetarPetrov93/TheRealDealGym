@@ -45,9 +45,16 @@ namespace TheRealDealGym.Controllers
         /// </summary>
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Details()
+        public async Task<IActionResult> Details(Guid classId)
         {
-            return View();
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            var model = await classService.ClassDetailsByIdAsync(classId);
+
+            return View(model);
         }
 
         [AllowAnonymous]
