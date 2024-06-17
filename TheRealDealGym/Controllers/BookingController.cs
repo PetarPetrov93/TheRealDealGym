@@ -39,8 +39,6 @@ namespace TheRealDealGym.Controllers
         [HttpPost]
         public async Task<IActionResult> Book(Guid classId)
         {
-            //No view needed for this action.
-
             Guid userId = User.GetId();
 
             if (await bookingService.HasUserBookedForThisClass(userId, classId))
@@ -58,8 +56,6 @@ namespace TheRealDealGym.Controllers
         [HttpPost]
         public async Task<IActionResult> CancelBooking(Guid bookingId)
         {
-            //No view needed for this action.
-
             try
             {
                 await bookingService.CancelBookingAsync(bookingId);
