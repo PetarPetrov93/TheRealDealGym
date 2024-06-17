@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Class;
+using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Controllers
 {
@@ -55,6 +57,51 @@ namespace TheRealDealGym.Controllers
             var model = await classService.ClassDetailsByIdAsync(classId);
 
             return View(model);
+        }
+
+        /// <summary>
+        /// This method returns a form, pre-filled with the information of the class the trainer wants to edit.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid classId)
+        {
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await classService.GetClassFormModelByIdAsync(classId);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// This method handles the editted information from the trainer and saves the changes.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Edit(Guid classId, ClassFormModel model)
+        {
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            //if (await classService.)
+            //{
+
+            //}
+
+            return RedirectToAction(nameof(Details), classId);
         }
 
         [AllowAnonymous]

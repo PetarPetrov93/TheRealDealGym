@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.Globalization;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Class;
@@ -101,6 +102,17 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method gets all room names.
+        /// </summary>
+        public async Task<IEnumerable<string>> AllRoomNamesAsync()
+        {
+            return await repository.AllReadOnly<Room>()
+                .Select(r => r.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+
+        /// <summary>
         /// This method gets all sport categories.
         /// </summary>
         public async Task<IEnumerable<string>> AllSportCategoriesAsync()
@@ -136,6 +148,26 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method edits a selected by the trainer class.
+        /// </summary>
+        public async Task Edit(Guid classId, ClassFormModel model)
+        {
+            var classToEdit = await repository.GetByIdAsync<Class>(classId);
+
+            if (classToEdit != null)
+            {
+                classToEdit.Title = model.Title;
+                classToEdit.Description = model.Description;
+                classToEdit.Price = model.Price;
+                classToEdit.SportId = model.SportId;
+                classToEdit.RoomId = model.RoomId;
+                classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}", CultureInfo.InvariantCulture);
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
         /// This method checks if a class with a given Id exists.
         /// </summary>
         public async Task<bool> ExistsAsync(Guid classId)
@@ -145,12 +177,55 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method maps a class entity to ClassFormModel by Id.
+        /// </summary>
+        public async Task<ClassFormModel?> GetClassFormModelByIdAsync(Guid classId)
+        {
+            var classToMap = await repository.AllReadOnly<Class>()
+                .Where(c => c.Id == classId)
+                .Select(c => new ClassFormModel()
+                {
+                    Title = c.Title,
+                    Description = c.Description,
+                    Price = c.Price,
+                    SportId = c.SportId,
+                    RoomId = c.RoomId,
+                    Date = c.DateAndTime.ToString("dd/MM/yyyy"),
+                    Time = c.DateAndTime.ToString("HH:mm")
+                })
+                .FirstOrDefaultAsync();
+
+            if (classToMap != null)
+            {
+                classToMap.Sports = await AllSportCategoriesAsync();
+                classToMap.Rooms = await AllRoomNamesAsync();
+            }
+
+
+
+            return classToMap;
+        }
+
+        /// <summary>
         /// This method checks the Trainer of the current class.
         /// </summary>
         public async Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId)
         {
             return await repository.AllReadOnly<Class>()
                 .AnyAsync(c => c.Id == classId && c.Trainer.UserId == userId);
+        }
+
+        public Task<bool> RoomExistsAsync(Guid roomId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// This method checks if the given category exists by name.
+        /// </summary>
+        public Task<bool> SportCategoryExistsAsync(Guid categoryId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
