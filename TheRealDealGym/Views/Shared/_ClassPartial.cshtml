@@ -16,7 +16,7 @@
             </h6>
             <br />
             <a asp-controller="Class" asp-action="Details" asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>
+               class="btn btn-primary">Details</a>
             @if (this.User.Identity!.IsAuthenticated)
             {
                 if (await classService.HasTrainerWithIdAsync(Model.Id, User.GetId()))
@@ -27,18 +27,19 @@
                     class="btn btn-danger">Delete</a>
                 }
                 <p></p>
-                @if (await bookingService.HasUserBookedForThisClass(Model.Id, User.GetId()) == false && await trainerService.ExistsByIdAsync(User.GetId()) == false)
+                var bookingId = await bookingService.GetBookingIdAsync(User.GetId(), Model.Id);
+                @if (await bookingService.ExistsByIdAsync(bookingId) == false && await trainerService.ExistsByIdAsync(User.GetId()) == false)
                 {
                     <form asp-controller="Booking" asp-action="Book" method="post">
                         <input type="hidden" name="classId" value="@Model.Id">
-                        <button type="submit" class="btn btn-primary">Book</button>
+                        <button type="submit" class="btn btn-success">Book</button>
                     </form>
                 }
-                else if (await bookingService.HasUserBookedForThisClass(Model.Id, User.GetId()))
+                else if (await bookingService.ExistsByIdAsync(bookingId) && await trainerService.ExistsByIdAsync(User.GetId()) == false)
                 {
                     <form asp-controller="Booking" asp-action="CancelBooking" method="post">
                         <input type="hidden" name="bookingId" value="(@await bookingService.GetBookingIdAsync(User.GetId(), Model.Id))">
-                        <input class="btn btn-primary" type="submit" value="Cancel" />
+                        <input class="btn btn-warning" type="submit" value="Cancel" />
                     </form>
                 }
             }

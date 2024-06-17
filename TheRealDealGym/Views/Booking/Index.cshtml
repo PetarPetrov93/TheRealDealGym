@@ -23,6 +23,7 @@
                     <br />
                     <a asp-controller="Class" asp-action="Details" asp-route-id="@item.ClassId"
                        class="btn btn-primary">Details</a>
+                       <p></p>
                     <form asp-controller="Booking" asp-action="CancelBooking" method="post">
                         <input type="hidden" name="bookingId" value="@item.Id">
                         <input class="btn btn-warning" type="submit" value="Cancel" />
