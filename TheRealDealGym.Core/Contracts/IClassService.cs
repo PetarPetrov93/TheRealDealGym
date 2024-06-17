@@ -6,7 +6,6 @@ namespace TheRealDealGym.Core.Contracts
     public interface IClassService
     {
         Task<IEnumerable<ClassScheduleModel>> AllClassesAsync();
-        Task<ClassDetailsModel> ClassDetailsAsync(Guid classId);
         Task<ClassQueryModel> AllAsync(
             string? category = null,
             string? searchTerm = null,
