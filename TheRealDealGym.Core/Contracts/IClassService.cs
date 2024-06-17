@@ -14,5 +14,6 @@ namespace TheRealDealGym.Core.Contracts
             int currentPage = 1,
             int classesPerPage = 1);
         Task<IEnumerable<string>> AllSportCategoriesAsync();
+        Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId);
     }
 }

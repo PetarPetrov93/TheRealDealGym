@@ -1,11 +1,34 @@
-﻿@{
-    ViewData["Title"] = "Bookings page";
+﻿@model IEnumerable<BookingModel>
+@{
+    ViewData["Title"] = "My Bookings";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This will be responsible for managing the logged-in user bookings and will only be visible for registered non-trainer users.</h1>
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
 
-    <p>In the Classes controller “index” where all classes are displayed – the logic behind the “Book”, “Cancel booking” buttons will be dedicated to Bookings Controller.</p>
-    <p>“My Bookings” view where a list of all the bookings made by the current user will be displayed with options to "cancel" and "see details"(the logic for this button is from the Class controller and will use ClassModel).</p>
-    <p>Initially only the Name of the class, Date and Time will be seen on the page with the option to "see details".</p>
+@if(Model.Any() == false)
+{
+    <h3 class="text-center">You have not booked any classes!</h3>
+}
+
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h4>@item.Class</h4>
+                    <h6>Date: <b>@item.Date</b></h6>
+                    <h6>Time: <b>@item.Time</b></h6>
+                    <br />
+                    <a asp-controller="Class" asp-action="Details" asp-route-id="@item.ClassId"
+                       class="btn btn-primary">Details</a>
+                    <form asp-controller="Booking" asp-action="CancelBooking" method="post">
+                        <input type="hidden" name="bookingId" value="@item.Id">
+                        <input class="btn btn-warning" type="submit" value="Cancel" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
 </div>

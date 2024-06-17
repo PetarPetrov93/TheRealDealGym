@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TheRealDealGym.Core.Models.Class
+﻿namespace TheRealDealGym.Core.Models.Class
 {
+    /// <summary>
+    /// This ViewModel is used to display each class in the Schedule section of the site.
+    /// </summary>
     public class ClassScheduleModel
     {
         public Guid Id { get; set; }

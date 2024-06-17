@@ -28,7 +28,7 @@ namespace TheRealDealGym.Core.Services
             string? searchTerm = null,
             ClassSorting sorting = ClassSorting.DateAscending,
             int currentPage = 1,
-            int classesPerPage = 1)
+            int classesPerPage = 3)
         {
             var classesToShow = repository.AllReadOnly<Class>();
 
@@ -130,6 +130,15 @@ namespace TheRealDealGym.Core.Services
                 AvaliableSpaces = classEntity.Room.Capacity - BookingsForCurrentClass(classEntity.Id)
             };
             return classDetailsModel;
+        }
+
+        /// <summary>
+        /// This method checks the Trainer of the current class.
+        /// </summary>
+        public async Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId)
+        {
+            return await repository.AllReadOnly<Class>()
+                .AnyAsync(c => c.Id == classId && c.Trainer.UserId == userId);
         }
 
         /// <summary>

@@ -1,11 +1,34 @@
-﻿@{
-    ViewData["Title"] = "Trainer page";
+﻿@model IEnumerable<TrainerClassModel>
+@{
+    ViewData["Title"] = "My Classes";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This page will be  visible for trainers only and will display the trainer classes and will present the option to resign from the job</h1>
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
 
-    <p>Will be accessible through “My Profile” button.</p>
-    <p>My Classes section for trainers to display a list of their classes. (if they want to change something or add another class the logic should be redirected to the Class controller)</p>
-    <p>There will be an option to resign from the job by pressing a button.</p>
+@if (Model.Any() == false)
+{
+    <h3 class="text-center">You don't have any active classes at the moment!</h3>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h4>@item.Title</h4>
+                    <h6>Date: <b>@item.Date</b></h6>
+                    <h6>Time: <b>@item.Time</b></h6>
+                    <br />
+                    <a asp-controller="Class" asp-action="Details" asp-route-id="@item.Id"
+                       class="btn btn-success">Details</a>
+                    <a asp-controller="Class" asp-action="Edit" asp-route-id="@item.Id"
+                       class="btn btn-warning">Edit Class</a>
+                    <a asp-controller="Clas" asp-action="Delete" asp-route-id="@item.Id"
+                       class="btn btn-danger">Delete Class</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

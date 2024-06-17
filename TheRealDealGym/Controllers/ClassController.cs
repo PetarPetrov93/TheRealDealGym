@@ -19,7 +19,11 @@ namespace TheRealDealGym.Controllers
             classService = _classService;
         }
 
+        /// <summary>
+        /// This action displays the list of all classes and implements a search and filter options.
+        /// </summary>
         [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Index([FromQuery] AllClassesQueryModel model)
         {
             var classes = await classService.AllAsync(
@@ -36,7 +40,18 @@ namespace TheRealDealGym.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action displays the full information about the class upon pressing the "Details" button.
+        /// </summary>
         [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Info()
         {
             return View();

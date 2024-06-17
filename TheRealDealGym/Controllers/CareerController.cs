@@ -8,7 +8,8 @@ namespace TheRealDealGym.Controllers
     /// </summary>
     public class CareerController : BaseController
     {
-        [AllowAnonymous]
+        [AllowAnonymous] //Subject to change depending on whether a non-registered user should be able to apply or not.
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
