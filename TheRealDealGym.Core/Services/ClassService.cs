@@ -133,6 +133,38 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method fetches the full details of a class with a given Id.
+        /// </summary>
+        public async Task<ClassDetailsModel> ClassDetailsByIdAsync(Guid classId)
+        {
+            return await repository.AllReadOnly<Class>()
+                .Where(c => c.Id == classId)
+                .Select(c => new ClassDetailsModel()
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Description = c.Description,
+                    Date = c.DateAndTime.ToString("dd/MM/yyyy"),
+                    Time = c.DateAndTime.ToString("HH:mm"),
+                    Price = c.Price,
+                    Trainer = $"{c.Trainer.User.FirstName} {c.Trainer.User.LastName}",
+                    Sport = c.Sport.Title,
+                    Room = c.Room.Name,
+                    AvaliableSpaces = c.Room.Capacity - BookingsForCurrentClass(classId)
+                })
+                .FirstAsync();
+        }
+
+        /// <summary>
+        /// This method checks if a class with a given Id exists.
+        /// </summary>
+        public async Task<bool> ExistsAsync(Guid classId)
+        {
+            return await repository.AllReadOnly<Class>()
+                 .AnyAsync(c => c.Id == classId);
+        }
+
+        /// <summary>
         /// This method checks the Trainer of the current class.
         /// </summary>
         public async Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId)
