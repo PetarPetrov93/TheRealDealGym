@@ -201,8 +201,6 @@ namespace TheRealDealGym.Core.Services
                 classToMap.Rooms = await AllRoomNamesAsync();
             }
 
-
-
             return classToMap;
         }
 
@@ -215,17 +213,22 @@ namespace TheRealDealGym.Core.Services
                 .AnyAsync(c => c.Id == classId && c.Trainer.UserId == userId);
         }
 
+        /// <summary>
+        /// This method checks if the given room exists.
+        /// </summary>
         public Task<bool> RoomExistsAsync(Guid roomId)
         {
-            throw new NotImplementedException();
+            return repository.AllReadOnly<Room>()
+                .AllAsync(r => r.Id ==  roomId);
         }
 
         /// <summary>
-        /// This method checks if the given category exists by name.
+        /// This method checks if the given sport exists.
         /// </summary>
-        public Task<bool> SportCategoryExistsAsync(Guid categoryId)
+        public Task<bool> SportExistsAsync(Guid sportId)
         {
-            throw new NotImplementedException();
+            return repository.AllReadOnly<Sport>()
+                .AllAsync(s => s.Id == sportId);
         }
 
         /// <summary>

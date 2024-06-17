@@ -96,10 +96,10 @@ namespace TheRealDealGym.Controllers
                 return Unauthorized();
             }
 
-            //if (await classService.)
-            //{
+            if (await classService.)
+            {
 
-            //}
+            }
 
             return RedirectToAction(nameof(Details), classId);
         }
