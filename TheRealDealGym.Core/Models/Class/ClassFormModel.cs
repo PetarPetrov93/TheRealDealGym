@@ -34,13 +34,13 @@ namespace TheRealDealGym.Core.Models.Class
         [Display(Name = "Sport")]
         public Guid SportId { get; set; }
 
-        public IEnumerable<string> Sports { get; set; } = new HashSet<string>();
+        public IEnumerable<SportCategoryModel> Sports { get; set; } = new HashSet<SportCategoryModel>();
 
         [Required]
         [Display(Name = "Room")]
         public Guid RoomId { get; set; }
 
-        public IEnumerable<string> Rooms { get; set; } = new HashSet<string>();
+        public IEnumerable<RoomCategoryModel> Rooms { get; set; } = new HashSet<RoomCategoryModel>();
 
 
     }

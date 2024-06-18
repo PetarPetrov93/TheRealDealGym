@@ -15,8 +15,9 @@ namespace TheRealDealGym.Core.Contracts
             int classesPerPage = 1);
 
         Task<IEnumerable<string>> AllSportNamesAsync();
+        Task<IEnumerable<SportCategoryModel>> AllSportAsync();
 
-        Task<IEnumerable<string>> AllRoomNamesAsync();
+        Task<IEnumerable<RoomCategoryModel>> AllRoomAsync();
 
         Task<bool> HasTrainerWithIdAsync(Guid classId, Guid userId);
 

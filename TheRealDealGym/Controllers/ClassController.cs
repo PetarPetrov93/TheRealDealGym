@@ -111,8 +111,8 @@ namespace TheRealDealGym.Controllers
 
             if (ModelState.IsValid == false)
             {
-                model.Rooms = await classService.AllRoomNamesAsync();
-                model.Sports = await classService.AllSportNamesAsync();
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
 
                 return View(model);
             }
