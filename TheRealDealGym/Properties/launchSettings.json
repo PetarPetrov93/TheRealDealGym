@@ -17,6 +17,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "TheRealDealGymProduction": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7004;http://localhost:5199",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
