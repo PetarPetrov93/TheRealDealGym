@@ -194,6 +194,7 @@ namespace TheRealDealGym.Core.Services
         public async Task DeleteAsync(Guid classId)
         {
             await repository.DeleteAsync<Class>(classId);
+            await repository.SaveChangesAsync();
         }
 
         /// <summary>

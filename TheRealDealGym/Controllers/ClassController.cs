@@ -175,18 +175,62 @@ namespace TheRealDealGym.Controllers
             return RedirectToAction(nameof(Details), new { classId });
         }
 
+        /// <summary>
+        /// This method gets the information about the class that has to be deleted.
+        /// </summary>
         [HttpGet]
+        [MustBeTrainer]
         public async Task<IActionResult> Delete(Guid classId)
         {
-            var model = new ClassDetailsModel();
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var classToDelete = await classService.ClassDetailsByIdAsync(classId);
+
+            var model = new ClassDetailsModel()
+            {
+                Id = classToDelete.Id,
+                Title = classToDelete.Title,
+                Description = classToDelete.Description,
+                Date = classToDelete.Date,
+                Time = classToDelete.Time,
+                Price = classToDelete.Price,
+                Trainer = classToDelete.Trainer,
+                Sport = classToDelete.Sport,
+                Room = classToDelete.Room,
+                AvaliableSpaces = classToDelete.AvaliableSpaces
+
+            };
 
             return View(model);
         }
 
+        /// <summary>
+        /// This method deteles the given class.
+        /// </summary>
         [HttpPost]
+        [MustBeTrainer]
         public async Task<IActionResult> Delete(ClassDetailsModel model)
         {
-            
+            if (await classService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(model.Id, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await classService.DeleteAsync(model.Id);
+
             return RedirectToAction("Index","Trainer");
         }
 
