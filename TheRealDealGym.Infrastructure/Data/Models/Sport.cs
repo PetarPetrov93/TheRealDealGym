@@ -5,7 +5,7 @@ using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForSpor
 namespace TheRealDealGym.Infrastructure.Data.Models
 {
     /// <summary>
-    /// The Sport holds the title of a given sport and its category (type of sport)
+    /// The SportCategory holds the title of a given sport.
     /// </summary>
     [Comment("The Sport holds the title of a given sport and its category (type of sport)")]
     public class Sport
@@ -29,14 +29,6 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         [MaxLength(TitleMaxLength)]
         [Comment("The title of the sport")]
         public string Title { get; set; } = null!;
-
-        /// <summary>
-        /// The category of the sport. e.g. Fighting, Grappling, Cardio, Watersport etc.
-        /// </summary>
-        [Required]
-        [MaxLength(CategoryMaxLength)]
-        [Comment("The category of the sport")]
-        public string Category { get; set; } = null!;
 
         /// <summary>
         /// Serves a soft delete purpose.

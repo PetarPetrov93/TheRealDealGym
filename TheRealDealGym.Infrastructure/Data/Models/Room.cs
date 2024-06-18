@@ -28,7 +28,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         [Required]
         [MaxLength(NameMaxLength)]
         [Comment("The name of the room")]
-        public string Name { get; set; } = null!;
+        public string Type { get; set; } = null!;
 
         /// <summary>
         /// The maximum capacity of the room. This shows how many people can book for a specific class.

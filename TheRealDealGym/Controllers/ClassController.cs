@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Class;
+using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Controllers
 {
@@ -35,7 +38,7 @@ namespace TheRealDealGym.Controllers
 
             model.TotalClassesCount = classes.TotalClassesCount;
             model.Classes = classes.Classes;
-            model.Categories = await classService.AllSportCategoriesAsync();
+            model.Categories = await classService.AllSportNamesAsync();
 
             return View(model);
         }
@@ -45,9 +48,78 @@ namespace TheRealDealGym.Controllers
         /// </summary>
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Details()
+        public async Task<IActionResult> Details(Guid classId)
         {
-            return View();
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            var model = await classService.ClassDetailsByIdAsync(classId);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// This method returns a form, pre-filled with the information of the class the trainer wants to edit.
+        /// </summary>
+        [HttpGet]
+        [MustBeTrainer]
+        public async Task<IActionResult> Edit(Guid classId)
+        {
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await classService.GetClassFormModelByIdAsync(classId);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// This method handles the editted information from the trainer and saves the changes.
+        /// </summary>
+        [HttpPost]
+        [MustBeTrainer]
+        public async Task<IActionResult> Edit(Guid classId, ClassFormModel model)
+        {
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await classService.RoomExistsAsync(model.RoomId) == false)
+            {
+                ModelState.AddModelError(nameof(model.RoomId), "Room does not exist!");
+            }
+
+            if (await classService.SportExistsAsync(model.SportId) == false)
+            {
+                ModelState.AddModelError(nameof(model.SportId), "Sport does not exist!");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Rooms = await classService.AllRoomNamesAsync();
+                model.Sports = await classService.AllSportNamesAsync();
+
+                return View(model);
+            }
+
+            await classService.EditAsync(classId, model);
+
+            return RedirectToAction(nameof(Details), classId);
         }
 
         [AllowAnonymous]

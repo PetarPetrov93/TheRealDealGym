@@ -168,22 +168,19 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             MuayThai = new Sport()
             {
                 Id = new Guid("28b80b07-87c8-42f7-9af6-28d832ce7b2b"),
-                Title = "MuayThai",
-                Category = "FightingSports"
+                Title = "MuayThai"
             };
 
             Swimming = new Sport()
             {
                 Id = new Guid("7e20cc5c-6c1b-4ba6-a070-517660fead98"),
-                Title = "Swimming",
-                Category = "WaterSports"
+                Title = "Swimming"
             };
 
             Yoga = new Sport()
             {
                 Id = new Guid("890d3966-eb5e-42f1-97e2-79382ce3ac96"),
-                Title = "Yoga",
-                Category = "Stretching"
+                Title = "Yoga"
             };
         }
 
@@ -213,21 +210,21 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             FightingRoom = new Room()
             {
                 Id = new Guid("3db85752-7746-4d29-a638-5a54c2e07075"),
-                Name = "Fighting room",
+                Type = "Fighting room",
                 Capacity = 50
             };
 
             Pool = new Room()
             {
                 Id = new Guid("70e053fc-61a0-4ab7-9104-08572c23aa38"),
-                Name = "Pool",
+                Type = "Pool",
                 Capacity = 40
             };
 
             OpenSpaceRoom = new Room()
             {
                 Id = new Guid("d88e930f-8694-4c04-a58a-ca71373b6c22"),
-                Name = "Open Space room",
+                Type = "Open Space room",
                 Capacity = 1 //for testing purposes it has to be low 
             };
         }

@@ -1,0 +1,57 @@
+﻿@model ClassFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" placeholder="Title...">
+                <span asp-validation-for="Title" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control" placeholder="Description...">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date"></label>
+                <textarea asp-for="Date" rows="4" class="form-control" placeholder="Date..."></textarea>
+                <span asp-validation-for="Date" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time"></label>
+                <input asp-for="Time" class="form-control" placeholder="Time...">
+                <span asp-validation-for="Time" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control">
+                <span asp-validation-for="Price" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomId"></label>
+                <select asp-for="RoomId" class="form-control">
+                    @foreach (var room in Model.Rooms)
+                    {
+                        <option value="">@room</option>
+                    }
+                </select>
+                <span asp-validation-for="RoomId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SportId"></label>
+                <select asp-for="SportId" class="form-control">
+                    @foreach (var sport in Model.Sports)
+                    {
+                        <option value="">@sport</option>
+                    }
+                </select>
+                <span asp-validation-for="SportId" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

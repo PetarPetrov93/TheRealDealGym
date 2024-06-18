@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.Globalization;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Class;
@@ -24,7 +25,7 @@ namespace TheRealDealGym.Core.Services
         /// This method filters the schedule by keyword or by selected option from the dropdown menu.
         /// </summary>
         public async Task<ClassQueryModel> AllAsync(
-            string? category = null,
+            string? sportTitle = null,
             string? searchTerm = null,
             ClassSorting sorting = ClassSorting.DateAscending,
             int currentPage = 1,
@@ -32,10 +33,10 @@ namespace TheRealDealGym.Core.Services
         {
             var classesToShow = repository.AllReadOnly<Class>();
 
-            if (category != null)
+            if (sportTitle != null)
             {
                 classesToShow = classesToShow
-                    .Where(c => c.Sport.Category == category);
+                    .Where(c => c.Sport.Title == sportTitle);
             }
 
             if (searchTerm != null)
@@ -43,7 +44,7 @@ namespace TheRealDealGym.Core.Services
                 string normalizesSearchTerm = searchTerm.ToLower();
                 classesToShow = classesToShow
                     .Where(c => (c.Title.ToLower().Contains(normalizesSearchTerm)) ||
-                                 c.Sport.Category.Contains(normalizesSearchTerm) ||
+                                 c.Sport.Title.Contains(normalizesSearchTerm) ||
                                  c.Trainer.User.FirstName.Contains(normalizesSearchTerm) ||
                                  c.Trainer.User.LastName.Contains(normalizesSearchTerm));
             }
@@ -101,35 +102,106 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method gets all sport categories.
+        /// This method gets all room names.
         /// </summary>
-        public async Task<IEnumerable<string>> AllSportCategoriesAsync()
+        public async Task<IEnumerable<string>> AllRoomNamesAsync()
         {
-            return await repository.AllReadOnly<Sport>()
-                .Select(s => s.Category)
+            return await repository.AllReadOnly<Room>()
+                .Select(r => r.Type)
                 .Distinct()
                 .ToListAsync();
         }
 
         /// <summary>
-        /// This method returns the full details of a specific class when "Details" button is pressed.
+        /// This method gets all sport categories.
         /// </summary>
-        public async Task<ClassDetailsModel> ClassDetailsAsync(Guid classId)
+        public async Task<IEnumerable<string>> AllSportNamesAsync()
         {
-            var classEntity = await repository.GetByIdAsync<Class>(classId);
-            var classDetailsModel = new ClassDetailsModel()
+            return await repository.AllReadOnly<Sport>()
+                .Select(s => s.Title)
+                .Distinct()
+                .ToListAsync();
+        }
+
+        
+        /// <summary>
+        /// This method fetches the full details of a class with a given Id when the "Detaild" button is pressed.
+        /// </summary>
+        public async Task<ClassDetailsModel> ClassDetailsByIdAsync(Guid classId)
+        {
+            return await repository.AllReadOnly<Class>()
+                .Where(c => c.Id == classId)
+                .Select(c => new ClassDetailsModel()
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Description = c.Description,
+                    Date = c.DateAndTime.ToString("dd/MM/yyyy"),
+                    Time = c.DateAndTime.ToString("HH:mm"),
+                    Price = c.Price,
+                    Trainer = $"{c.Trainer.User.FirstName} {c.Trainer.User.LastName}",
+                    Sport = c.Sport.Title,
+                    Room = c.Room.Type,
+                    AvaliableSpaces = c.Room.Capacity - BookingsForCurrentClass(classId)
+                })
+                .FirstAsync();
+        }
+
+        /// <summary>
+        /// This method edits a selected by the trainer class.
+        /// </summary>
+        public async Task EditAsync(Guid classId, ClassFormModel model)
+        {
+            var classToEdit = await repository.GetByIdAsync<Class>(classId);
+
+            if (classToEdit != null)
             {
-                Id = classEntity!.Id,
-                Title = classEntity.Title,
-                Description = classEntity.Description,
-                Time = classEntity.DateAndTime.ToString("dd/MM/yyyy"),
-                Price = classEntity.Price,
-                Trainer = $"{classEntity.Trainer.User.FirstName} {classEntity.Trainer.User.LastName}",
-                Sport = classEntity.Sport.Title,
-                Room = classEntity.Room.Name,
-                AvaliableSpaces = classEntity.Room.Capacity - BookingsForCurrentClass(classEntity.Id)
-            };
-            return classDetailsModel;
+                classToEdit.Title = model.Title;
+                classToEdit.Description = model.Description;
+                classToEdit.Price = model.Price;
+                classToEdit.SportId = model.SportId;
+                classToEdit.RoomId = model.RoomId;
+                classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}", CultureInfo.InvariantCulture);
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// This method checks if a class with a given Id exists.
+        /// </summary>
+        public async Task<bool> ExistsAsync(Guid classId)
+        {
+            return await repository.AllReadOnly<Class>()
+                 .AnyAsync(c => c.Id == classId);
+        }
+
+        /// <summary>
+        /// This method maps a class entity to ClassFormModel by Id.
+        /// </summary>
+        public async Task<ClassFormModel?> GetClassFormModelByIdAsync(Guid classId)
+        {
+            var classToMap = await repository.AllReadOnly<Class>()
+                .Where(c => c.Id == classId)
+                .Select(c => new ClassFormModel()
+                {
+                    Title = c.Title,
+                    Description = c.Description,
+                    Price = c.Price,
+                    SportId = c.SportId,
+                    RoomId = c.RoomId,
+                    Date = c.DateAndTime.ToString("dd/MM/yyyy"),
+                    Time = c.DateAndTime.ToString("HH:mm")
+                })
+                .FirstOrDefaultAsync();
+
+            if (classToMap != null)
+            {
+                classToMap.Sports = await AllSportNamesAsync();
+                classToMap.Rooms = await AllRoomNamesAsync();
+            }
+
+            return classToMap;
         }
 
         /// <summary>
@@ -139,6 +211,24 @@ namespace TheRealDealGym.Core.Services
         {
             return await repository.AllReadOnly<Class>()
                 .AnyAsync(c => c.Id == classId && c.Trainer.UserId == userId);
+        }
+
+        /// <summary>
+        /// This method checks if the given room exists.
+        /// </summary>
+        public Task<bool> RoomExistsAsync(Guid roomId)
+        {
+            return repository.AllReadOnly<Room>()
+                .AllAsync(r => r.Id ==  roomId);
+        }
+
+        /// <summary>
+        /// This method checks if the given sport exists.
+        /// </summary>
+        public Task<bool> SportExistsAsync(Guid sportId)
+        {
+            return repository.AllReadOnly<Sport>()
+                .AllAsync(s => s.Id == sportId);
         }
 
         /// <summary>

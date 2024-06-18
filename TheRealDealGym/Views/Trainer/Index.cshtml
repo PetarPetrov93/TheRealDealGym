@@ -21,12 +21,18 @@
                     <h6>Date: <b>@item.Date</b></h6>
                     <h6>Time: <b>@item.Time</b></h6>
                     <br />
-                    <a asp-controller="Class" asp-action="Details" asp-route-id="@item.Id"
-                       class="btn btn-success">Details</a>
-                    <a asp-controller="Class" asp-action="Edit" asp-route-id="@item.Id"
-                       class="btn btn-warning">Edit Class</a>
-                    <a asp-controller="Clas" asp-action="Delete" asp-route-id="@item.Id"
-                       class="btn btn-danger">Delete Class</a>
+                    <form asp-controller="Class" asp-action="Details" method="get">
+                        <input type="hidden" name="classId" value="@item.Id">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
+                    <form asp-controller="Class" asp-action="Edit" method="get">
+                        <input type="hidden" name="classId" value="@item.Id">
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                    </form>
+                    <form asp-controller="Class" asp-action="Delete" method="get">
+                        <input type="hidden" name="classId" value="@item.Id">
+                        <button type="submit" class="btn btn-danger">Delete class</button>
+                    </form>
                 </div>
             </div>
         </div>
