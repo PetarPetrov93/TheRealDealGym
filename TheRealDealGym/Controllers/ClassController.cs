@@ -119,7 +119,7 @@ namespace TheRealDealGym.Controllers
 
             await classService.EditAsync(classId, model);
 
-            return RedirectToAction(nameof(Details), classId);
+            return RedirectToAction(nameof(Details), new { classId });
         }
 
         [AllowAnonymous]

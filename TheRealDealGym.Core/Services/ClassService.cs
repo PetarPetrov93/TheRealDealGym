@@ -180,7 +180,7 @@ namespace TheRealDealGym.Core.Services
                 classToEdit.Price = model.Price;
                 classToEdit.SportId = model.SportId;
                 classToEdit.RoomId = model.RoomId;
-                classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}", CultureInfo.InvariantCulture);
+                classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}");
 
                 await repository.SaveChangesAsync();
             }
