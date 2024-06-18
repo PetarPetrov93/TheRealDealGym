@@ -189,6 +189,14 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method performs a soft delete on a given class by setting the IsDeleted property to "true".
+        /// </summary>
+        public async Task DeleteAsync(Guid classId)
+        {
+            await repository.DeleteAsync<Class>(classId);
+        }
+
+        /// <summary>
         /// This method edits a selected by the trainer class.
         /// </summary>
         public async Task EditAsync(Guid classId, ClassFormModel model)

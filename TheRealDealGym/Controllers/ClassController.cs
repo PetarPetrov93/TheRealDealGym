@@ -175,6 +175,21 @@ namespace TheRealDealGym.Controllers
             return RedirectToAction(nameof(Details), new { classId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid classId)
+        {
+            var model = new ClassDetailsModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ClassDetailsModel model)
+        {
+            
+            return RedirectToAction("Index","Trainer");
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Info()
