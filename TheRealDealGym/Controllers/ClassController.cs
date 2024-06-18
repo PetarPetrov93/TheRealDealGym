@@ -16,10 +16,12 @@ namespace TheRealDealGym.Controllers
     public class ClassController : BaseController
     {
         private readonly IClassService classService;
+        private readonly ITrainerService trainerService;
 
-        public ClassController(IClassService _classService)
+        public ClassController(IClassService _classService, ITrainerService _trainerService)
         {
             classService = _classService;
+            trainerService = _trainerService;
         }
 
         /// <summary>
@@ -65,9 +67,14 @@ namespace TheRealDealGym.Controllers
         /// </summary>
         [HttpGet]
         [MustBeTrainer]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            var model = new ClassFormModel()
+            {
+                Rooms = await classService.AllRoomAsync(),
+                Sports = await classService.AllSportAsync()
+            };
+            return View(model);
         }
 
         /// <summary>
@@ -77,7 +84,33 @@ namespace TheRealDealGym.Controllers
         [MustBeTrainer]
         public async Task<IActionResult> Add(ClassFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await classService.RoomExistsAsync(model.RoomId) == false)
+            {
+                ModelState.AddModelError(nameof(model.RoomId), "Room does not exist!");
+            }
+
+            if (await classService.SportExistsAsync(model.SportId) == false)
+            {
+                ModelState.AddModelError(nameof(model.SportId), "Sport does not exist!");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
+
+                return View(model);
+            }
+
+            Guid? trainerId = await trainerService.GetTrainerIdAsync(User.GetId());
+
+            if (trainerId.HasValue == false)
+            {
+                return BadRequest();
+            }
+
+            Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
+            return RedirectToAction(nameof(Details), new { classId = newClassId });
         }
 
         /// <summary>
