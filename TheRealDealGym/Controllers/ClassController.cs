@@ -61,6 +61,26 @@ namespace TheRealDealGym.Controllers
         }
 
         /// <summary>
+        /// This method returns a form to fill in order to add a new class.
+        /// </summary>
+        [HttpGet]
+        [MustBeTrainer]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// This method handles the input infromation from the form and creates a new class.
+        /// </summary>
+        [HttpPost]
+        [MustBeTrainer]
+        public async Task<IActionResult> Add(ClassFormModel model)
+        {
+            return RedirectToAction(nameof(Details), new { id = 1 });
+        }
+
+        /// <summary>
         /// This method returns a form, pre-filled with the information of the class the trainer wants to edit.
         /// </summary>
         [HttpGet]

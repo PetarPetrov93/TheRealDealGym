@@ -32,5 +32,7 @@ namespace TheRealDealGym.Core.Contracts
         Task<bool> SportExistsAsync(Guid sportId);
 
         Task<bool> RoomExistsAsync(Guid roomId);
+
+        Task<Guid> CreateAsync(ClassFormModel model, Guid trainerId);
     }
 }

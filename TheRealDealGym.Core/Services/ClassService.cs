@@ -167,6 +167,28 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method creates a new class.
+        /// </summary>
+        public async Task<Guid> CreateAsync(ClassFormModel model, Guid trainerId)
+        {
+            Class classToCreate = new Class()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                SportId = model.SportId,
+                RoomId = model.RoomId,
+                DateAndTime = DateTime.Parse($"{model.Date} {model.Time}"),
+                TrainerId = trainerId
+            };
+
+            await repository.AddAsync(classToCreate);
+            await repository.SaveChangesAsync();
+
+            return classToCreate.Id;
+        }
+
+        /// <summary>
         /// This method edits a selected by the trainer class.
         /// </summary>
         public async Task EditAsync(Guid classId, ClassFormModel model)
