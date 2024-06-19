@@ -104,16 +104,35 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method gets all room names.
         /// </summary>
-        public async Task<IEnumerable<string>> AllRoomNamesAsync()
+        public async Task<IEnumerable<RoomCategoryModel>> AllRoomAsync()
         {
             return await repository.AllReadOnly<Room>()
-                .Select(r => r.Type)
+                .Select(r => new RoomCategoryModel()
+                {
+                    Id = r.Id,
+                    Name = r.Type
+                })
                 .Distinct()
                 .ToListAsync();
         }
 
         /// <summary>
         /// This method gets all sport categories.
+        /// </summary>
+        public async Task<IEnumerable<SportCategoryModel>> AllSportAsync()
+        {
+            return await repository.AllReadOnly<Sport>()
+                .Select(s => new SportCategoryModel()
+                {
+                    Id = s.Id,
+                    Name = s.Title
+                })
+                .Distinct()
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// This method gets the names of all the sports.
         /// </summary>
         public async Task<IEnumerable<string>> AllSportNamesAsync()
         {
@@ -123,7 +142,7 @@ namespace TheRealDealGym.Core.Services
                 .ToListAsync();
         }
 
-        
+
         /// <summary>
         /// This method fetches the full details of a class with a given Id when the "Detaild" button is pressed.
         /// </summary>
@@ -148,6 +167,37 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method creates a new class.
+        /// </summary>
+        public async Task<Guid> CreateAsync(ClassFormModel model, Guid trainerId)
+        {
+            Class classToCreate = new Class()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                SportId = model.SportId,
+                RoomId = model.RoomId,
+                DateAndTime = DateTime.Parse($"{model.Date} {model.Time}"),
+                TrainerId = trainerId
+            };
+
+            await repository.AddAsync(classToCreate);
+            await repository.SaveChangesAsync();
+
+            return classToCreate.Id;
+        }
+
+        /// <summary>
+        /// This method performs a soft delete on a given class by setting the IsDeleted property to "true".
+        /// </summary>
+        public async Task DeleteAsync(Guid classId)
+        {
+            await repository.DeleteAsync<Class>(classId);
+            await repository.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// This method edits a selected by the trainer class.
         /// </summary>
         public async Task EditAsync(Guid classId, ClassFormModel model)
@@ -161,7 +211,7 @@ namespace TheRealDealGym.Core.Services
                 classToEdit.Price = model.Price;
                 classToEdit.SportId = model.SportId;
                 classToEdit.RoomId = model.RoomId;
-                classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}", CultureInfo.InvariantCulture);
+                classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}");
 
                 await repository.SaveChangesAsync();
             }
@@ -197,8 +247,8 @@ namespace TheRealDealGym.Core.Services
 
             if (classToMap != null)
             {
-                classToMap.Sports = await AllSportNamesAsync();
-                classToMap.Rooms = await AllRoomNamesAsync();
+                classToMap.Sports = await AllSportAsync();
+                classToMap.Rooms = await AllRoomAsync();
             }
 
             return classToMap;
@@ -219,7 +269,7 @@ namespace TheRealDealGym.Core.Services
         public Task<bool> RoomExistsAsync(Guid roomId)
         {
             return repository.AllReadOnly<Room>()
-                .AllAsync(r => r.Id ==  roomId);
+                .AnyAsync(r => r.Id ==  roomId);
         }
 
         /// <summary>
@@ -228,7 +278,7 @@ namespace TheRealDealGym.Core.Services
         public Task<bool> SportExistsAsync(Guid sportId)
         {
             return repository.AllReadOnly<Sport>()
-                .AllAsync(s => s.Id == sportId);
+                .AnyAsync(s => s.Id == sportId);
         }
 
         /// <summary>

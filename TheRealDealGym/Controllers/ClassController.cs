@@ -16,10 +16,12 @@ namespace TheRealDealGym.Controllers
     public class ClassController : BaseController
     {
         private readonly IClassService classService;
+        private readonly ITrainerService trainerService;
 
-        public ClassController(IClassService _classService)
+        public ClassController(IClassService _classService, ITrainerService _trainerService)
         {
             classService = _classService;
+            trainerService = _trainerService;
         }
 
         /// <summary>
@@ -58,6 +60,57 @@ namespace TheRealDealGym.Controllers
             var model = await classService.ClassDetailsByIdAsync(classId);
 
             return View(model);
+        }
+
+        /// <summary>
+        /// This method returns a form to fill in order to add a new class.
+        /// </summary>
+        [HttpGet]
+        [MustBeTrainer]
+        public async Task<IActionResult> Add()
+        {
+            var model = new ClassFormModel()
+            {
+                Rooms = await classService.AllRoomAsync(),
+                Sports = await classService.AllSportAsync()
+            };
+            return View(model);
+        }
+
+        /// <summary>
+        /// This method handles the input infromation from the form and creates a new class.
+        /// </summary>
+        [HttpPost]
+        [MustBeTrainer]
+        public async Task<IActionResult> Add(ClassFormModel model)
+        {
+            if (await classService.RoomExistsAsync(model.RoomId) == false)
+            {
+                ModelState.AddModelError(nameof(model.RoomId), "Room does not exist!");
+            }
+
+            if (await classService.SportExistsAsync(model.SportId) == false)
+            {
+                ModelState.AddModelError(nameof(model.SportId), "Sport does not exist!");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
+
+                return View(model);
+            }
+
+            Guid? trainerId = await trainerService.GetTrainerIdAsync(User.GetId());
+
+            if (trainerId.HasValue == false)
+            {
+                return BadRequest();
+            }
+
+            Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
+            return RedirectToAction(nameof(Details), new { classId = newClassId });
         }
 
         /// <summary>
@@ -111,15 +164,74 @@ namespace TheRealDealGym.Controllers
 
             if (ModelState.IsValid == false)
             {
-                model.Rooms = await classService.AllRoomNamesAsync();
-                model.Sports = await classService.AllSportNamesAsync();
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
 
                 return View(model);
             }
 
             await classService.EditAsync(classId, model);
 
-            return RedirectToAction(nameof(Details), classId);
+            return RedirectToAction(nameof(Details), new { classId });
+        }
+
+        /// <summary>
+        /// This method gets the information about the class that has to be deleted.
+        /// </summary>
+        [HttpGet]
+        [MustBeTrainer]
+        public async Task<IActionResult> Delete(Guid classId)
+        {
+            if (await classService.ExistsAsync(classId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var classToDelete = await classService.ClassDetailsByIdAsync(classId);
+
+            var model = new ClassDetailsModel()
+            {
+                Id = classToDelete.Id,
+                Title = classToDelete.Title,
+                Description = classToDelete.Description,
+                Date = classToDelete.Date,
+                Time = classToDelete.Time,
+                Price = classToDelete.Price,
+                Trainer = classToDelete.Trainer,
+                Sport = classToDelete.Sport,
+                Room = classToDelete.Room,
+                AvaliableSpaces = classToDelete.AvaliableSpaces
+
+            };
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// This method deteles the given class.
+        /// </summary>
+        [HttpPost]
+        [MustBeTrainer]
+        public async Task<IActionResult> Delete(ClassDetailsModel model)
+        {
+            if (await classService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await classService.HasTrainerWithIdAsync(model.Id, User.GetId()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await classService.DeleteAsync(model.Id);
+
+            return RedirectToAction("Index","Trainer");
         }
 
         [AllowAnonymous]
