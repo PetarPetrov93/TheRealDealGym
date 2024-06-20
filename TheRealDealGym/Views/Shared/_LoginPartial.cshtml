@@ -1,12 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using static TheRealDealGym.Core.Constants.CustomClaims
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
     var username = string.Empty;
     if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.FindByIdAsync(User.GetId().ToString());
-        username = $"{user.FirstName} {user.LastName}";
+        
+        username = User.FindFirstValue(UserFullNameClaim) ?? string.Empty;
     }
 }
 

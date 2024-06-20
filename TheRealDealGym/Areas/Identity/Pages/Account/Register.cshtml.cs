@@ -12,7 +12,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using TheRealDealGym.Infrastructure.Data.Models;
+using System.Security.Claims;
 using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForApplicationUser;
+using static TheRealDealGym.Core.Constants.CustomClaims;
 
 namespace TheRealDealGym.Areas.Identity.Pages.Account
 {
@@ -131,6 +133,8 @@ namespace TheRealDealGym.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddClaimAsync(user, new Claim(UserFullNameClaim, $"{user.FirstName} {user.LastName}"));
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
