@@ -95,11 +95,13 @@ namespace TheRealDealGym.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "First Name")]
+            [PersonalData]
             [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
             public string FirstName { get; set; }
 
             [Required]
             [Display(Name = "Last Name")]
+            [PersonalData]
             [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
             public string LastName { get; set; }
         }
