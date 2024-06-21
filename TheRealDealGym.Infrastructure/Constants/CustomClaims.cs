@@ -1,4 +1,4 @@
-﻿namespace TheRealDealGym.Core.Constants
+﻿namespace TheRealDealGym.Infrastructure.Constants
 {
     public static class CustomClaims
     {

@@ -14,7 +14,7 @@ using System.Text.Encodings.Web;
 using TheRealDealGym.Infrastructure.Data.Models;
 using System.Security.Claims;
 using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForApplicationUser;
-using static TheRealDealGym.Core.Constants.CustomClaims;
+using static TheRealDealGym.Infrastructure.Constants.CustomClaims;
 
 namespace TheRealDealGym.Areas.Identity.Pages.Account
 {
