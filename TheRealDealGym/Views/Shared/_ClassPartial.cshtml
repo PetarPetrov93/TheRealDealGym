@@ -21,7 +21,7 @@
             </form>
             @if (this.User.Identity!.IsAuthenticated)
             {
-                if (await classService.HasTrainerWithIdAsync(Model.Id, User.GetId()))
+                if (await classService.HasTrainerWithIdAsync(Model.Id, User.GetId()) || User.IsAdmin())
                 {
                     <form asp-controller="Class" asp-action="Edit" method="get">
                         <input type="hidden" name="classId" value="@Model.Id">
