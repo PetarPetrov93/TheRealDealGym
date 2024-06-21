@@ -16,7 +16,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 data.TrainerUserWater,
                 data.TrainerUserStretching,
                 data.GuestUserBooked,
-                data.GuestUserNotBooked
+                data.GuestUserNotBooked,
+                data.AdminUser
             });
         }
     }

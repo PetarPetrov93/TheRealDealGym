@@ -16,7 +16,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             {
                 data.FightingTrainer,
                 data.WaterTrainer,
-                data.StretchingTrainer
+                data.StretchingTrainer,
+                data.AdminTrainer
             });
         }
     }

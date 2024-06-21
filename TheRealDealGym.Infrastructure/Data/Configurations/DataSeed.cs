@@ -16,12 +16,16 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             SeedBookings();
         }
 
+        public ApplicationUser AdminUser {  get; set; }
+
         public ApplicationUser TrainerUserFighting { get; set; }
         public ApplicationUser TrainerUserWater { get; set; }
         public ApplicationUser TrainerUserStretching { get; set; }
 
         public ApplicationUser GuestUserBooked { get; set; }
         public ApplicationUser GuestUserNotBooked { get; set; }
+
+        public Trainer AdminTrainer { get; set; }
 
         public Trainer FightingTrainer { get; set; }
         public Trainer WaterTrainer { get; set; }
@@ -49,6 +53,23 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
         private void SeedUsers()
         {
             var hasher = new PasswordHasher<ApplicationUser>();
+
+            //ASP User for Admin
+            AdminUser = new ApplicationUser()
+            {
+                Id = new Guid("42b0f438-188e-4a5c-b379-e6256e6f4584"),
+                UserName = "admin@trdg.com",
+                NormalizedUserName = "ADMIN@TRDG.COM",
+                Email = "admin@trdg.com",
+                NormalizedEmail = "ADMIN@TRDG.COM",
+                FirstName = "Admin",
+                LastName = "Adminov"
+            };
+
+            AdminUser.SecurityStamp = "62f2b46f-f90f-44bb-94fd-9cd7fc523047";
+
+            AdminUser.PasswordHash =
+                 hasher.HashPassword(AdminUser, "123456");
 
             // ASP Users for Trainers
             TrainerUserFighting = new ApplicationUser()
@@ -135,6 +156,15 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
 
         private void SeedTrainers()
         {
+            AdminTrainer = new Trainer()
+            {
+                Id = new Guid("1d674a7f-78ca-42f0-96a3-856cb26fb7c3"),
+                Age = 37,
+                YearsOfExperience = 15,
+                Bio = "I am one of the best admins in the world! Nobody is better than me!",
+                UserId = Guid.Parse("42b0f438-188e-4a5c-b379-e6256e6f4584")
+            };
+
             FightingTrainer = new Trainer()
             {
                 Id = new Guid("966d1ddc-b505-4aae-b790-595a4c688931"),
