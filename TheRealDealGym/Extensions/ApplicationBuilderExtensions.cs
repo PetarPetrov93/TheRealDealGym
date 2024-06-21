@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TheRealDealGym.Infrastructure.Data.Models;
-using static TheRealDealGym.Core.Constants.RoleConstants;
+using static TheRealDealGym.Core.Constants.AdminConstants;
 
 namespace Microsoft.AspNetCore.Builder
 {

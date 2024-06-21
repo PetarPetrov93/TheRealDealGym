@@ -1,4 +1,4 @@
-﻿using static TheRealDealGym.Core.Constants.RoleConstants;
+﻿using static TheRealDealGym.Core.Constants.AdminConstants;
 namespace System.Security.Claims
 {
     /// <summary>

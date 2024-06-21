@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static TheRealDealGym.Core.Constants.RoleConstants;
+using static TheRealDealGym.Core.Constants.AdminConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(AdminAreaName)]
     [Authorize(Roles = AdminRole)]
     public class AdminBaseController : Controller
     {
