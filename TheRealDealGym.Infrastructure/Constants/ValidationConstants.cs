@@ -42,5 +42,12 @@
             public const string MinPrice = "0.00";
             public const string MaxPrice = "50.00";
         }
+        public static class ForJobAdvert
+        {
+            public const int TitleMinLength = 3;
+            public const int TitleMaxLength = 40;
+            public const int DescriptionMinLength = 10;
+            public const int DescriptionMaxLength = 2000;
+        }
     }
 }

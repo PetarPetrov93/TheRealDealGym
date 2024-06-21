@@ -11,7 +11,6 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             SeedUsers();
             SeedTrainers();
             SeedSports();
-            SeedTrainersSports();
             SeedRooms();
             SeedClasses();
             SeedBookings();
@@ -42,10 +41,6 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
         public Sport Swimming { get; set; }
         public Sport Yoga { get; set; }
 
-        public TrainerSport TrainerFighting { get; set; }
-        public TrainerSport TrainerWater {  get; set; }
-        public TrainerSport TrainerStretching { get; set; }
-
         public Room FightingRoom { get; set; }
         public Room Pool { get; set; }
         public Room OpenSpaceRoom { get; set; }
@@ -56,6 +51,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
 
 
         public Booking BookingMuayThai { get; set; }
+
+        public JobAdvert JobAdvert { get; set; }
 
         private void SeedUsers()
         {
@@ -272,27 +269,6 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             };
         }
 
-        public void SeedTrainersSports()
-        {
-            TrainerFighting = new TrainerSport()
-            {
-                TrainerId = Guid.Parse("966d1ddc-b505-4aae-b790-595a4c688931"),
-                SportId = Guid.Parse("28b80b07-87c8-42f7-9af6-28d832ce7b2b")
-            };
-
-            TrainerWater = new TrainerSport()
-            {
-                TrainerId = Guid.Parse("3c944adc-2b2b-4e81-a643-643fcb116262"),
-                SportId = Guid.Parse("7e20cc5c-6c1b-4ba6-a070-517660fead98")
-            };
-
-            TrainerStretching = new TrainerSport()
-            {
-                TrainerId = Guid.Parse("62cf1550-e01e-452b-9fe4-95487b14514e"),
-                SportId = Guid.Parse("890d3966-eb5e-42f1-97e2-79382ce3ac96")
-            };
-        }
-
         public void SeedRooms()
         {
             FightingRoom = new Room()
@@ -363,6 +339,16 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
                 Id = new Guid("2283428d-0ed0-4837-9bb2-028485808ac5"),
                 UserId = Guid.Parse("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"),
                 ClassId = Guid.Parse("86cc93b0-3993-4a88-b41c-c0414538c7f4")
+            };
+        }
+
+        public void SeedJobAdverts()
+        {
+            JobAdvert = new JobAdvert()
+            {
+                Id = new Guid("d53d3db8-5856-48a0-a739-eefd609aee1e"),
+                Title = "Fitness coach full time",
+                Description = "We are looking for a motivated and experienced fitness coach for a position in our great team."
             };
         }
     }

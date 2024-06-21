@@ -69,12 +69,6 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         public bool IsDeleted { get; set; } = false;
 
         /// <summary>
-        /// A collection of all the Sports the trainer is qualified to teach.
-        /// </summary>
-        [Comment("A collection of all the Sports the trainer is qualified to teach")]
-        public ICollection<TrainerSport> TrainersSports { get; set; } = new HashSet<TrainerSport>();
-
-        /// <summary>
         /// One Trainer can have many Classes.
         /// </summary>
         [Comment("One Trainer can have many Classes")]
