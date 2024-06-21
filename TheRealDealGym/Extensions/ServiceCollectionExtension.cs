@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data;
@@ -43,6 +44,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.Password.RequireUppercase = config.GetValue<bool>("Identity:SignIn:RequireUppercase");
                     options.Password.RequiredLength = config.GetValue<int>("Identity:SignIn:RequiredLength");
                 })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;

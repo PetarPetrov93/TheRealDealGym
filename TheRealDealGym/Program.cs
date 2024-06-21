@@ -42,4 +42,6 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+await app.CreateAdminRoleAsync();
+
 await app.RunAsync();
