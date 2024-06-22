@@ -23,7 +23,7 @@ namespace TheRealDealGym.Attributes
                 context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            if (trainerService != null && trainerService.ExistsByIdAsync(context.HttpContext.User.GetId()).Result)
+            if (trainerService != null && trainerService.ExistsByUserIdAsync(context.HttpContext.User.GetId()).Result)
             {
                 context.Result = new StatusCodeResult(StatusCodes.Status400BadRequest);
             }

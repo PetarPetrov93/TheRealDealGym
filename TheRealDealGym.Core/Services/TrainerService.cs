@@ -36,9 +36,23 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method returns a collection of the full names of all trainers.
+        /// </summary>
+        public async Task<IEnumerable<TrainerNameModel>> AllTrainersAsync()
+        {
+            return await repository.AllReadOnly<Trainer>()
+                .Select(t => new TrainerNameModel()
+                {
+                    Id = t.Id,
+                    FullName = $"{t.User.FirstName} {t.User.LastName}"
+                })
+                .ToListAsync();
+        }
+
+        /// <summary>
         /// This method creates a new Trainer.
         /// </summary>
-        public async Task CreateAsync(Guid userId, JobApplication trainerInfo)
+        public async Task CreateAsync(Guid userId, JobApplicationModel trainerInfo)
         {
             await repository.AddAsync(new Trainer()
             {
@@ -52,12 +66,21 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method checks if a trainer exists by a given Id.
+        /// This method checks if a trainer exists by a given UserId.
         /// </summary>
-        public async Task<bool> ExistsByIdAsync(Guid userId)
+        public async Task<bool> ExistsByUserIdAsync(Guid userId)
         {
             return await repository.AllReadOnly<Trainer>()
                 .AnyAsync(t => t.UserId == userId);
+        }
+
+        /// <summary>
+        /// This method checks if a trainer exists by a given TrainerId.
+        /// </summary>
+        public async Task<bool> ExistsByTrainerIdAsync(Guid trainerId)
+        {
+            return await repository.AllReadOnly<Trainer>()
+                .AnyAsync(t => t.Id == trainerId);
         }
 
         /// <summary>
@@ -72,16 +95,16 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method gets the information about the logged-in trainer.
         /// </summary>
-        public async Task<TrainerProfileInfo> GetTrainerProfileInfoAsync(Guid trainerId)
+        public async Task<TrainerDetailsModel> GetTrainerDetailsAsync(Guid trainerId)
         {
             var trainer = await repository.GetByIdAsync<Trainer>(trainerId);
-            return new TrainerProfileInfo()
+            return new TrainerDetailsModel()
             {
-                FirstName = trainer!.User.FirstName,
-                LastName = trainer!.User.LastName,
-                Age = trainer.Age,
+                FullName = string.Empty,
+                Age = trainer!.Age,
                 YearsOfExperience = trainer.YearsOfExperience,
-                Bio = trainer.Bio
+                Bio = trainer.Bio,
+                UserId = trainer.UserId,
             };
         }
     }

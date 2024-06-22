@@ -9,7 +9,7 @@ namespace TheRealDealGym.Core.Models.Trainer
     /// This is the form  that a registered user needs to fill in order to apply for a trainer position.
     /// If a user is not registered he is redirected to the register page and a message appears stating that he has to be registered on the platform in order to apply.
     /// </summary>
-    public class JobApplication
+    public class JobApplicationModel
     {
         [Required]
         [Range(MinAge, MaxAge)]

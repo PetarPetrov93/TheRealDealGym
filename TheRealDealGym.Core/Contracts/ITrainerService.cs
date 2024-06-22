@@ -1,14 +1,15 @@
-﻿using TheRealDealGym.Core.Models.Class;
-using TheRealDealGym.Core.Models.Trainer;
+﻿using TheRealDealGym.Core.Models.Trainer;
 
 namespace TheRealDealGym.Core.Contracts
 {
     public interface ITrainerService
     {
-        Task<bool> ExistsByIdAsync(Guid userId);
-        Task CreateAsync(Guid userId, JobApplication trainerInfo);
+        Task<bool> ExistsByUserIdAsync(Guid userId);
+        Task<bool> ExistsByTrainerIdAsync(Guid trainerId);
+        Task CreateAsync(Guid userId, JobApplicationModel trainerInfo);
         Task<Guid?> GetTrainerIdAsync(Guid userId);
-        Task<TrainerProfileInfo> GetTrainerProfileInfoAsync(Guid trainerId);
+        Task<TrainerDetailsModel> GetTrainerDetailsAsync(Guid trainerId);
         Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid? trainerId);
+        Task<IEnumerable<TrainerNameModel>> AllTrainersAsync();
     }
 }

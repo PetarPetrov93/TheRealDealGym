@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TrainerNameModel>
+
+@{
+    ViewBag.Title = "Staff";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Full Name</label></th>
+            <th><label>Details</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainer in Model)
+        {
+            <tr>
+                <td><label>@trainer.FullName</label></td>
+                <td>
+                    <form asp-controller="Staff" asp-action="Details" method="get">
+                        <input type="hidden" name="trainerId" value="@trainer.Id">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
