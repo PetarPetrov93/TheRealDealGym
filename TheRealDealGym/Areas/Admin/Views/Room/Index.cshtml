@@ -1,10 +1,32 @@
-﻿@{
-    ViewData["Title"] = "Rooms page";
+﻿@model IEnumerable<RoomServiceModel>
+
+@{
+    ViewBag.Title = "Rooms";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This will be the page which displays all rooms which are currently created</h1>
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
 
-    <p>there can also be created updated and deleted rooms.</p>
-
-</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Room Type</label></th>
+            <th><label>Capacity</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td><label>@room.Type</label></td>
+                <td><label>@room.Capacity</label></td>
+                <td>
+                    <form asp-controller="Staff" asp-action="Details" method="get">
+                        <input type="hidden" name="trainerId" value="@room.Id">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
