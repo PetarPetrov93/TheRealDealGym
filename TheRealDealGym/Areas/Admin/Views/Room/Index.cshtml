@@ -22,7 +22,7 @@
                 <td><label>@room.Capacity</label></td>
                 <td>
                     <form asp-controller="Staff" asp-action="Details" method="get">
-                        <input type="hidden" name="trainerId" value="@room.Id">
+                        <input type="hidden" name="roomId" value="@room.Id">
                         <button type="submit" class="btn btn-primary">Details</button>
                     </form>
                 </td>

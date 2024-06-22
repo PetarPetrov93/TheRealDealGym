@@ -26,7 +26,7 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// Also helps with search filtering.
         /// </summary>
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(TypeMaxLength)]
         [Comment("The name of the room")]
         public string Type { get; set; } = null!;
 

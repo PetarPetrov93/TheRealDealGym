@@ -6,6 +6,9 @@ using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Core.Services
 {
+    /// <summary>
+    /// The service responsible for operations with Room entity.
+    /// </summary>
     public class RoomService : IRoomService
     {
         private readonly IRepository repository;
@@ -14,6 +17,10 @@ namespace TheRealDealGym.Core.Services
         {
             repository = _repository;
         }
+
+        /// <summary>
+        /// This method returns a collection of all rooms currently created.
+        /// </summary>
         public async Task<IEnumerable<RoomServiceModel>> AllRoomsAsync()
         {
             return await repository.AllReadOnly<Room>()
