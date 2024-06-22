@@ -18,10 +18,10 @@ namespace TheRealDealGym.Infrastructure.Data
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new TrainerConfiguration());
             builder.ApplyConfiguration(new SportConfiguration());
-            builder.ApplyConfiguration(new TrainerSportConfiguration());
             builder.ApplyConfiguration(new RoomConfiguration());
             builder.ApplyConfiguration(new ClassConfiguration());
             builder.ApplyConfiguration(new BookingConfiguration());
+            builder.ApplyConfiguration(new UserClaimsConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -32,8 +32,8 @@ namespace TheRealDealGym.Infrastructure.Data
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<Sport> Sports { get; set; } = null!;
         public DbSet<Trainer> Trainers { get; set; } = null!;
-        public DbSet<TrainerSport> TrainersSports { get; set; } = null!;
         public DbSet<Booking> Bookings { get; set; } = null!;
         public DbSet<Class> Classes { get; set; } = null!;
+        public DbSet<JobAdvert> JobAdverts { get; set; } = null!;
     }
 }

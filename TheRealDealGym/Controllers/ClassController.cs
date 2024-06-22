@@ -125,7 +125,7 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -147,7 +147,7 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -187,7 +187,7 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false)
+            if (await classService.HasTrainerWithIdAsync(classId, User.GetId()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -224,7 +224,7 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            if (await classService.HasTrainerWithIdAsync(model.Id, User.GetId()) == false)
+            if (await classService.HasTrainerWithIdAsync(model.Id, User.GetId()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }

@@ -4,6 +4,8 @@ using System.Security.Claims;
 using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Trainer;
+using TheRealDealGym.Core.Services;
+using static TheRealDealGym.Core.Constants.AdminConstants;
 
 namespace TheRealDealGym.Controllers
 {
@@ -14,10 +16,13 @@ namespace TheRealDealGym.Controllers
     public class TrainerController : BaseController
     {
         private readonly ITrainerService trainerService;
+        private readonly IUserService userService;
 
-        public TrainerController(ITrainerService _trainerService)
+        public TrainerController(ITrainerService _trainerService, IUserService _userService)
         {
             trainerService = _trainerService;
+            userService = _userService;
+
         }
 
         /// <summary>
@@ -31,7 +36,7 @@ namespace TheRealDealGym.Controllers
 
             IEnumerable<TrainerClassModel> model;
 
-            if (await trainerService.ExistsByIdAsync(userId))
+            if (await trainerService.ExistsByUserIdAsync(userId))
             {
                 var trainerId = await trainerService.GetTrainerIdAsync(userId);
 
