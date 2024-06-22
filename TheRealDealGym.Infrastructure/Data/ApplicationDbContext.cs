@@ -21,6 +21,7 @@ namespace TheRealDealGym.Infrastructure.Data
             builder.ApplyConfiguration(new RoomConfiguration());
             builder.ApplyConfiguration(new ClassConfiguration());
             builder.ApplyConfiguration(new BookingConfiguration());
+            builder.ApplyConfiguration(new JobAdvertConfiguration());
             builder.ApplyConfiguration(new UserClaimsConfiguration());
 
             base.OnModelCreating(builder);
