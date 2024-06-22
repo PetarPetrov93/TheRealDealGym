@@ -11,6 +11,7 @@ namespace TheRealDealGym.Core.Models.Sport
     {
         public Guid Id { get; set; }
 
+        [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
     }

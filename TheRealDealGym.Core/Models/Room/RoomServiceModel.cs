@@ -10,9 +10,11 @@ namespace TheRealDealGym.Core.Models.Room
         
         public Guid Id { get; set; }
 
+        [Required]
         [StringLength(TypeMaxLength, MinimumLength = TypeMinLength)]
         public string Type { get; set; } = null!;
 
+        [Required]
         [Range(MinCapacity, MaxCapacity)]
         public int Capacity { get; set; }
 

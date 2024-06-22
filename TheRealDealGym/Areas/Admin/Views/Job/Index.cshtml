@@ -1,12 +1,32 @@
-﻿@{
-    ViewData["Title"] = "Jobs page";
+﻿@model IEnumerable<JobAdvertListModel>
+
+@{
+    ViewBag.Title = "Jobs";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This will be the page which displays the opened job positions (if any)</h1>
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
 
-    <p>Dedicated to managing job openings, applications, and the application lifecycle.</p>
-    <p>There should be Details button showing more information about the job.</p>
-    <p>Whenever a trainer is dismissed or leaves a job ad should be created automatically.</p>
-    <p>the admin will make decisions on candidates which have applied.</p>
-</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Job Title</label></th>
+            <th><label>Active</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            <tr>
+                <td><label>@job.Title</label></td>
+                <td><label>@job.IsActive</label></td>
+                <td>
+                    <form asp-controller="Staff" asp-action="Details" method="get">
+                        <input type="hidden" name="jobId" value="@job.Id">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
