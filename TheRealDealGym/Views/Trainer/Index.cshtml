@@ -20,6 +20,12 @@
         <p class="card-text">Age: @trainer.Age</p>
         <p class="card-text">Years of experience: @trainer.YearsOfExperience</p>
         <p class="card-text">Bio: @trainer.Bio</p>
+        <div class="d-flex">
+            <form asp-controller="Trainer" asp-action="Edit" method="get">
+                <input type="hidden" name="trainerId" value="@trainerId">
+                <button type="submit" class="btn btn-warning me-4">Edit</button>
+            </form>
+        </div>
     </div>
 </div>
 @if (Model.Any() == false)

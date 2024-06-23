@@ -1,0 +1,36 @@
+﻿@model TrainerDetailsModel
+@{
+    ViewData["Title"] = "Edit Information";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Age"></label>
+                <input asp-for="Age" class="form-control" placeholder="Age...">
+                <span asp-validation-for="Age" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YearsOfExperience"></label>
+                <input asp-for="YearsOfExperience" class="form-control" placeholder="YearsOfExperience...">
+                <span asp-validation-for="YearsOfExperience" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bio"></label>
+                <input asp-for="Bio" class="form-control" placeholder="Bio...">
+                <span asp-validation-for="Bio" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

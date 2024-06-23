@@ -107,5 +107,21 @@ namespace TheRealDealGym.Core.Services
                 UserId = trainer.UserId,
             };
         }
+
+        /// <summary>
+        /// This method edits the trainers information.
+        /// </summary>
+        public async Task EditAsync(Guid trainerId, TrainerDetailsModel model)
+        {
+            var trainer = await repository.GetByIdAsync<Trainer>(trainerId);
+
+            if (trainer != null)
+            {
+                trainer.Age = model.Age;
+                trainer.YearsOfExperience = model.YearsOfExperience;
+                trainer.Bio = model.Bio;
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }
