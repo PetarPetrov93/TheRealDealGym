@@ -67,7 +67,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
-            var model = await roomService.GetRoomByIdAsync(roomId);
+            var model = await roomService.GetByIdAsync(roomId);
 
             return View(model);
         }
