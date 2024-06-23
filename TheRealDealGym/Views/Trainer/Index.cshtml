@@ -1,11 +1,27 @@
 ﻿@model IEnumerable<TrainerClassModel>
+@inject SignInManager<ApplicationUser> SignInManager;
+@inject ITrainerService trainerService;
 @{
     ViewData["Title"] = "My Classes";
+
+    var fullName = User.FindFirstValue(UserFullNameClaim) ?? string.Empty;
+
+    var trainerId = await trainerService.GetTrainerIdAsync(User.GetId());
+
+    var trainer = await trainerService.GetTrainerDetailsAsync(trainerId.Value);
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
-
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Trainer Info</h5>
+        <p class="card-text">Full name:  @fullName</p>
+        <p class="card-text">Age: @trainer.Age</p>
+        <p class="card-text">Years of experience: @trainer.YearsOfExperience</p>
+        <p class="card-text">Bio: @trainer.Bio</p>
+    </div>
+</div>
 @if (Model.Any() == false)
 {
     <h3 class="text-center">You don't have any active classes at the moment!</h3>
@@ -21,18 +37,20 @@
                     <h6>Date: <b>@item.Date</b></h6>
                     <h6>Time: <b>@item.Time</b></h6>
                     <br />
-                    <form asp-controller="Class" asp-action="Details" method="get">
-                        <input type="hidden" name="classId" value="@item.Id">
-                        <button type="submit" class="btn btn-primary">Details</button>
-                    </form>
-                    <form asp-controller="Class" asp-action="Edit" method="get">
-                        <input type="hidden" name="classId" value="@item.Id">
-                        <button type="submit" class="btn btn-warning">Edit</button>
-                    </form>
-                    <form asp-controller="Class" asp-action="Delete" method="get">
-                        <input type="hidden" name="classId" value="@item.Id">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <div class="d-flex">
+                        <form asp-controller="Class" asp-action="Details" method="get">
+                            <input type="hidden" name="classId" value="@item.Id">
+                            <button type="submit" class="btn btn-primary me-4">Details</button>
+                        </form>
+                        <form asp-controller="Class" asp-action="Edit" method="get">
+                            <input type="hidden" name="classId" value="@item.Id">
+                            <button type="submit" class="btn btn-warning me-4">Edit</button>
+                        </form>
+                        <form asp-controller="Class" asp-action="Delete" method="get">
+                            <input type="hidden" name="classId" value="@item.Id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
