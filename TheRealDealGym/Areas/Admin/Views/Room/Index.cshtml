@@ -7,6 +7,12 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+<div>
+    <form asp-controller="Room" asp-action="Add" method="get">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -21,9 +27,15 @@
                 <td><label>@room.Type</label></td>
                 <td><label>@room.Capacity</label></td>
                 <td>
-                    <form asp-controller="Staff" asp-action="Details" method="get">
+                    <form asp-controller="Room" asp-action="Edit" method="get">
                         <input type="hidden" name="roomId" value="@room.Id">
-                        <button type="submit" class="btn btn-primary">Details</button>
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="Room" asp-action="Delete" method="post">
+                        <input type="hidden" name="roomId" value="@room.Id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
