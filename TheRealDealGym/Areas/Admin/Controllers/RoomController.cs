@@ -76,7 +76,6 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This method handles the editted information from the admin and saves the changes.
         /// </summary>
         [HttpPost]
-        [MustBeTrainer]
         public async Task<IActionResult> Edit(Guid roomId, RoomServiceModel model)
         {
             if (await roomService.ExistsByIdAsync(roomId) == false)
