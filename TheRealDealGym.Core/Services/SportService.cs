@@ -85,7 +85,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method finds and returns a sport by a given Id
         /// </summary>
-        public async Task<SportInfoModel> GetRoomByIdAsync(Guid sportId)
+        public async Task<SportInfoModel> GetByIdAsync(Guid sportId)
         {
             return await repository.AllReadOnly<Sport>()
                 .Where(s => s.Id == sportId)

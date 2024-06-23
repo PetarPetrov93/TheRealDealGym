@@ -9,6 +9,6 @@ namespace TheRealDealGym.Core.Contracts
         Task DeleteAsync(Guid sportId);
         Task EditAsync(Guid sportId, SportInfoModel model);
         Task<bool> ExistsByIdAsync(Guid sportId);
-        Task<SportInfoModel> GetRoomByIdAsync(Guid sportId);
+        Task<SportInfoModel> GetByIdAsync(Guid sportId);
     }
 }

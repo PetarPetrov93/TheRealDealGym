@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
-using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Room;
-using TheRealDealGym.Core.Services;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
