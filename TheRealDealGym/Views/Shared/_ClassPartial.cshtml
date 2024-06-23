@@ -15,40 +15,42 @@
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </h6>
             <br />
-            <form asp-controller="Class" asp-action="Details" method="get">
-                <input type="hidden" name="classId" value="@Model.Id">
-                <button type="submit" class="btn btn-primary">Details</button>
-            </form>
-            @if (this.User.Identity!.IsAuthenticated)
-            {
-                if (await classService.HasTrainerWithIdAsync(Model.Id, User.GetId()) || User.IsAdmin())
+            <div class="d-flex">
+                <form asp-controller="Class" asp-action="Details" method="get">
+                    <input type="hidden" name="classId" value="@Model.Id">
+                    <button type="submit" class="btn btn-primary me-4">Details</button>
+                </form>
+                @if (this.User.Identity!.IsAuthenticated)
                 {
-                    <form asp-controller="Class" asp-action="Edit" method="get">
-                        <input type="hidden" name="classId" value="@Model.Id">
-                        <button type="submit" class="btn btn-warning">Edit</button>
-                    </form>
-                    <form asp-controller="Class" asp-action="Delete" method="get">
-                        <input type="hidden" name="classId" value="@Model.Id">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    if (await classService.HasTrainerWithIdAsync(Model.Id, User.GetId()) || User.IsAdmin())
+                    {
+                        <form asp-controller="Class" asp-action="Edit" method="get">
+                            <input type="hidden" name="classId" value="@Model.Id">
+                            <button type="submit" class="btn btn-warning me-4">Edit</button>
+                        </form>
+                        <form asp-controller="Class" asp-action="Delete" method="get">
+                            <input type="hidden" name="classId" value="@Model.Id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    }
+                    <p></p>
+                    var bookingId = await bookingService.GetBookingIdAsync(User.GetId(), Model.Id);
+                    @if (await bookingService.ExistsByIdAsync(bookingId) == false && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
+                    {
+                        <form asp-controller="Booking" asp-action="Book" method="post">
+                            <input type="hidden" name="classId" value="@Model.Id">
+                            <button type="submit" class="btn btn-success">Book</button>
+                        </form>
+                    }
+                    else if (await bookingService.ExistsByIdAsync(bookingId) && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
+                    {
+                        <form asp-controller="Booking" asp-action="CancelBooking" method="post">
+                            <input type="hidden" name="bookingId" value="(@await bookingService.GetBookingIdAsync(User.GetId(), Model.Id))">
+                            <input class="btn btn-warning" type="submit" value="Cancel" />
+                        </form>
+                    }
                 }
-                <p></p>
-                var bookingId = await bookingService.GetBookingIdAsync(User.GetId(), Model.Id);
-                @if (await bookingService.ExistsByIdAsync(bookingId) == false && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
-                {
-                    <form asp-controller="Booking" asp-action="Book" method="post">
-                        <input type="hidden" name="classId" value="@Model.Id">
-                        <button type="submit" class="btn btn-success">Book</button>
-                    </form>
-                }
-                else if (await bookingService.ExistsByIdAsync(bookingId) && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
-                {
-                    <form asp-controller="Booking" asp-action="CancelBooking" method="post">
-                        <input type="hidden" name="bookingId" value="(@await bookingService.GetBookingIdAsync(User.GetId(), Model.Id))">
-                        <input class="btn btn-warning" type="submit" value="Cancel" />
-                    </form>
-                }
-            }
+            </div>
         </div>
     </div>
 </div>
