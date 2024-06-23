@@ -95,20 +95,6 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index), "Room");
         }
 
-        ///// <summary>
-        ///// This method gets the information about the room that has to be deleted.
-        ///// </summary>
-        //[HttpGet]
-        //public async Task<IActionResult> Delete(Guid roomId)
-        //{
-        //    if (await roomService.ExistsByIdAsync(roomId) == false)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    return RedirectToAction(nameof(Index), "Room");
-        //}
-
         /// <summary>
         /// This method deteles the given room.
         /// </summary>
