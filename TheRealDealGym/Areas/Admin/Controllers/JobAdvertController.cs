@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
-using TheRealDealGym.Core.Models.Sport;
-using TheRealDealGym.Core.Services;
+using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -88,7 +87,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.EditAsync(jobAdvertId, model);
 
-            return RedirectToAction(nameof(Index), "JobAdvert");
+            return RedirectToAction(nameof(Details), new { jobAdvertId });
         }
 
         /// <summary>
@@ -121,6 +120,22 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             await jobService.DeactivateAsync(jobAdvertId);
 
             return RedirectToAction(nameof(Index), "JobAdvert");
+        }
+
+        /// <summary>
+        /// This action displays the full information about the job advert upon pressing the "Details" button.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid jobAdvertId)
+        {
+            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            {
+                return BadRequest();
+            }
+
+            var model = await jobService.GetByIdAsync(jobAdvertId);
+
+            return View(model);
         }
     }
 }
