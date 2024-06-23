@@ -85,15 +85,18 @@ namespace TheRealDealGym.Core.Services
                  .AnyAsync(r => r.Id == roomId);
         }
 
+        /// <summary>
+        /// This method finds and returns a room by a given Id
+        /// </summary>
         public async Task<RoomServiceModel> GetRoomByIdAsync(Guid roomId)
         {
             return await repository.AllReadOnly<Room>()
                 .Where(r => r.Id == roomId)
-                .Select(c => new RoomServiceModel()
+                .Select(r => new RoomServiceModel()
                 {
-                    Id = c.Id,
-                    Type = c.Type,
-                    Capacity = c.Capacity
+                    Id = r.Id,
+                    Type = r.Type,
+                    Capacity = r.Capacity
                 })
                 .FirstAsync();
         }
