@@ -42,5 +42,11 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// </summary>
         [Comment("This property shows if the advert is active or not")]
         public bool IsActive { get; set; } = true;
+
+        /// <summary>
+        /// One JobAdvert can have many applicants.
+        /// </summary>
+        [Comment("One Trainer can have many applicants")]
+        public ICollection<JobApplication> JobApplications { get; set; } = new HashSet<JobApplication>();
     }
 }

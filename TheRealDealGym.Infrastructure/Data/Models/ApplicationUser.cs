@@ -43,5 +43,11 @@ namespace TheRealDealGym.Infrastructure.Data.Models
         /// </summary>
         [Comment("One ApplicationUser can have many bookings")]
         public ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
+
+        /// <summary>
+        /// One Applicant can apply for many Jobs.
+        /// </summary>
+        [Comment("One Applicant can apply for many Jobs")]
+        public ICollection<JobApplication> AppliedJobs { get; set; } = new HashSet<JobApplication>();
     }
 }

@@ -22,6 +22,7 @@ namespace TheRealDealGym.Infrastructure.Data
             builder.ApplyConfiguration(new ClassConfiguration());
             builder.ApplyConfiguration(new BookingConfiguration());
             builder.ApplyConfiguration(new JobAdvertConfiguration());
+            builder.ApplyConfiguration(new JobApplicationConfiguration());
             builder.ApplyConfiguration(new UserClaimsConfiguration());
 
             base.OnModelCreating(builder);
@@ -36,5 +37,6 @@ namespace TheRealDealGym.Infrastructure.Data
         public DbSet<Booking> Bookings { get; set; } = null!;
         public DbSet<Class> Classes { get; set; } = null!;
         public DbSet<JobAdvert> JobAdverts { get; set; } = null!;
+        public DbSet<JobApplication> JobApplications { get; set; } = null!;
     }
 }
