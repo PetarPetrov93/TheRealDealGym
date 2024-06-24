@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 using System.ComponentModel.DataAnnotations;
 using static TheRealDealGym.Infrastructure.Constants.ValidationConstants.ForTrainer;
 
-namespace TheRealDealGym.Core.Models.Trainer
+namespace TheRealDealGym.Core.Models.Job
 {
     /// <summary>
-    /// This is the form  that a registered user needs to fill in order to apply for a trainer position.
-    /// If a user is not registered he is redirected to the register page and a message appears stating that he has to be registered on the platform in order to apply.
+    /// This ViewModel is used when a non-trainer user applies for a job.
     /// </summary>
-    public class JobApplicationModel
+    public class ApplicationFormModel
     {
+        
         [Required]
         [Range(MinAge, MaxAge)]
         public int Age { get; set; }

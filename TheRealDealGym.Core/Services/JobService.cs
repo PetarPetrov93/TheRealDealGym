@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
+using TheRealDealGym.Core.Models.Trainer;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
 
@@ -21,9 +22,11 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method returns a collection of all Jobs both active and unactive.
         /// </summary>
-        public async Task<IEnumerable<JobAdvertListModel>> AllJobsAsync()
+        public async Task<IEnumerable<JobAdvertListModel>> AllJobsAsync(Guid userId)
         {
             return await repository.AllReadOnly<JobAdvert>()
+                .Include(j => j.JobApplications)
+                .Where(j => j.JobApplications.Any(a => a.UserId == userId) == false)
                 .Select(j => new JobAdvertListModel()
                 {
                     Id = j.Id,
@@ -119,6 +122,40 @@ namespace TheRealDealGym.Core.Services
                     IsActive = j.IsActive
                 })
                 .FirstAsync();
+        }
+
+        /// <summary>
+        /// This method creates a new job application.
+        /// </summary>
+        public async Task CreateJobApplicationAsync(Guid jobAdvertId, Guid userId, ApplicationFormModel model)
+        {
+            var JobApplication = new JobApplication()
+            {
+                JobAdvertId = jobAdvertId,
+                UserId = userId,
+                Age = model.Age,
+                YearsOfExperience = model.YearsOfExperience,
+                Bio = model.Bio
+            };
+
+            await repository.AddAsync(JobApplication);
+            await repository.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// This method creates a new Trainer when a user is hired.
+        /// </summary>
+        public async Task MakeTrainerAsync(Guid userId, ApplicationFormModel trainerInfo)
+        {
+            await repository.AddAsync(new Trainer()
+            {
+                Age = trainerInfo.Age,
+                YearsOfExperience = trainerInfo.YearsOfExperience,
+                Bio = trainerInfo.Bio,
+                UserId = userId,
+            });
+
+            await repository.SaveChangesAsync();
         }
     }
 }

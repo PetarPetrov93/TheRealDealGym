@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Infrastructure.Data.Models;
@@ -24,7 +25,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await jobService.AllJobsAsync();
+            var model = await jobService.AllJobsAsync(User.GetId());
 
             return View(model);
         }

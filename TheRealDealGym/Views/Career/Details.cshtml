@@ -12,7 +12,7 @@
             <p style="font-size:25px;"><u>@Model.Title</u></p>
             <p>Job description: <b>@Model.Description</b></p>
             <div>
-                <form asp-controller="JobAdvert" asp-action="Edit" method="get">
+                <form asp-controller="Career" asp-action="Apply" method="get">
                     <input type="hidden" name="jobAdvertId" value="@Model.Id">
                     <button type="submit" class="btn btn-success">Apply</button>
                 </form>
