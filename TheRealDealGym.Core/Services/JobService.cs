@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
-using TheRealDealGym.Core.Models.Trainer;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
 
@@ -143,19 +142,41 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method creates a new Trainer when a user is hired.
+        /// This method is used when Hiring a new trainer.
         /// </summary>
-        public async Task MakeTrainerAsync(Guid userId, ApplicationFormModel trainerInfo)
+        public async Task HireTrainerAsync(Guid applicationId)
         {
-            await repository.AddAsync(new Trainer()
-            {
-                Age = trainerInfo.Age,
-                YearsOfExperience = trainerInfo.YearsOfExperience,
-                Bio = trainerInfo.Bio,
-                UserId = userId,
-            });
+            var jobApplication = await repository.GetByIdAsync<JobApplication>(applicationId);
 
-            await repository.SaveChangesAsync();
+            if (jobApplication != null)
+            {
+                await repository.AddAsync(new Trainer()
+                {
+                    Age = jobApplication.Age,
+                    YearsOfExperience = jobApplication.YearsOfExperience,
+                    Bio = jobApplication.Bio,
+                    UserId = jobApplication.UserId,
+                });
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// This method gets all applications in the Admin Review Applications view.
+        /// </summary>
+        public async Task<IEnumerable<ApplicationForApproveModel>> AllApplicationsAsync()
+        {
+            return await repository.AllReadOnly<JobApplication>()
+                .Select(j => new ApplicationForApproveModel()
+                {
+                    JobAdvertId = j.JobAdvertId,
+                    UserId = j.UserId,
+                    Age= j.Age,
+                    YearsOfExperience = j.YearsOfExperience,
+                    Bio = j.Bio
+                })
+                .ToListAsync();
         }
     }
 }

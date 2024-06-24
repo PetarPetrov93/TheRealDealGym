@@ -138,5 +138,16 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        /// <summary>
+        /// This action gets all the applications that are pending for approval in the Admin Review Applicaionts page.
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> AllApplications()
+        {
+            var model = await jobService.AllApplicationsAsync();
+
+            return View(model);
+        }
     }
 }

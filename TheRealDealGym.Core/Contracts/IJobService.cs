@@ -1,5 +1,4 @@
 ﻿using TheRealDealGym.Core.Models.Job;
-using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.Core.Contracts
 {
@@ -13,5 +12,7 @@ namespace TheRealDealGym.Core.Contracts
         Task<bool> ExistsByIdAsync(Guid jobId);
         Task<JobAdvertModel> GetByIdAsync(Guid jobId);
         Task CreateJobApplicationAsync(Guid jobAdvertId, Guid userId, ApplicationFormModel model);
+        Task HireTrainerAsync(Guid applicationId);
+        Task <IEnumerable<ApplicationForApproveModel>> AllApplicationsAsync();
     }
 }
