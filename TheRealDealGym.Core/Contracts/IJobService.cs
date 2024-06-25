@@ -4,7 +4,7 @@ namespace TheRealDealGym.Core.Contracts
 {
     public interface IJobService
     {
-        Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync(Guid userId);
+        Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync();
         Task<IEnumerable<JobAdvertListModel>> AllActiveJobAdvertsForUsersAsync(Guid userId);
         Task<Guid> CreateAsync(JobAdvertModel model);
         Task DeactivateAsync(Guid jobId);

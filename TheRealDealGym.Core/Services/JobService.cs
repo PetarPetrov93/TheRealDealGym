@@ -19,13 +19,12 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method returns a collection of all Jobs both active and unactive. It is used in the admin area to display all jobs currently created.
+        /// This method returns a collection of all Jobs both active and unactive.
+        /// It is used in the admin area to display all jobs currently created.
         /// </summary>
-        public async Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync(Guid userId)
+        public async Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync()
         {
             return await repository.AllReadOnly<JobAdvert>()
-                .Include(j => j.JobApplications)
-                .Where(j => j.JobApplications.Any(a => a.UserId == userId) == false)
                 .Select(j => new JobAdvertListModel()
                 {
                     Id = j.Id,
@@ -37,7 +36,9 @@ namespace TheRealDealGym.Core.Services
                 .ToListAsync();
         }
 
-
+        /// <summary>
+        /// This method gets all active job adverts which the user has not applied for.
+        /// </summary>
         public async Task<IEnumerable<JobAdvertListModel>> AllActiveJobAdvertsForUsersAsync(Guid userId)
         {
             return await repository.AllReadOnly<JobAdvert>()

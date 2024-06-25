@@ -25,7 +25,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await jobService.AllJobAdvertsForAdminAsync(User.GetId());
+            var model = await jobService.AllJobAdvertsForAdminAsync();
 
             return View(model);
         }
