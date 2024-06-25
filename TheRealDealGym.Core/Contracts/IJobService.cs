@@ -9,7 +9,8 @@ namespace TheRealDealGym.Core.Contracts
         Task DeactivateAsync(Guid jobId);
         Task ActivateAsync(Guid jobId);
         Task EditAsync(Guid jobId, JobAdvertModel model);
-        Task<bool> ExistsByIdAsync(Guid jobId);
+        Task<bool> JobAdvertExistsByIdAsync(Guid jobId);
+        Task<bool> JobApplicationExistsByIdAsync(Guid jobApplicationId);
         Task<JobAdvertModel> GetByIdAsync(Guid jobId);
         Task CreateJobApplicationAsync(Guid jobAdvertId, Guid userId, ApplicationFormModel model);
         Task HireTrainerAsync(Guid applicationId);

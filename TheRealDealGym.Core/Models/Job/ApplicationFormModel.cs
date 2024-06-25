@@ -16,6 +16,7 @@ namespace TheRealDealGym.Core.Models.Job
 
         [Required]
         [Range(MinYearsOfExperience, MaxYearsOfExperience)]
+        [Display(Name = "Years of Experience")]
         public int YearsOfExperience { get; set; }
 
         [Required]

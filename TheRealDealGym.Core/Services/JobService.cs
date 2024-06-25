@@ -100,7 +100,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method checks if a job advert with a given Id exists.
         /// </summary>
-        public async Task<bool> ExistsByIdAsync(Guid jobAdvertId)
+        public async Task<bool> JobAdvertExistsByIdAsync(Guid jobAdvertId)
         {
             return await repository.AllReadOnly<JobAdvert>()
                  .AnyAsync(j => j.Id == jobAdvertId);
@@ -142,14 +142,19 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method is used when Hiring a new trainer.
+        /// This method is used when Hiring a new trainer. It makes a user Trainer and clears his Bookings and AppliedJobs lists.
+        /// It also deletes the job application from JobApplication table.
         /// </summary>
-        public async Task HireTrainerAsync(Guid applicationId)
+        public async Task HireTrainerAsync(Guid jobApplicationId)
         {
-            var jobApplication = await repository.GetByIdAsync<JobApplication>(applicationId);
+            var jobApplication = await repository.GetByIdAsync<JobApplication>(jobApplicationId);
 
             if (jobApplication != null)
             {
+                var user = await repository.GetByIdAsync<ApplicationUser>(jobApplication.UserId);
+                user!.AppliedJobs.Clear();
+                user.Bookings.Clear();
+
                 await repository.AddAsync(new Trainer()
                 {
                     Age = jobApplication.Age,
@@ -158,6 +163,7 @@ namespace TheRealDealGym.Core.Services
                     UserId = jobApplication.UserId,
                 });
 
+                await repository.DeleteAsync<JobApplication>(jobApplicationId);
                 await repository.SaveChangesAsync();
             }
         }
@@ -170,13 +176,25 @@ namespace TheRealDealGym.Core.Services
             return await repository.AllReadOnly<JobApplication>()
                 .Select(j => new ApplicationForApproveModel()
                 {
+                    Id = j.Id,
                     JobAdvertId = j.JobAdvertId,
                     UserId = j.UserId,
+                    JobAdvertTitle = j.JobAdvert.Title,
+                    UserFullName = $"{j.User.FirstName} {j.User.LastName}",
                     Age= j.Age,
                     YearsOfExperience = j.YearsOfExperience,
                     Bio = j.Bio
                 })
                 .ToListAsync();
+        }
+
+        // <summary>
+        /// This method checks if a job application with a given Id exists.
+        /// </summary>
+        public async Task<bool> JobApplicationExistsByIdAsync(Guid jobApplicationId)
+        {
+            return await repository.AllReadOnly<JobApplication>()
+                 .AnyAsync(j => j.Id == jobApplicationId);
         }
     }
 }

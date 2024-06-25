@@ -7,16 +7,13 @@ namespace TheRealDealGym.Core.Models.Job
     /// </summary>
     public class ApplicationForApproveModel
     {
+        public Guid Id { get; set; }
         public Guid JobAdvertId { get; set; }
         public Guid UserId { get; set; }
-
-        [Display(Name ="Candidate Full Name")]
+        public string JobAdvertTitle { get; set; } = null!;
         public string UserFullName { get; set; } = null!;
         public int Age { get; set; }
-
-        [Display(Name ="Years of Experience")]
         public int YearsOfExperience { get; set; }
-
         public string Bio { get; set; } = null!;
     }
 }

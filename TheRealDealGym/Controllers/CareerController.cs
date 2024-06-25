@@ -28,7 +28,7 @@ namespace TheRealDealGym.Controllers
         /// This action gets all job adverts basic information.
         /// </summary>
         [HttpGet]
-        [AllowAnonymous]
+        [IsNotATrainer]
         public async Task<IActionResult> Index()
         {
             var model = await jobService.AllJobsAsync(User.GetId());
@@ -42,7 +42,7 @@ namespace TheRealDealGym.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(Guid jobAdvertId)
         {
-            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            if (await jobService.JobAdvertExistsByIdAsync(jobAdvertId) == false)
             {
                 return BadRequest();
             }

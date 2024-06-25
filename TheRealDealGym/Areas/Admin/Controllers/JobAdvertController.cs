@@ -60,7 +60,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid jobAdvertId)
         {
-            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            if (await jobService.JobAdvertExistsByIdAsync(jobAdvertId) == false)
             {
                 return BadRequest();
             }
@@ -76,7 +76,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Guid jobAdvertId, JobAdvertModel model)
         {
-            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            if (await jobService.JobAdvertExistsByIdAsync(jobAdvertId) == false)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Activate(Guid jobAdvertId)
         {
-            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            if (await jobService.JobAdvertExistsByIdAsync(jobAdvertId) == false)
             {
                 return BadRequest();
             }
@@ -113,7 +113,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Deactivate(Guid jobAdvertId)
         {
-            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            if (await jobService.JobAdvertExistsByIdAsync(jobAdvertId) == false)
             {
                 return BadRequest();
             }
@@ -129,7 +129,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(Guid jobAdvertId)
         {
-            if (await jobService.ExistsByIdAsync(jobAdvertId) == false)
+            if (await jobService.JobAdvertExistsByIdAsync(jobAdvertId) == false)
             {
                 return BadRequest();
             }
@@ -148,6 +148,29 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             var model = await jobService.AllApplicationsAsync();
 
             return View(model);
+        }
+
+        /// <summary>
+        /// This actions approves a candidate and makes him a trainer.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Approve(Guid jobApplicationId)
+        {
+            if (await jobService.JobApplicationExistsByIdAsync(jobApplicationId) == false)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await jobService.HireTrainerAsync(jobApplicationId);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(AllApplications), "JobAdvert");        
         }
     }
 }
