@@ -109,8 +109,20 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
-            return RedirectToAction(nameof(Details), new { classId = newClassId });
+            try
+            {
+                Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
+                return RedirectToAction(nameof(Details), new { classId = newClassId });
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("", ex.Message); // THIS LINE SHOULD BE CHANGED WITH TempData["ErrorMessage"] = ex.Message; WHEN IMPLEMENT TOASTR
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
+                return View(model);
+            }
+            
         }
 
         /// <summary>

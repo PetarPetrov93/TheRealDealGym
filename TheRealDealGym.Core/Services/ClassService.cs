@@ -168,6 +168,7 @@ namespace TheRealDealGym.Core.Services
 
         /// <summary>
         /// This method creates a new class.
+        /// It also checks if the room is available at this time slot and checks for potential overlapping with other classes.
         /// </summary>
         public async Task<Guid> CreateAsync(ClassFormModel model, Guid trainerId)
         {
@@ -181,6 +182,22 @@ namespace TheRealDealGym.Core.Services
                 DateAndTime = DateTime.Parse($"{model.Date} {model.Time}"),
                 TrainerId = trainerId
             };
+
+            var newClassDateTime = classToCreate.DateAndTime;
+
+            var overlappingClasses = await repository.AllReadOnly<Class>()
+                .Where(c => c.RoomId == model.RoomId &&
+                    (
+                     (c.DateAndTime < newClassDateTime && c.DateAndTime.AddMinutes(60) > newClassDateTime) ||
+                     (c.DateAndTime >= newClassDateTime && c.DateAndTime < newClassDateTime.AddMinutes(60))
+                    )
+                )
+                .ToListAsync();
+
+            if (overlappingClasses.Any())
+            {
+                throw new Exception("Selected room is not available for the chosen time slot.");
+            }
 
             await repository.AddAsync(classToCreate);
             await repository.SaveChangesAsync();
@@ -269,7 +286,7 @@ namespace TheRealDealGym.Core.Services
         public Task<bool> RoomExistsAsync(Guid roomId)
         {
             return repository.AllReadOnly<Room>()
-                .AnyAsync(r => r.Id ==  roomId);
+                .AnyAsync(r => r.Id == roomId);
         }
 
         /// <summary>
