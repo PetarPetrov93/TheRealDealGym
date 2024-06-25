@@ -10,7 +10,11 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
         {
             var data = new DataSeed();
 
-            builder.HasData(data.JobAdvert);
+            builder.HasData(new JobAdvert[]
+            {
+                data.JobAdvertActive,
+                data.JobAdvertInactive
+            });
         }
     }
 }

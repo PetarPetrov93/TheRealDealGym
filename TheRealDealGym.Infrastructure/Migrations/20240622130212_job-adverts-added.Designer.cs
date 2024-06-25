@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheRealDealGym.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TheRealDealGym.Infrastructure.Data;
 namespace TheRealDealGym.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240622130212_job-adverts-added")]
+    partial class jobadvertsadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,7 +287,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4d2959d8-8003-40e2-a85e-ddde8c3aed9e",
+                            ConcurrencyStamp = "0adf285e-ced7-4859-b9cf-eb74760c7e61",
                             Email = "FightingTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Trainer",
@@ -293,7 +295,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "FIGHTINGTRAINER@TRDG.COM",
                             NormalizedUserName = "FIGHTINGTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECpRc6smybhHHLsB6KH7QbUv1chTc+0CoNipYEuyX+xmiPrpNrCF4ko/iun06zBDNw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKLNFqZvRY9NWsDMhbWPpXqVq9Y9K6DvZsYng9WxmiWhKd9WVnLO3cX2tY3pH5N1tQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "78f47fd7-d3d5-4fa4-bedc-e1ce253f5f6f",
                             TwoFactorEnabled = false,
@@ -303,7 +305,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("c85209a1-3dec-4171-a17c-0d5203286df4"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa646f17-dab4-4ccb-a2e3-aab70f68ea83",
+                            ConcurrencyStamp = "54bbd941-3e60-4020-be33-4a9a20100b3a",
                             Email = "WaterTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Michael",
@@ -311,7 +313,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "WATERTRAINER@TRDG.COM",
                             NormalizedUserName = "WATERTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECdJkIJSiRPFqUcgxV8500FDjWQVvLNKXZHwfAS8rVi7P59VbaRTz8qKpakhBTswpA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEInECdejL3WrNpW5dbHuudLYZ+N/DJN4V6B4bqfLNRody4V5LxbppNAerL/i7UiXYQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "0cecaf15-dc12-427f-8118-5f537802d729",
                             TwoFactorEnabled = false,
@@ -321,7 +323,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("06c362f9-c953-4507-a4ba-f53bd9e920f9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "170eb9c6-3607-42d3-a6e2-19f1ca6fa2db",
+                            ConcurrencyStamp = "7b5eff68-f03b-45f2-81cf-e164157a2d9e",
                             Email = "StretchingTrainer@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Katie",
@@ -329,7 +331,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STRETCHINGTRAINER@TRDG.COM",
                             NormalizedUserName = "STRETCHINGTRAINER@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHRt60H6tHag8lh75c1BA5SoRbaqEDXaWKkrDfpKnYjBaJrfSOSQ5dIrTRJGEeAiMA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELiaRmN3Z5dsSvUCBSlpwm2rmr317lcGoosD/eMHgHoYk/LK5FCVx7AmwWCoz0kVLg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5160ac97-f58f-479a-9d26-6b1caa75bad5",
                             TwoFactorEnabled = false,
@@ -339,7 +341,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("d0e351a5-b55d-4fd0-a0f3-d011c415f5ef"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "972b31df-10fe-4601-a99f-813cd3404569",
+                            ConcurrencyStamp = "a041cf16-d75e-4f8f-9596-7889c2af6763",
                             Email = "firstGuest@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Pete",
@@ -347,7 +349,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "FIRSTGUEST@TRDG.COM",
                             NormalizedUserName = "FIRSTGUEST@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE8LHTfakGqPYTcluLkKLm+m9BgF14Z421LIdHXOfvRls/qaW9zRjCrMFzoahoTPzA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN2kVnU3jagXcd3HCzxpYVNrZdwERb2Fz0L0PQYBSY4nsMlNq8CVwelJ0Yg/suG8ig==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "e7326130-1924-49a0-9912-e1f874200182",
                             TwoFactorEnabled = false,
@@ -357,7 +359,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("ce0dc4d9-e723-4df4-8cb0-80d8afc9122a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a204b029-2a22-42dd-990b-93b3a1549341",
+                            ConcurrencyStamp = "fffea464-e16d-4cfb-9e1d-b0ec8cea4029",
                             Email = "secondGuest@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Stella",
@@ -365,7 +367,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SECONDGUEST@TRDG.COM",
                             NormalizedUserName = "SECONDGUEST@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENfwtZ4Ra7qkSO9CtI3I8uZ6Xrmh3H9tgzrUQ+F1MDRXG8tqL/bnq0QP9HwTUIKFdw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHT8jdIq5zHFIaU5UtxIIBw7K5VyWyXqQ6qCMCvDamRU79BPoyUKBSIkC3/F4rGEIA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "bae0779c-fe46-4361-a8b4-2e5e5b705e64",
                             TwoFactorEnabled = false,
@@ -375,7 +377,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                         {
                             Id = new Guid("42b0f438-188e-4a5c-b379-e6256e6f4584"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e4b5f3c-de17-4537-9b9b-b591e756760a",
+                            ConcurrencyStamp = "ba1d1043-04fa-41e0-ae23-e7acc64b1da8",
                             Email = "admin@trdg.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -383,7 +385,7 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TRDG.COM",
                             NormalizedUserName = "ADMIN@TRDG.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECHVtVlduL44howBlaR3RhAILrhfv4p/u7X+CODUKHsr6vWqWyc6Mf22bSNyuI58xg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC4xZjVjaSWToPDZ8TlOIgZtfUuPuTsG4TzhhK9uW29+I6tjJLdRA+6Zg7XzAgm0aQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "62f2b46f-f90f-44bb-94fd-9cd7fc523047",
                             TwoFactorEnabled = false,
@@ -566,48 +568,6 @@ namespace TheRealDealGym.Infrastructure.Migrations
                             IsActive = false,
                             Title = "CrossFit coach full time"
                         });
-                });
-
-            modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.JobApplication", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("JobApplication identifier");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int")
-                        .HasComment("Applicant's age");
-
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)")
-                        .HasComment("More information about the applicant (Biography)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Serves a soft delete purpose");
-
-                    b.Property<Guid>("JobAdvertId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Foreign key to ApplicationUser");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Foreign key to ApplicationUser");
-
-                    b.Property<int>("YearsOfExperience")
-                        .HasColumnType("int")
-                        .HasComment("Applicant's years of experience.");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobAdvertId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("JobApplications");
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Room", b =>
@@ -879,25 +839,6 @@ namespace TheRealDealGym.Infrastructure.Migrations
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.JobApplication", b =>
-                {
-                    b.HasOne("TheRealDealGym.Infrastructure.Data.Models.JobAdvert", "JobAdvert")
-                        .WithMany("JobApplications")
-                        .HasForeignKey("JobAdvertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TheRealDealGym.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany("AppliedJobs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobAdvert");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Trainer", b =>
                 {
                     b.HasOne("TheRealDealGym.Infrastructure.Data.Models.ApplicationUser", "User")
@@ -911,8 +852,6 @@ namespace TheRealDealGym.Infrastructure.Migrations
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("AppliedJobs");
-
                     b.Navigation("Bookings");
 
                     b.Navigation("Trainer");
@@ -921,11 +860,6 @@ namespace TheRealDealGym.Infrastructure.Migrations
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Class", b =>
                 {
                     b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.JobAdvert", b =>
-                {
-                    b.Navigation("JobApplications");
                 });
 
             modelBuilder.Entity("TheRealDealGym.Infrastructure.Data.Models.Room", b =>

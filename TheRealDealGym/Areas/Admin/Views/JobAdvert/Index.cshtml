@@ -1,0 +1,61 @@
+﻿@model IEnumerable<JobAdvertListModel>
+
+@{
+    ViewBag.Title = "Jobs";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div>
+    <form asp-controller="JobAdvert" asp-action="Add" method="get">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Job Title</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            <tr>
+                <td><label>@job.Title</label></td>
+                <td>
+                    <form asp-controller="JobAdvert" asp-action="Details" method="get">
+                        <input type="hidden" name="jobAdvertId" value="@job.Id">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="JobAdvert" asp-action="Edit" method="get">
+                        <input type="hidden" name="jobAdvertId" value="@job.Id">
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                    </form>
+                </td>
+                @if (job.IsActive == true)
+                {
+                    <td>
+                        <form asp-controller="JobAdvert" asp-action="Deactivate" method="post">
+                            <input type="hidden" name="jobAdvertId" value="@job.Id">
+                            <button type="submit" class="btn btn-danger">Deactivate</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <form asp-controller="JobAdvert" asp-action="Activate" method="post">
+                            <input type="hidden" name="jobAdvertId" value="@job.Id">
+                            <button type="submit" class="btn btn-success">Activate</button>
+                        </form>
+                    </td>
+                }
+                
+            </tr>
+        }
+    </tbody>
+</table>

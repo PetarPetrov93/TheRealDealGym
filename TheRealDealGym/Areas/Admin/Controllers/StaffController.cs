@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
-using TheRealDealGym.Core.Services;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {

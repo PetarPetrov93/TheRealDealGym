@@ -1,4 +1,5 @@
-﻿<ul class="navbar-nav flex-grow-1">
+﻿@inject ITrainerService trainerService;
+<ul class="navbar-nav flex-grow-1">
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
     </li>
@@ -6,18 +7,27 @@
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Career" asp-action="Index">Careers</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Class" asp-action="Index">Schedule</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="Index">My Profile</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">My Bookings</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Class" asp-action="Add">Add Class</a>
-    </li>
+    @if (this.User?.Identity?.IsAuthenticated ?? false)
+    {
+        @if (await trainerService.ExistsByUserIdAsync(User.GetId()))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Trainer" asp-action="Index">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Class" asp-action="Add">Add Class</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Career" asp-action="Index">Careers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">My Bookings</a>
+            </li>
+        }
+    }
 </ul>

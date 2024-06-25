@@ -6,10 +6,10 @@ namespace TheRealDealGym.Core.Contracts
     {
         Task<bool> ExistsByUserIdAsync(Guid userId);
         Task<bool> ExistsByTrainerIdAsync(Guid trainerId);
-        Task CreateAsync(Guid userId, JobApplicationModel trainerInfo);
         Task<Guid?> GetTrainerIdAsync(Guid userId);
         Task<TrainerDetailsModel> GetTrainerDetailsAsync(Guid trainerId);
         Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid? trainerId);
         Task<IEnumerable<TrainerNameModel>> AllTrainersAsync();
+        Task EditAsync(Guid trainerId, TrainerDetailsModel model);
     }
 }

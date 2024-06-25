@@ -30,14 +30,16 @@
                 {
                     if (await classService.HasTrainerWithIdAsync(Model.Id, User.GetId()) || User.IsAdmin())
                     {
-                        <form asp-controller="Class" asp-action="Edit" method="get">
-                            <input type="hidden" name="classId" value="@Model.Id">
-                            <button type="submit" class="btn btn-warning">Edit</button>
-                        </form>
-                        <form asp-controller="Class" asp-action="Delete" method="get">
-                            <input type="hidden" name="classId" value="@Model.Id">
-                            <button type="submit" class="btn btn-danger">Delete class</button>
-                        </form>
+                        <div class="d-flex">
+                            <form asp-controller="Class" asp-action="Edit" method="get">
+                                <input type="hidden" name="classId" value="@Model.Id">
+                                <button type="submit" class="btn btn-warning me-4">Edit</button>
+                            </form>
+                            <form asp-controller="Class" asp-action="Delete" method="get">
+                                <input type="hidden" name="classId" value="@Model.Id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                     }
                     <p></p>
                     var bookingId = await bookingService.GetBookingIdAsync(User.GetId(), Model.Id);
@@ -56,14 +58,6 @@
                         </form>
                     }
                 }
-            </div>
-            <p></p>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Agent Info</h5>
-                    <p class="card-text">Email:  MAY USE THIS</p>
-                    <p class="card-text">Phone Number: MAY USE THIS</p>
-                </div>
             </div>
         </div>
     </div>

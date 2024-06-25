@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ApplicationForApproveModel>
+@{
+    ViewData["Title"] = "Applications";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (Model.Any() == false)
+{
+    <h3 class="text-center">There are currently no candidates applied for any position!</h3>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h3>@item.JobAdvertTitle</h3>
+                    <h4>@item.UserFullName</h4>
+                    <h6>Age: <b>@item.Age</b></h6>
+                    <h6>Years of Experience: <b>@item.YearsOfExperience</b></h6>
+                    <h6>Bio: <b>@item.Bio</b></h6>
+                    <br />
+                    <form asp-controller="JobAdvert" asp-action="Approve" method="post">
+                        <input type="hidden" name="jobApplicationId" value="@item.Id">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <p></p>
+                    <form asp-controller="JobAdvert" asp-action="Reject" method="post">
+                        <input type="hidden" name="jobApplicationId" value="@item.Id">
+                        <input class="btn btn-danger" type="submit" value="Reject" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

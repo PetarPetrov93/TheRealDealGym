@@ -14,8 +14,8 @@
         }
         public static class ForRoom
         {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 40;
+            public const int TypeMinLength = 2;
+            public const int TypeMaxLength = 40;
             public const int MinCapacity = 1;
             public const int MaxCapacity = 40;
         }

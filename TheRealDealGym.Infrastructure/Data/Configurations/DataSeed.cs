@@ -14,6 +14,7 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
             SeedRooms();
             SeedClasses();
             SeedBookings();
+            SeedJobAdverts();
         }
 
         public ApplicationUser AdminUser {  get; set; }
@@ -52,7 +53,8 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
 
         public Booking BookingMuayThai { get; set; }
 
-        public JobAdvert JobAdvert { get; set; }
+        public JobAdvert JobAdvertActive { get; set; }
+        public JobAdvert JobAdvertInactive { get; set; }
 
         private void SeedUsers()
         {
@@ -344,11 +346,19 @@ namespace TheRealDealGym.Infrastructure.Data.Configurations
 
         public void SeedJobAdverts()
         {
-            JobAdvert = new JobAdvert()
+            JobAdvertActive = new JobAdvert()
             {
                 Id = new Guid("d53d3db8-5856-48a0-a739-eefd609aee1e"),
                 Title = "Fitness coach full time",
                 Description = "We are looking for a motivated and experienced fitness coach for a position in our great team."
+            };
+
+            JobAdvertInactive = new JobAdvert()
+            {
+                Id = new Guid("73d5830c-73bc-4d1f-9533-1d44fd4621e5"),
+                Title = "CrossFit coach full time",
+                Description = "We are looking for a motivated and experienced CrossFit coach for a position in our great team.",
+                IsActive = false
             };
         }
     }

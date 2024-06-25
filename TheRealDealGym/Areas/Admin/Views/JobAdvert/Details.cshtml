@@ -1,0 +1,47 @@
+﻿@model JobAdvertModel
+@{
+    ViewBag.Title = "Job Advert Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>Job description: <b>@Model.Description</b></p>
+            <p>
+                Status:
+                @if (Model.IsActive)
+                {
+                    <b>Active</b>
+                }
+                else
+                {
+                    <b>Inactive</b>
+                }
+            </p>
+            <div class="form-inline">
+                <form asp-controller="JobAdvert" asp-action="Edit" method="get">
+                    <input type="hidden" name="jobAdvertId" value="@Model.Id">
+                    <button type="submit" class="btn btn-warning">Edit</button>
+                </form>
+                @if (Model.IsActive == true)
+                {
+                    <form asp-controller="JobAdvert" asp-action="Deactivate" method="post">
+                        <input type="hidden" name="jobAdvertId" value="@Model.Id">
+                        <button type="submit" class="btn btn-danger">Deactivate</button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="JobAdvert" asp-action="Activate" method="post">
+                        <input type="hidden" name="jobAdvertId" value="@Model.Id">
+                        <button type="submit" class="btn btn-success">Activate</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

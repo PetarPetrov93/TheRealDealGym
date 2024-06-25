@@ -16,6 +16,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IClassService, ClassService>();
             services.AddScoped<ITrainerService, TrainerService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<ISportService, SportService>();
+            services.AddScoped<IJobService, JobService>();
             return services;
         }
 

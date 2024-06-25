@@ -50,22 +50,6 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method creates a new Trainer.
-        /// </summary>
-        public async Task CreateAsync(Guid userId, JobApplicationModel trainerInfo)
-        {
-            await repository.AddAsync(new Trainer()
-            {
-                Age = trainerInfo.Age,
-                YearsOfExperience = trainerInfo.YearsOfExperience,
-                Bio = trainerInfo.Bio,
-                UserId = userId,
-            });
-
-            await repository.SaveChangesAsync();
-        }
-
-        /// <summary>
         /// This method checks if a trainer exists by a given UserId.
         /// </summary>
         public async Task<bool> ExistsByUserIdAsync(Guid userId)
@@ -106,6 +90,22 @@ namespace TheRealDealGym.Core.Services
                 Bio = trainer.Bio,
                 UserId = trainer.UserId,
             };
+        }
+
+        /// <summary>
+        /// This method edits the trainers information.
+        /// </summary>
+        public async Task EditAsync(Guid trainerId, TrainerDetailsModel model)
+        {
+            var trainer = await repository.GetByIdAsync<Trainer>(trainerId);
+
+            if (trainer != null)
+            {
+                trainer.Age = model.Age;
+                trainer.YearsOfExperience = model.YearsOfExperience;
+                trainer.Bio = model.Bio;
+                await repository.SaveChangesAsync();
+            }
         }
     }
 }

@@ -1,12 +1,31 @@
-﻿@{
-    ViewData["Title"] = "Careers page";
+﻿@model IEnumerable<JobAdvertListModel>
+@{
+    ViewData["Title"] = "Careers";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This will be the page which displays the available positions (if any)</h1>
-    
-    <p>Dedicated to managing job openings, applications, and the application lifecycle.</p>
-    <p>There should be Details button showing more information about the job.</p>
-    <p>There should be Apply button which would open an application form the applicant should fill and submit.</p>
-    <p>NOTE: Admin area should also have Career controller where the admin will make decisions on candidates which have applied.</p>
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (Model.Any() == false)
+{
+    <h3 class="text-center">There are currently no open positions!</h3>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h4>@item.Title</h4>
+                    <br />
+                    <form asp-controller="Career" asp-action="Details" method="get">
+                        <input type="hidden" name="jobAdvertId" value="@item.Id">
+                        <button type="submit" class="btn btn-primary">Details</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    }
 </div>
