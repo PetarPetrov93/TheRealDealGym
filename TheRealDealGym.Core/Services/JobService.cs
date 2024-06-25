@@ -19,9 +19,9 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
-        /// This method returns a collection of all Jobs both active and unactive.
+        /// This method returns a collection of all Jobs both active and unactive. It is used in the admin area to display all jobs currently created.
         /// </summary>
-        public async Task<IEnumerable<JobAdvertListModel>> AllJobsAsync(Guid userId)
+        public async Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync(Guid userId)
         {
             return await repository.AllReadOnly<JobAdvert>()
                 .Include(j => j.JobApplications)
@@ -34,6 +34,21 @@ namespace TheRealDealGym.Core.Services
                 })
                 .OrderByDescending(j => j.IsActive)
                 .ThenBy(j => j.Title)
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<JobAdvertListModel>> AllActiveJobAdvertsForUsersAsync(Guid userId)
+        {
+            return await repository.AllReadOnly<JobAdvert>()
+                .Include(j => j.JobApplications)
+                .Where(j => j.JobApplications.Any(a => a.UserId == userId) == false && j.IsActive)
+                .Select(j => new JobAdvertListModel()
+                {
+                    Id = j.Id,
+                    Title = j.Title
+                })
+                .OrderBy(j => j.Title)
                 .ToListAsync();
         }
 

@@ -31,7 +31,7 @@ namespace TheRealDealGym.Controllers
         [IsNotATrainer]
         public async Task<IActionResult> Index()
         {
-            var model = await jobService.AllJobsAsync(User.GetId());
+            var model = await jobService.AllActiveJobAdvertsForUsersAsync(User.GetId());
 
             return View(model);
         }
