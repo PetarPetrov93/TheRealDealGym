@@ -282,6 +282,23 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method checks if there are available spaces to book for a given class.
+        /// </summary>
+        public async Task<bool> HasAvailableSpacesAsync(Guid classId)
+        {
+            var currClass = await repository.AllReadOnly<Class>()
+                .Where(c => c.Id == classId)
+                .Include(c => c.Room)
+                .FirstAsync();
+
+            if (currClass!.Room.Capacity - BookingsForCurrentClass(classId) == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// This private method gets the count of all bookings made for a given class so far.
         /// </summary>
         private int BookingsForCurrentClass(Guid classId)
@@ -290,5 +307,6 @@ namespace TheRealDealGym.Core.Services
                 .Where(b => b.ClassId == classId)
                 .Count();
         }
+
     }
 }

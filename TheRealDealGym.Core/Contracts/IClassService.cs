@@ -36,5 +36,6 @@ namespace TheRealDealGym.Core.Contracts
         Task<Guid> CreateAsync(ClassFormModel model, Guid trainerId);
 
         Task DeleteAsync(Guid classId);
+        Task<bool> HasAvailableSpacesAsync(Guid classId);
     }
 }
