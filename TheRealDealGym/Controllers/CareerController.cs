@@ -47,7 +47,7 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            var model = await jobService.GetByIdAsync(jobAdvertId);
+            var model = await jobService.GetJobAdvertByIdAsync(jobAdvertId);
 
             return View(model);
         }
@@ -59,7 +59,7 @@ namespace TheRealDealGym.Controllers
         [IsNotATrainer]
         public async Task<IActionResult> Apply(Guid jobAdvertId)
         {
-            var jobAdvert = await jobService.GetByIdAsync(jobAdvertId);
+            var jobAdvert = await jobService.GetJobAdvertByIdAsync(jobAdvertId);
             if (jobAdvert == null)
             {
                 return NotFound();

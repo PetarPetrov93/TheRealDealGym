@@ -109,7 +109,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method finds and returns a job advert by a given Id
         /// </summary>
-        public async Task<JobAdvertModel> GetByIdAsync(Guid jobAdvertId)
+        public async Task<JobAdvertModel> GetJobAdvertByIdAsync(Guid jobAdvertId)
         {
             return await repository.AllReadOnly<JobAdvert>()
                 .Where(j => j.Id == jobAdvertId)
@@ -162,6 +162,23 @@ namespace TheRealDealGym.Core.Services
                     Bio = jobApplication.Bio,
                     UserId = jobApplication.UserId,
                 });
+
+                await repository.DeleteAsync<JobApplication>(jobApplicationId);
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// this method rejects the applicant.
+        /// </summary>
+        public async Task RejectApplicantAsync(Guid jobApplicationId)
+        {
+            var jobApplication = await repository.GetByIdAsync<JobApplication>(jobApplicationId);
+
+            if (jobApplication != null)
+            {
+                var user = await repository.GetByIdAsync<ApplicationUser>(jobApplication.UserId);
+                user!.AppliedJobs.Remove(jobApplication);
 
                 await repository.DeleteAsync<JobApplication>(jobApplicationId);
                 await repository.SaveChangesAsync();

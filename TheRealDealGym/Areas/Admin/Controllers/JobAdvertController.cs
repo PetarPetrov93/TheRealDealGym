@@ -65,7 +65,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
-            var model = await jobService.GetByIdAsync(jobAdvertId);
+            var model = await jobService.GetJobAdvertByIdAsync(jobAdvertId);
 
             return View(model);
         }
@@ -134,7 +134,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
-            var model = await jobService.GetByIdAsync(jobAdvertId);
+            var model = await jobService.GetJobAdvertByIdAsync(jobAdvertId);
 
             return View(model);
         }
@@ -171,6 +171,29 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             return RedirectToAction(nameof(AllApplications), "JobAdvert");        
+        }
+
+        /// <summary>
+        /// This actions rejects a candidate for the given position.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Reject(Guid jobApplicationId)
+        {
+            if (await jobService.JobApplicationExistsByIdAsync(jobApplicationId) == false)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await jobService.RejectApplicantAsync(jobApplicationId);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(AllApplications), "JobAdvert");
         }
     }
 }
