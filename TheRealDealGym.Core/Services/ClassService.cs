@@ -230,6 +230,23 @@ namespace TheRealDealGym.Core.Services
                 classToEdit.RoomId = model.RoomId;
                 classToEdit.DateAndTime = DateTime.Parse($"{model.Date} {model.Time}");
 
+                var newClassDateTime = classToEdit.DateAndTime;
+
+                var overlappingClasses = await repository.AllReadOnly<Class>()
+                    .Where(c => c.RoomId == model.RoomId &&
+                           c.Id != classId &&
+                        (
+                         (c.DateAndTime < newClassDateTime && c.DateAndTime.AddMinutes(60) > newClassDateTime) ||
+                         (c.DateAndTime >= newClassDateTime && c.DateAndTime < newClassDateTime.AddMinutes(60))
+                        )
+                    )
+                    .ToListAsync();
+
+                if (overlappingClasses.Any())
+                {
+                    throw new Exception("Selected room is not available for the chosen time slot.");
+                }
+
                 await repository.SaveChangesAsync();
             }
         }
