@@ -1,4 +1,5 @@
-﻿using TheRealDealGym.Core.Models.Trainer;
+﻿using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Trainer;
 
 namespace TheRealDealGym.Core.Contracts
 {
@@ -9,7 +10,9 @@ namespace TheRealDealGym.Core.Contracts
         Task<Guid?> GetTrainerIdAsync(Guid userId);
         Task<TrainerDetailsModel> GetTrainerDetailsAsync(Guid trainerId);
         Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid? trainerId);
-        Task<IEnumerable<TrainerNameModel>> AllTrainersAsync();
+        Task<TrainerQueryModel> AllTrainersAsync(StaffSorting sorting = StaffSorting.NameAscending,
+            int currentPage = 1,
+            int trainersPerPage = 10);
         Task EditAsync(Guid trainerId, TrainerDetailsModel model);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Trainer;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -19,9 +20,16 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This action gets all the trainers full names.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllTrainersQueryModel model)
         {
-            var model = await trainerService.AllTrainersAsync();
+            var trainers = await trainerService.AllTrainersAsync(
+                model.OrderBy,
+                model.CurrentPage,
+                model.TrainersPerPage);
+
+            model.TotalTrainersCount = trainers.TrainersCount;
+            model.Trainers = trainers.Trainers;
+
             return View(model);
         }
 

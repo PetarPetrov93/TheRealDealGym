@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Sport;
 using TheRealDealGym.Core.Models.Trainer;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
@@ -37,16 +39,39 @@ namespace TheRealDealGym.Core.Services
 
         /// <summary>
         /// This method returns a collection of the full names of all trainers.
+        /// It also sorts by name asc/desc.
         /// </summary>
-        public async Task<IEnumerable<TrainerNameModel>> AllTrainersAsync()
+        public async Task<TrainerQueryModel> AllTrainersAsync(StaffSorting sorting = StaffSorting.NameAscending,
+            int currentPage = 1,
+            int trainersPerPage = 10)
         {
-            return await repository.AllReadOnly<Trainer>()
+            var trainersToShow = repository.AllReadOnly<Trainer>();
+
+
+            trainersToShow = sorting switch
+            {
+                StaffSorting.NameAscending => trainersToShow.OrderBy(t => t.User.FirstName).ThenBy(t => t.User.LastName),
+                StaffSorting.NameDescending => trainersToShow.OrderByDescending(t => t.User.FirstName).ThenByDescending(t => t.User.LastName),
+                _ => trainersToShow.OrderBy(t => t.User.FirstName).ThenBy(t => t.User.LastName)
+            };
+
+            var trainers = await trainersToShow
+                .Skip((currentPage - 1) * trainersPerPage)
+                .Take(trainersPerPage)
                 .Select(t => new TrainerNameModel()
                 {
                     Id = t.Id,
                     FullName = $"{t.User.FirstName} {t.User.LastName}"
                 })
                 .ToListAsync();
+
+            int totalTrainers = await trainersToShow.CountAsync();
+
+            return new TrainerQueryModel()
+            {
+                Trainers = trainers,
+                TrainersCount = totalTrainers
+            };
         }
 
         /// <summary>

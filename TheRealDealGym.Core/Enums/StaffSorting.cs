@@ -2,7 +2,7 @@
 {
     public enum StaffSorting
     {
-        TitleAscending = 0,
-        TitleDescending = 1
+        NameAscending = 0,
+        NameDescending = 1
     }
 }
