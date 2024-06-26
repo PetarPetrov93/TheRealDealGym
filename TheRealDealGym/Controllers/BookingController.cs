@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheRealDealGym.Attributes;
-using TheRealDealGym.Core.Constants;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Booking;
 using static TheRealDealGym.Core.Constants.MessageConstants;
@@ -63,6 +61,7 @@ namespace TheRealDealGym.Controllers
             try
             {
                 await bookingService.CancelBookingAsync(bookingId);
+                TempData[MessageError] = "You have successfully cacnelled your booking for this activity!";
                 return RedirectToAction("Index", "Class");
             }
             catch (Exception)
@@ -70,13 +69,6 @@ namespace TheRealDealGym.Controllers
 
                 return StatusCode(500);
             }
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Info()
-        {
-            return View();
         }
     }
 }

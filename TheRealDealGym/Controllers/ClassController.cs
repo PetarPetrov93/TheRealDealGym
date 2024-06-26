@@ -4,7 +4,7 @@ using System.Security.Claims;
 using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Class;
-using TheRealDealGym.Infrastructure.Data.Models;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Controllers
 {
@@ -112,14 +112,16 @@ namespace TheRealDealGym.Controllers
             try
             {
                 Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
+
+                TempData[MessageSuccess] = "You have successfully added a new class!";
                 return RedirectToAction(nameof(Details), new { classId = newClassId });
             }
             catch (Exception ex)
             {
 
-                ModelState.AddModelError("", ex.Message); // THIS LINE SHOULD BE CHANGED WITH TempData["ErrorMessage"] = ex.Message; WHEN IMPLEMENT TOASTR
                 model.Rooms = await classService.AllRoomAsync();
                 model.Sports = await classService.AllSportAsync();
+                TempData[MessageError] = ex.Message;
                 return View(model);
             }
             
@@ -186,14 +188,15 @@ namespace TheRealDealGym.Controllers
             {
                 await classService.EditAsync(classId, model);
 
+                TempData[MessageSuccess] = "You have successfully eddited this class!";
                 return RedirectToAction(nameof(Details), new { classId });
             }
             catch (Exception ex)
             {
 
-                ModelState.AddModelError("", ex.Message); // THIS LINE SHOULD BE CHANGED WITH TempData["ErrorMessage"] = ex.Message; WHEN IMPLEMENT TOASTR
                 model.Rooms = await classService.AllRoomAsync();
                 model.Sports = await classService.AllSportAsync();
+                TempData[MessageError] = ex.Message;
                 return View(model);
             }
             
@@ -255,14 +258,8 @@ namespace TheRealDealGym.Controllers
 
             await classService.DeleteAsync(model.Id);
 
+            TempData[MessageSuccess] = "You have successfully deleted this class!";
             return RedirectToAction("Index","Trainer");
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Info()
-        {
-            return View();
         }
     }
 }

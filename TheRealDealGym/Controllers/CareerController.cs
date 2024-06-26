@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Infrastructure.Data.Models;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Controllers
 {
@@ -98,6 +98,7 @@ namespace TheRealDealGym.Controllers
 
             await jobService.CreateJobApplicationAsync(jobAdvertId, User.GetId(), model);
 
+            TempData[MessageSuccess] = "You have successfully applied for this role!";
             return RedirectToAction(nameof(Index), "Career");
         }
 
