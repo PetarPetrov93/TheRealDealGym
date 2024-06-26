@@ -22,9 +22,10 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method returns a collection of all Jobs both active and unactive.
         /// It is used in the admin area to display all jobs currently created.
+        /// It also provides sorting and filtering functionality.
         /// </summary>
         public async Task<JobAdvertQueryModel> AllJobAdvertsForAdminAsync(string? category = null,
-            JobAdvertsSorting sorting = JobAdvertsSorting.TitleAscending,
+            JobAdvertSorting sorting = JobAdvertSorting.TitleAscending,
             int currentPage = 1,
             int jobAdvertsPerPage = 10)
         {
@@ -43,8 +44,8 @@ namespace TheRealDealGym.Core.Services
 
             jobAdvertsToShow = sorting switch
             {
-                JobAdvertsSorting.TitleAscending => jobAdvertsToShow.OrderBy(j => j.Title),
-                JobAdvertsSorting.TitleDescending => jobAdvertsToShow.OrderByDescending(j => j.Title),
+                JobAdvertSorting.TitleAscending => jobAdvertsToShow.OrderBy(j => j.Title),
+                JobAdvertSorting.TitleDescending => jobAdvertsToShow.OrderByDescending(j => j.Title),
                 _ => jobAdvertsToShow.OrderBy(j => j.Title)
             };
 

@@ -10,7 +10,7 @@ namespace TheRealDealGym.Core.Models.Job
         public string Status { get; set; } = null!;
 
         [Display(Name = "Order by")]
-        public JobAdvertsSorting OrderBy { get; set; }
+        public JobAdvertSorting OrderBy { get; set; }
 
         public int CurrentPage { get; set; } = 1;
 

@@ -26,14 +26,14 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] AllJobAdvertsQueryModel model)
         {
-            var classes = await jobService.AllJobAdvertsForAdminAsync(
+            var jobAdverts = await jobService.AllJobAdvertsForAdminAsync(
                 model.Status,
                 model.OrderBy,
                 model.CurrentPage,
                 model.JobsPerPage);
 
-            model.TotalJobAdvertsCount = classes.TotalJobAdvertsCount;
-            model.JobAdverts = classes.JobAdverts;
+            model.TotalJobAdvertsCount = jobAdverts.TotalJobAdvertsCount;
+            model.JobAdverts = jobAdverts.JobAdverts;
             model.Categories = new List<string>() { "Active", "Inactive"};
 
             return View(model);

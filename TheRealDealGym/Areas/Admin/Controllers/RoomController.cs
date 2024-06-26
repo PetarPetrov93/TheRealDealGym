@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Core.Models.Room;
+using TheRealDealGym.Core.Services;
 using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
@@ -22,9 +24,15 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This action gets all rooms information.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllRoomsQueryModel model)
         {
-            var model = await roomService.AllRoomsAsync();
+            var rooms = await roomService.AllRoomsAsync(
+                model.OrderBy,
+                model.CurrentPage,
+                model.RoomsPerPage);
+
+            model.TotalRoomsCount = rooms.RoomsCount;
+            model.Rooms = rooms.Rooms;
 
             return View(model);
         }

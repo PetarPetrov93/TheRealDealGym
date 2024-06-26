@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
-using TheRealDealGym.Core.Models.Class;
+using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Core.Models.Room;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
@@ -21,18 +22,42 @@ namespace TheRealDealGym.Core.Services
 
         /// <summary>
         /// This method returns a collection of all rooms currently created.
+        /// It also provides sorting functionality.
         /// </summary>
-        public async Task<IEnumerable<RoomServiceModel>> AllRoomsAsync()
+        public async Task<RoomQueryModel> AllRoomsAsync(RoomSotring sorting = RoomSotring.TitleAscending,
+            int currentPage = 1,
+            int roomsPerPage = 10)
         {
-            return await repository.AllReadOnly<Room>()
+            var roomsToShow = repository.AllReadOnly<Room>();
+
+            
+            roomsToShow = sorting switch
+            {
+                RoomSotring.TitleAscending => roomsToShow.OrderBy(r => r.Type),
+                RoomSotring.TitleDescending => roomsToShow.OrderByDescending(r => r.Type),
+                RoomSotring.CapacityDescending => roomsToShow.OrderByDescending(r => r.Capacity),
+                RoomSotring.CapacityAscending => roomsToShow.OrderBy(r => r.Capacity),
+                _ => roomsToShow.OrderBy(r => r.Type)
+            };
+
+            var rooms = await roomsToShow
+                .Skip((currentPage - 1) * roomsPerPage)
+                .Take(roomsPerPage)
                 .Select(r => new RoomServiceModel()
                 {
                     Id = r.Id,
                     Type = r.Type,
                     Capacity = r.Capacity
                 })
-                .OrderBy(r => r.Type)
                 .ToListAsync();
+
+            int totalRooms = await roomsToShow.CountAsync();
+
+            return new RoomQueryModel()
+            {
+                Rooms = rooms,
+                RoomsCount = totalRooms,
+            };
         }
 
         /// <summary>

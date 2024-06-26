@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheRealDealGym.Core.Enums
 {
-    public enum JobAdvertsSorting
+    public enum JobAdvertSorting
     {
         TitleAscending = 0,
         TitleDescending = 1

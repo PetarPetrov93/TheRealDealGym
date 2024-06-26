@@ -6,7 +6,7 @@ namespace TheRealDealGym.Core.Contracts
     public interface IJobService
     {
         Task<JobAdvertQueryModel> AllJobAdvertsForAdminAsync(string? category = null,
-            JobAdvertsSorting sorting = JobAdvertsSorting.TitleAscending,
+            JobAdvertSorting sorting = JobAdvertSorting.TitleAscending,
             int currentPage = 1,
             int jobAdvertsPerPage = 10);
         Task<IEnumerable<JobAdvertListModel>> AllActiveJobAdvertsForUsersAsync(Guid userId);
