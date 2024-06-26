@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Room;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -49,6 +50,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             Guid newRoom = await roomService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "You have successfully added a new room!";
             return RedirectToAction(nameof(Index), "Room");
         }
 
@@ -87,6 +90,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await roomService.EditAsync(roomId, model);
 
+            TempData[MessageWarning] = "You have successfully editted this room!";
             return RedirectToAction(nameof(Index), "Room");
         }
 
@@ -103,6 +107,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await roomService.DeleteAsync(roomId);
 
+            TempData[MessageError] = "You have successfully deleted this room!";
             return RedirectToAction(nameof(Index), "Room");
         }
     }

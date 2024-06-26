@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Sport;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -49,6 +50,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             Guid newSport = await sportService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "You have successfully added a new sport!";
             return RedirectToAction(nameof(Index), "Sport");
         }
 
@@ -86,6 +89,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await sportService.EditAsync(sportId, model);
 
+            TempData[MessageWarning] = "You have successfully editted this sport!";
             return RedirectToAction(nameof(Index), "Sport");
         }
 
@@ -102,6 +106,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await sportService.DeleteAsync(sportId);
 
+            TempData[MessageError] = "You have successfully deleted this sport!";
             return RedirectToAction(nameof(Index), "Sport");
         }
     }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
-using TheRealDealGym.Infrastructure.Data.Models;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -51,6 +50,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             Guid newJobAdvert = await jobService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "You have successfully added new job advert!";
             return RedirectToAction(nameof(Index), "JobAdvert");
         }
 
@@ -88,6 +89,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.EditAsync(jobAdvertId, model);
 
+            TempData[MessageWarning] = "You have successfully editted this job advert!";
             return RedirectToAction(nameof(Details), new { jobAdvertId });
         }
 
@@ -104,6 +106,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.ActivateAsync(jobAdvertId);
 
+            TempData[MessageSuccess] = "You have successfully activated this job advert!";
             return RedirectToAction(nameof(Index), "JobAdvert");
         }
 
@@ -120,6 +123,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.DeactivateAsync(jobAdvertId);
 
+            TempData[MessageError] = "You have successfully deactivated this job advert!";
             return RedirectToAction(nameof(Index), "JobAdvert");
         }
 
@@ -170,6 +174,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
+            TempData[MessageSuccess] = "You have successfully approved this candidate!";
             return RedirectToAction(nameof(AllApplications), "JobAdvert");        
         }
 
@@ -193,6 +198,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
+            TempData[MessageError] = "You have rejected this candidate!";
             return RedirectToAction(nameof(AllApplications), "JobAdvert");
         }
     }
