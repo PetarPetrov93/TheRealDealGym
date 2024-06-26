@@ -83,7 +83,7 @@ namespace TheRealDealGym.Controllers
 
             await trainerService.EditAsync(trainerId, model);
 
-            TempData[MessageSuccess] = "You have successfully editted your information!";
+            TempData[MessageWarning] = "You have successfully edited your information!";
             return RedirectToAction(nameof(Index), "Trainer");
         }
     }

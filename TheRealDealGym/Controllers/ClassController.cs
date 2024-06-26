@@ -188,7 +188,7 @@ namespace TheRealDealGym.Controllers
             {
                 await classService.EditAsync(classId, model);
 
-                TempData[MessageSuccess] = "You have successfully eddited this class!";
+                TempData[MessageWarning] = "You have successfully edited this class!";
                 return RedirectToAction(nameof(Details), new { classId });
             }
             catch (Exception ex)
@@ -258,7 +258,7 @@ namespace TheRealDealGym.Controllers
 
             await classService.DeleteAsync(model.Id);
 
-            TempData[MessageSuccess] = "You have successfully deleted this class!";
+            TempData[MessageError] = "You have successfully deleted this class!";
             return RedirectToAction("Index","Trainer");
         }
     }

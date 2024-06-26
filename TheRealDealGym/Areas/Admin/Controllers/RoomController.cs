@@ -90,7 +90,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await roomService.EditAsync(roomId, model);
 
-            TempData[MessageWarning] = "You have successfully editted this room!";
+            TempData[MessageWarning] = "You have successfully edited this room!";
             return RedirectToAction(nameof(Index), "Room");
         }
 

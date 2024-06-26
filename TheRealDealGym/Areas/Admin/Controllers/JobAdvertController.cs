@@ -89,7 +89,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.EditAsync(jobAdvertId, model);
 
-            TempData[MessageWarning] = "You have successfully editted this job advert!";
+            TempData[MessageWarning] = "You have successfully edited this job advert!";
             return RedirectToAction(nameof(Details), new { jobAdvertId });
         }
 
