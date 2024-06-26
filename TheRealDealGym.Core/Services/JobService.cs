@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
@@ -22,18 +23,49 @@ namespace TheRealDealGym.Core.Services
         /// This method returns a collection of all Jobs both active and unactive.
         /// It is used in the admin area to display all jobs currently created.
         /// </summary>
-        public async Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync()
+        public async Task<JobAdvertQueryModel> AllJobAdvertsForAdminAsync(string? category = null,
+            JobAdvertsSorting sorting = JobAdvertsSorting.TitleAscending,
+            int currentPage = 1,
+            int jobAdvertsPerPage = 10)
         {
-            return await repository.AllReadOnly<JobAdvert>()
+            var jobAdvertsToShow = repository.AllReadOnly<JobAdvert>();
+
+            if (category == "Active")
+            {
+                jobAdvertsToShow = jobAdvertsToShow
+                    .Where(j => j.IsActive);
+            }
+            else if (category == "Inactive")
+            {
+                jobAdvertsToShow = jobAdvertsToShow
+                    .Where(j => j.IsActive == false);
+            }
+
+            jobAdvertsToShow = sorting switch
+            {
+                JobAdvertsSorting.TitleAscending => jobAdvertsToShow.OrderBy(j => j.Title),
+                JobAdvertsSorting.TitleDescending => jobAdvertsToShow.OrderByDescending(j => j.Title),
+                _ => jobAdvertsToShow.OrderBy(j => j.Title)
+            };
+
+            var jobAdverts = await jobAdvertsToShow
+                .Skip((currentPage - 1) * jobAdvertsPerPage)
+                .Take(jobAdvertsPerPage)
                 .Select(j => new JobAdvertListModel()
                 {
                     Id = j.Id,
                     Title = j.Title,
-                    IsActive = j.IsActive,
+                    IsActive = j.IsActive
                 })
-                .OrderByDescending(j => j.IsActive)
-                .ThenBy(j => j.Title)
                 .ToListAsync();
+
+            int totalJobAdverts = await jobAdvertsToShow.CountAsync();
+
+            return new JobAdvertQueryModel()
+            {
+                JobAdverts = jobAdverts,
+                TotalJobAdvertsCount = totalJobAdverts,
+            };
         }
 
         /// <summary>

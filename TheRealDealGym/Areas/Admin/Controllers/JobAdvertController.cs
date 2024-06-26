@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Job;
+using TheRealDealGym.Core.Services;
 using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
@@ -22,9 +24,17 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This action gets all job adverts basic information.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllJobAdvertsQueryModel model)
         {
-            var model = await jobService.AllJobAdvertsForAdminAsync();
+            var classes = await jobService.AllJobAdvertsForAdminAsync(
+                model.Category,
+                model.Sorting,
+                model.CurrentPage,
+                model.JobsPerPage);
+
+            model.TotalJobAdvertsCount = classes.TotalJobAdvertsCount;
+            model.JobAdverts = classes.JobAdverts;
+            model.Categories = new List<string>() { "Active", "Inactive"};
 
             return View(model);
         }

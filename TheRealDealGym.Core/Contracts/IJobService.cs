@@ -1,10 +1,14 @@
-﻿using TheRealDealGym.Core.Models.Job;
+﻿using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Job;
 
 namespace TheRealDealGym.Core.Contracts
 {
     public interface IJobService
     {
-        Task<IEnumerable<JobAdvertListModel>> AllJobAdvertsForAdminAsync();
+        Task<JobAdvertQueryModel> AllJobAdvertsForAdminAsync(string? category = null,
+            JobAdvertsSorting sorting = JobAdvertsSorting.TitleAscending,
+            int currentPage = 1,
+            int jobAdvertsPerPage = 10);
         Task<IEnumerable<JobAdvertListModel>> AllActiveJobAdvertsForUsersAsync(Guid userId);
         Task<Guid> CreateAsync(JobAdvertModel model);
         Task DeactivateAsync(Guid jobId);

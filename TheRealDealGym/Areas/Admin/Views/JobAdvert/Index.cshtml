@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JobAdvertListModel>
+﻿@model AllJobAdvertsQueryModel
 
 @{
     ViewBag.Title = "Jobs";
@@ -13,6 +13,77 @@
     </form>
 </div>
 
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Title Ascending</option>
+                    <option value="1">Title Descending</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalJobAdvertsCount /
+        Model.JobsPerPage);
+}
+
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="JobAdvert"
+           asp-action="Index"
+           asp-route-currentPage="@previousPage"
+           asp-route-category="@Model.Category"
+           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    </div>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.JobAdverts.Any();
+    }
+
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+           @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="JobAdvert"
+           asp-action="Index"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-category="@Model.Category"
+           asp-route-sorting="@((int)Model.Sorting)">>></a>
+    </div>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -20,7 +91,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var job in Model)
+        @foreach (var job in Model.JobAdverts)
         {
             <tr>
                 <td><label>@job.Title</label></td>
