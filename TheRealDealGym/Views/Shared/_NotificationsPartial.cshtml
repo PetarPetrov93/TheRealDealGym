@@ -9,13 +9,13 @@
 @if (TempData[MessageWarning] != null)
 {
     <script defer>
-        message.showSuccess('@TempData[MessageWarning]');
+        message.showWarning('@TempData[MessageWarning]');
     </script>
 }
 @if (TempData[MessageError] != null)
 {
     <script defer>
-        message.showSuccess('@TempData[MessageError]');
+        message.showError('@TempData[MessageError]');
     </script>
 }
 
