@@ -1,4 +1,5 @@
-﻿using TheRealDealGym.Core.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using TheRealDealGym.Core.Enums;
 
 namespace TheRealDealGym.Core.Models.Job
 {
@@ -6,9 +7,10 @@ namespace TheRealDealGym.Core.Models.Job
     {
         public int JobsPerPage { get; } = 10;
 
-        public string Category { get; set; } = null!;
+        public string Status { get; set; } = null!;
 
-        public JobAdvertsSorting Sorting { get; set; }
+        [Display(Name = "Order by")]
+        public JobAdvertsSorting OrderBy { get; set; }
 
         public int CurrentPage { get; set; } = 1;
 

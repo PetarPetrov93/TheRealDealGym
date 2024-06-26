@@ -27,8 +27,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         public async Task<IActionResult> Index([FromQuery] AllJobAdvertsQueryModel model)
         {
             var classes = await jobService.AllJobAdvertsForAdminAsync(
-                model.Category,
-                model.Sorting,
+                model.Status,
+                model.OrderBy,
                 model.CurrentPage,
                 model.JobsPerPage);
 
