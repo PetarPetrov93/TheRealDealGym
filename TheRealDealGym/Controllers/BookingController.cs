@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheRealDealGym.Attributes;
+using TheRealDealGym.Core.Constants;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Booking;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Controllers
 {
@@ -47,6 +49,8 @@ namespace TheRealDealGym.Controllers
             }
 
             await bookingService.BookAsync(classId, userId);
+
+            TempData[MessageSuccess] = "You have successfully signed up for this activity!";
             return RedirectToAction("Index", "Class");
         }
 
