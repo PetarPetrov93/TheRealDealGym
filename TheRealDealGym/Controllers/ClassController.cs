@@ -4,7 +4,7 @@ using System.Security.Claims;
 using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Class;
-using TheRealDealGym.Infrastructure.Data.Models;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Controllers
 {
@@ -109,8 +109,22 @@ namespace TheRealDealGym.Controllers
                 return BadRequest();
             }
 
-            Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
-            return RedirectToAction(nameof(Details), new { classId = newClassId });
+            try
+            {
+                Guid newClassId = await classService.CreateAsync(model, trainerId.Value);
+
+                TempData[MessageSuccess] = "You have successfully added a new class!";
+                return RedirectToAction(nameof(Details), new { classId = newClassId });
+            }
+            catch (Exception ex)
+            {
+
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
+                TempData[MessageError] = ex.Message;
+                return View(model);
+            }
+            
         }
 
         /// <summary>
@@ -170,9 +184,22 @@ namespace TheRealDealGym.Controllers
                 return View(model);
             }
 
-            await classService.EditAsync(classId, model);
+            try
+            {
+                await classService.EditAsync(classId, model);
 
-            return RedirectToAction(nameof(Details), new { classId });
+                TempData[MessageWarning] = "You have successfully edited this class!";
+                return RedirectToAction(nameof(Details), new { classId });
+            }
+            catch (Exception ex)
+            {
+
+                model.Rooms = await classService.AllRoomAsync();
+                model.Sports = await classService.AllSportAsync();
+                TempData[MessageError] = ex.Message;
+                return View(model);
+            }
+            
         }
 
         /// <summary>
@@ -231,14 +258,8 @@ namespace TheRealDealGym.Controllers
 
             await classService.DeleteAsync(model.Id);
 
+            TempData[MessageError] = "You have successfully deleted this class!";
             return RedirectToAction("Index","Trainer");
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Info()
-        {
-            return View();
         }
     }
 }

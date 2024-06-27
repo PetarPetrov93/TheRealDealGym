@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Room;
 using TheRealDealGym.Core.Models.Sport;
 using TheRealDealGym.Infrastructure.Data.Common;
@@ -21,17 +22,39 @@ namespace TheRealDealGym.Core.Services
 
         /// <summary>
         /// This method returns a collection of all Sports currently created.
+        /// It also sorts the Sports by name asc/desc.
         /// </summary>
-        public async Task<IEnumerable<SportInfoModel>> AllSportsAsync()
+        public async Task<SportQueryModel> AllSportsAsync(SportSorting sorting = SportSorting.TitleAscending,
+            int currentPage = 1,
+            int sportsPerPage = 10)
         {
-            return await repository.AllReadOnly<Sport>()
+            var sportsToShow = repository.AllReadOnly<Sport>();
+
+
+            sportsToShow = sorting switch
+            {
+                SportSorting.TitleAscending => sportsToShow.OrderBy(s => s.Title),
+                SportSorting.TitleDescending => sportsToShow.OrderByDescending(s => s.Title),
+                _ => sportsToShow.OrderBy(s => s.Title)
+            };
+
+            var sports = await sportsToShow
+                .Skip((currentPage - 1) * sportsPerPage)
+                .Take(sportsPerPage)
                 .Select(s => new SportInfoModel()
                 {
                     Id = s.Id,
                     Title = s.Title
                 })
-                .OrderBy(s => s.Title)
                 .ToListAsync();
+
+            int totalRooms = await sportsToShow.CountAsync();
+
+            return new SportQueryModel()
+            {
+                Sports = sports,
+                SportsCount = totalRooms
+            };
         }
 
         /// <summary>

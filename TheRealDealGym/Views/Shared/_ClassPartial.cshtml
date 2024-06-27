@@ -35,13 +35,21 @@
                     }
                     <p></p>
                     var bookingId = await bookingService.GetBookingIdAsync(User.GetId(), Model.Id);
+
                     @if (await bookingService.ExistsByIdAsync(bookingId) == false && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
                     {
-                        <form asp-controller="Booking" asp-action="Book" method="post">
-                            <input type="hidden" name="classId" value="@Model.Id">
-                            <button type="submit" class="btn btn-success">Book</button>
-                        </form>
-                    }
+                        @if (await classService.HasAvailableSpacesAsync(Model.Id))
+                        {
+                            <form asp-controller="Booking" asp-action="Book" method="post">
+                                <input type="hidden" name="classId" value="@Model.Id">
+                                <button type="submit" class="btn btn-success">Book</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span>Class fully booked!</span>
+                        }
+                }
                     else if (await bookingService.ExistsByIdAsync(bookingId) && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
                     {
                         <form asp-controller="Booking" asp-action="CancelBooking" method="post">

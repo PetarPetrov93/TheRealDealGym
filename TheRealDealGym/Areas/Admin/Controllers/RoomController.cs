@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Core.Models.Room;
+using TheRealDealGym.Core.Services;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -21,9 +24,15 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This action gets all rooms information.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllRoomsQueryModel model)
         {
-            var model = await roomService.AllRoomsAsync();
+            var rooms = await roomService.AllRoomsAsync(
+                model.OrderBy,
+                model.CurrentPage,
+                model.RoomsPerPage);
+
+            model.TotalRoomsCount = rooms.RoomsCount;
+            model.Rooms = rooms.Rooms;
 
             return View(model);
         }
@@ -49,6 +58,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             Guid newRoom = await roomService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "You have successfully added a new room!";
             return RedirectToAction(nameof(Index), "Room");
         }
 
@@ -87,6 +98,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await roomService.EditAsync(roomId, model);
 
+            TempData[MessageWarning] = "You have successfully edited this room!";
             return RedirectToAction(nameof(Index), "Room");
         }
 
@@ -103,6 +115,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await roomService.DeleteAsync(roomId);
 
+            TempData[MessageError] = "You have successfully deleted this room!";
             return RedirectToAction(nameof(Index), "Room");
         }
     }

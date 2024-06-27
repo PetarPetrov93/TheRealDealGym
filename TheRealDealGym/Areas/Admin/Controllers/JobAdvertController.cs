@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Job;
-using TheRealDealGym.Infrastructure.Data.Models;
+using TheRealDealGym.Core.Services;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -23,9 +24,17 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This action gets all job adverts basic information.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllJobAdvertsQueryModel model)
         {
-            var model = await jobService.AllJobAdvertsForAdminAsync();
+            var jobAdverts = await jobService.AllJobAdvertsForAdminAsync(
+                model.Status,
+                model.OrderBy,
+                model.CurrentPage,
+                model.JobsPerPage);
+
+            model.TotalJobAdvertsCount = jobAdverts.TotalJobAdvertsCount;
+            model.JobAdverts = jobAdverts.JobAdverts;
+            model.Categories = new List<string>() { "Active", "Inactive"};
 
             return View(model);
         }
@@ -51,6 +60,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             Guid newJobAdvert = await jobService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "You have successfully added new job advert!";
             return RedirectToAction(nameof(Index), "JobAdvert");
         }
 
@@ -88,6 +99,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.EditAsync(jobAdvertId, model);
 
+            TempData[MessageWarning] = "You have successfully edited this job advert!";
             return RedirectToAction(nameof(Details), new { jobAdvertId });
         }
 
@@ -104,6 +116,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.ActivateAsync(jobAdvertId);
 
+            TempData[MessageSuccess] = "You have successfully activated this job advert!";
             return RedirectToAction(nameof(Index), "JobAdvert");
         }
 
@@ -120,6 +133,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await jobService.DeactivateAsync(jobAdvertId);
 
+            TempData[MessageError] = "You have successfully deactivated this job advert!";
             return RedirectToAction(nameof(Index), "JobAdvert");
         }
 
@@ -170,6 +184,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
+            TempData[MessageSuccess] = "You have successfully approved this candidate!";
             return RedirectToAction(nameof(AllApplications), "JobAdvert");        
         }
 
@@ -193,6 +208,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
+            TempData[MessageError] = "You have rejected this candidate!";
             return RedirectToAction(nameof(AllApplications), "JobAdvert");
         }
     }

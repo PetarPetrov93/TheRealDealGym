@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Models.Room;
 using TheRealDealGym.Core.Models.Sport;
+using TheRealDealGym.Core.Services;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -21,9 +24,15 @@ namespace TheRealDealGym.Areas.Admin.Controllers
         /// This action gets all sports names.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllSportsQueryModel model)
         {
-            var model = await sportService.AllSportsAsync();
+            var sports = await sportService.AllSportsAsync(
+                model.OrderBy,
+                model.CurrentPage,
+                model.SportsPerPage);
+
+            model.TotalSportsCount = sports.SportsCount;
+            model.Sports = sports.Sports;
 
             return View(model);
         }
@@ -49,6 +58,8 @@ namespace TheRealDealGym.Areas.Admin.Controllers
             }
 
             Guid newSport = await sportService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "You have successfully added a new sport!";
             return RedirectToAction(nameof(Index), "Sport");
         }
 
@@ -86,6 +97,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await sportService.EditAsync(sportId, model);
 
+            TempData[MessageWarning] = "You have successfully edited this sport!";
             return RedirectToAction(nameof(Index), "Sport");
         }
 
@@ -102,6 +114,7 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             await sportService.DeleteAsync(sportId);
 
+            TempData[MessageError] = "You have successfully deleted this sport!";
             return RedirectToAction(nameof(Index), "Sport");
         }
     }

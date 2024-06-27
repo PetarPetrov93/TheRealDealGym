@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheRealDealGym.Attributes;
 using TheRealDealGym.Core.Contracts;
-using TheRealDealGym.Core.Models.Room;
 using TheRealDealGym.Core.Models.Trainer;
-using TheRealDealGym.Core.Services;
-using static TheRealDealGym.Core.Constants.AdminConstants;
+using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Controllers
 {
@@ -86,14 +83,8 @@ namespace TheRealDealGym.Controllers
 
             await trainerService.EditAsync(trainerId, model);
 
+            TempData[MessageWarning] = "You have successfully edited your information!";
             return RedirectToAction(nameof(Index), "Trainer");
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Info()
-        {
-            return View();
         }
     }
 }

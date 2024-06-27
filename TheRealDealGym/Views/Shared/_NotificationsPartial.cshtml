@@ -1,0 +1,21 @@
+﻿﻿@using static TheRealDealGym.Core.Constants.MessageConstants;
+
+@if(TempData[MessageSuccess] != null)
+{
+    <script defer>
+        message.showSuccess('@TempData[MessageSuccess]');
+    </script>
+}
+@if (TempData[MessageWarning] != null)
+{
+    <script defer>
+        message.showWarning('@TempData[MessageWarning]');
+    </script>
+}
+@if (TempData[MessageError] != null)
+{
+    <script defer>
+        message.showError('@TempData[MessageError]');
+    </script>
+}
+
