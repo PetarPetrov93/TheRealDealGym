@@ -24,7 +24,7 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         public async Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid? trainerId)
         {
-            await ExpireClasses(Guid? trainerId);
+            await ExpireClasses(trainerId);
             return await repository.AllReadOnly<Class>()
                 .Where(c => c.TrainerId == trainerId)
                 .Select(c => new TrainerClassModel()
