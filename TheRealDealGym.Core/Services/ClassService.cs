@@ -199,6 +199,11 @@ namespace TheRealDealGym.Core.Services
                 throw new Exception("Selected room is not available for the chosen time slot.");
             }
 
+            if (newClassDateTime <= DateTimeOffset.Now)
+            {
+                throw new Exception("Please set a valid date and time for this class.");
+            }
+
             await repository.AddAsync(classToCreate);
             await repository.SaveChangesAsync();
 
@@ -245,6 +250,11 @@ namespace TheRealDealGym.Core.Services
                 if (overlappingClasses.Any())
                 {
                     throw new Exception("Selected room is not available for the chosen time slot.");
+                }
+
+                if (newClassDateTime <= DateTimeOffset.Now)
+                {
+                    throw new Exception("Please set a valid date and time for this class.");
                 }
 
                 await repository.SaveChangesAsync();
@@ -342,5 +352,19 @@ namespace TheRealDealGym.Core.Services
                 .Count();
         }
 
+        /// <summary>
+        /// This method expires classes which due date and time has passed.
+        /// </summary>
+        private async Task ExpireClasses()
+        {
+            var expiredClasses = repository.AllReadOnly<Class>()
+                .Where(c => c.DateAndTime < DateTime.UtcNow);
+
+            foreach (var expiredClass in expiredClasses)
+            {
+               await repository.DeleteAsync<Class>(expiredClass.Id);
+            }
+
+        }
     }
 }
