@@ -26,6 +26,7 @@ namespace TheRealDealGym.Core.Services
         {
             await ExpireClasses(trainerId);
             return await repository.AllReadOnly<Class>()
+                .OrderBy(c => c.DateAndTime)
                 .Where(c => c.TrainerId == trainerId)
                 .Select(c => new TrainerClassModel()
                 {
