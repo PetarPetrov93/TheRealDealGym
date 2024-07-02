@@ -24,6 +24,7 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         public async Task<IEnumerable<TrainerClassModel>> AllTrainerClassesAsync(Guid? trainerId)
         {
+            await ExpireClasses(Guid? trainerId);
             return await repository.AllReadOnly<Class>()
                 .Where(c => c.TrainerId == trainerId)
                 .Select(c => new TrainerClassModel()
@@ -128,6 +129,24 @@ namespace TheRealDealGym.Core.Services
                 trainer.Age = model.Age;
                 trainer.YearsOfExperience = model.YearsOfExperience;
                 trainer.Bio = model.Bio;
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// This method expires classes which due date and time has passed.
+        /// </summary>
+        private async Task ExpireClasses(Guid? trainerId)
+        {
+            var allClasses = await repository.AllReadOnly<Class>()
+                .Where(c => c.TrainerId == trainerId)
+                .ToListAsync();
+            allClasses = allClasses
+                .Where(c => c.DateAndTime < DateTimeOffset.Now).ToList();
+
+            foreach (var currClass in allClasses)
+            {
+                await repository.DeleteAsync<Class>(currClass.Id);
                 await repository.SaveChangesAsync();
             }
         }
