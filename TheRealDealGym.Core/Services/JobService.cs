@@ -251,6 +251,7 @@ namespace TheRealDealGym.Core.Services
                     YearsOfExperience = j.YearsOfExperience,
                     Bio = j.Bio
                 })
+                .OrderBy(j => j.JobAdvertTitle)
                 .ToListAsync();
         }
 
