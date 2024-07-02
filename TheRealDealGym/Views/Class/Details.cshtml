@@ -61,7 +61,7 @@
                     {
                         <form asp-controller="Booking" asp-action="CancelBooking" method="post">
                             <input type="hidden" name="bookingId" value="(@await bookingService.GetBookingIdAsync(User.GetId(), Model.Id))">
-                            <input class="btn btn-warning" type="submit" value="Cancel" />
+                            <input class="btn btn-warning" type="submit" value="Cancel" onclick="return confirm('Are you sure you want to cancel this booking?')" />
                         </form>
                     }
                 }
