@@ -27,6 +27,7 @@ namespace TheRealDealGym.Core.Services
             return await repository.AllReadOnly<Booking>()
                 .Where(b => b.UserId == userId)
                 .Include(b => b.Class)
+                .OrderBy(b =>b.Class.DateAndTime)
                 .Select(b => new BookingModel()
                 {
                     Id = b.Id,
