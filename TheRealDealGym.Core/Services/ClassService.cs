@@ -31,6 +31,7 @@ namespace TheRealDealGym.Core.Services
             int currentPage = 1,
             int classesPerPage = 3)
         {
+            await ExpireClasses();
             var classesToShow = repository.AllReadOnly<Class>();
 
             if (sportTitle != null)
@@ -357,14 +358,15 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         private async Task ExpireClasses()
         {
-            var expiredClasses = repository.AllReadOnly<Class>()
-                .Where(c => c.DateAndTime < DateTime.UtcNow);
+            var allClasses = await repository.AllReadOnly<Class>().ToListAsync();
+            allClasses = allClasses
+                .Where(c => c.DateAndTime < DateTimeOffset.Now).ToList();
 
-            foreach (var expiredClass in expiredClasses)
+            foreach (var currClass in allClasses)
             {
-               await repository.DeleteAsync<Class>(expiredClass.Id);
+                await repository.DeleteAsync<Class>(currClass.Id);
+                await repository.SaveChangesAsync();
             }
-
         }
     }
 }

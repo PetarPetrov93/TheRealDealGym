@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
-using TheRealDealGym.Core.Models.Sport;
 using TheRealDealGym.Core.Models.Trainer;
 using TheRealDealGym.Infrastructure.Data.Common;
 using TheRealDealGym.Infrastructure.Data.Models;
