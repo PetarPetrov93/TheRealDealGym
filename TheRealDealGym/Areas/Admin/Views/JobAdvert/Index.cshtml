@@ -112,7 +112,7 @@
                     <td>
                         <form asp-controller="JobAdvert" asp-action="Deactivate" method="post">
                             <input type="hidden" name="jobAdvertId" value="@job.Id">
-                            <button type="submit" class="btn btn-danger">Deactivate</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to deactivate: @job.Title?')">Deactivate</button>
                         </form>
                     </td>
                 }
@@ -121,7 +121,7 @@
                     <td>
                         <form asp-controller="JobAdvert" asp-action="Activate" method="post">
                             <input type="hidden" name="jobAdvertId" value="@job.Id">
-                            <button type="submit" class="btn btn-success">Activate</button>
+                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to activate: @job.Title?')">Activate</button>
                         </form>
                     </td>
                 }

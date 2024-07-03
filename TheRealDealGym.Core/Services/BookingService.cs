@@ -23,9 +23,11 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         public async Task<IEnumerable<BookingModel>> AllUserBookingsAsync(Guid userId)
         {
+            await ExpireClasses(userId);
             return await repository.AllReadOnly<Booking>()
                 .Where(b => b.UserId == userId)
                 .Include(b => b.Class)
+                .OrderBy(b =>b.Class.DateAndTime)
                 .Select(b => new BookingModel()
                 {
                     Id = b.Id,
@@ -99,5 +101,21 @@ namespace TheRealDealGym.Core.Services
             return existingBooking != null;
         }
 
+        /// <summary>
+        /// This method expires classes which due date and time has passed.
+        /// </summary>
+        private async Task ExpireClasses(Guid userId)
+        {
+            var allClasses = await repository.AllReadOnly<Class>()
+                .ToListAsync();
+            allClasses = allClasses
+                .Where(c => c.DateAndTime < DateTimeOffset.Now).ToList();
+
+            foreach (var currClass in allClasses)
+            {
+                await repository.DeleteAsync<Class>(currClass.Id);
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }

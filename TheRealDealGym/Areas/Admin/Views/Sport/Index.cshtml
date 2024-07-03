@@ -87,7 +87,7 @@
                 <td>
                     <form asp-controller="Sport" asp-action="Delete" method="post">
                         <input type="hidden" name="sportId" value="@sport.Id">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete: @sport.Title?')">Delete</button>
                     </form>
                 </td>
             </tr>
