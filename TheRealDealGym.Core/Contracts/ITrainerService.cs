@@ -14,5 +14,6 @@ namespace TheRealDealGym.Core.Contracts
             int currentPage = 1,
             int trainersPerPage = 10);
         Task EditAsync(Guid trainerId, TrainerDetailsModel model);
+        Task<Guid> GetUserIdByTrainerIdAsync(Guid trainerId);
     }
 }

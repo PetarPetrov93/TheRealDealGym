@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Trainer;
+using TheRealDealGym.Infrastructure.Data.Models;
+using static TheRealDealGym.Core.Constants.AdminConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
 {
@@ -8,12 +12,13 @@ namespace TheRealDealGym.Areas.Admin.Controllers
     {
         private readonly ITrainerService trainerService;
         private readonly IUserService userService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public StaffController(ITrainerService _trainerService, IUserService _userService)
+        public StaffController(ITrainerService _trainerService, IUserService _userService, UserManager<ApplicationUser> _userManager)
         {
             trainerService = _trainerService;
             userService = _userService;
-
+            userManager = _userManager;
         }
 
         /// <summary>
@@ -49,5 +54,35 @@ namespace TheRealDealGym.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        /// <summary>
+        /// This action makes a Trainer admin.
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> MakeAdmin(Guid trainerId)
+        {
+            if (User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await trainerService.ExistsByTrainerIdAsync(trainerId) == false)
+            {
+                return BadRequest();
+            }
+
+            var userId = await trainerService.GetUserIdByTrainerIdAsync(trainerId);
+
+            var trainer = await userManager.FindByIdAsync(userId.ToString());
+
+            if (await userManager.IsInRoleAsync(trainer, AdminRole))
+            {
+                return BadRequest();
+            }
+
+            await userManager.AddToRoleAsync(trainer, AdminRole);
+
+            return RedirectToAction(nameof(Index), "Staff");
+        } 
     }
 }
