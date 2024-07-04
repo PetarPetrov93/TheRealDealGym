@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TheRealDealGym.Core.Models.Home;
 using TheRealDealGym.Models;
 
 namespace TheRealDealGym.Controllers
@@ -21,7 +22,9 @@ namespace TheRealDealGym.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var imageList = new List<string>() { "Gym.jpeg", "Yoga.jpeg", "Grappling.jpeg", "Boxing.jpeg", "Swimming pool.jpeg" };
+            var model = new HomeViewModel { Images = imageList };
+            return View(model);
         }
 
         [AllowAnonymous]
