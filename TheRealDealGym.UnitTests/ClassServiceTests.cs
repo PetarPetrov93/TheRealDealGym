@@ -31,10 +31,10 @@ namespace TheRealDealGym.UnitTests
         [Test]
         public async Task AllAsyncReturnsAllClasses()
         {
-            var repo = new Repository(applicationDbContext);
-            classService = new ClassService(repo);
+            repository = new Repository(applicationDbContext);
+            classService = new ClassService(repository);
 
-            await repo.AddAsync(new Class()
+            await repository.AddAsync(new Class()
             {
                 Id = Guid.Parse("4d7eadef-b3ad-4fe2-b9b2-ff9c0a9bf9e6"),
                 Title = "",
@@ -45,7 +45,7 @@ namespace TheRealDealGym.UnitTests
                 RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
                 SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
             });
-            await repo.AddAsync(new Class()
+            await repository.AddAsync(new Class()
             {
                 Id = Guid.Parse("18f264d7-4715-4119-b11a-ff41be6fe491"),
                 Title = "",
@@ -57,7 +57,7 @@ namespace TheRealDealGym.UnitTests
                 SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8")
             });
 
-            await repo.SaveChangesAsync();
+            await repository.SaveChangesAsync();
             var allClasses = await classService.AllAsync();
 
             Assert.That(3, Is.EqualTo(allClasses.TotalClassesCount));
