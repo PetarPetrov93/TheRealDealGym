@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System.Globalization;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Class;
