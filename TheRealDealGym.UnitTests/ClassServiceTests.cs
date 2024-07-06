@@ -26,6 +26,9 @@ namespace TheRealDealGym.UnitTests
 
             applicationDbContext.Database.EnsureDeleted();
             applicationDbContext.Database.EnsureCreated();
+
+            repository = new Repository(applicationDbContext);
+            classService = new ClassService(repository);
         }
 
         [Test]
@@ -36,7 +39,6 @@ namespace TheRealDealGym.UnitTests
 
             await repository.AddAsync(new Class()
             {
-                Id = Guid.Parse("4d7eadef-b3ad-4fe2-b9b2-ff9c0a9bf9e6"),
                 Title = "",
                 Description = "",
                 Price = 0,
@@ -47,7 +49,6 @@ namespace TheRealDealGym.UnitTests
             });
             await repository.AddAsync(new Class()
             {
-                Id = Guid.Parse("18f264d7-4715-4119-b11a-ff41be6fe491"),
                 Title = "",
                 Description = "",
                 Price = 0,
@@ -60,7 +61,7 @@ namespace TheRealDealGym.UnitTests
             await repository.SaveChangesAsync();
             var allClasses = await classService.AllAsync();
 
-            Assert.That(3, Is.EqualTo(allClasses.TotalClassesCount));
+            Assert.That(allClasses.TotalClassesCount, Is.EqualTo(2));
         }
 
         [TearDown]
