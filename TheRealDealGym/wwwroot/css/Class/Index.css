@@ -32,7 +32,7 @@ option {
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
-.btn-warning {
+.btn-warning, .btn-success {
     padding: 6px 22px;
     margin-left: 8px;
     margin-right: 8px;
