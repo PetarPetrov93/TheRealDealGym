@@ -6,6 +6,8 @@
     ViewBag.Title = "Class Details";
 }
 
+<link rel="stylesheet" href="~/css/Class/Details.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -18,7 +20,7 @@
                 Price:
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </p>
-            <p>@Model.Description</p>
+            <p>Info: <b>@Model.Description</b></p>
             <p>Category: <b>@Model.Sport</b></p>
             <p>Trainer: <b>@Model.Trainer</b></p>
             <p>Date: <b>@Model.Date</b></p>

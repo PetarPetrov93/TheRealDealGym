@@ -1,0 +1,21 @@
+﻿/*Class Details*/
+
+h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 46px;
+}
+
+hr{
+    margin-bottom: 120px;
+}
+
+.card {
+    margin: 0 auto;
+    background-color: #c2ab9f;
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+p{
+    font-size: 16px;
+}
