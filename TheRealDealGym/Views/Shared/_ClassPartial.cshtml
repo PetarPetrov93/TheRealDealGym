@@ -18,7 +18,7 @@
             <div class="d-flex">
                 <form asp-controller="Class" asp-action="Details" method="get">
                     <input type="hidden" name="classId" value="@Model.Id">
-                    <button type="submit" class="btn btn-primary me-4">Details</button>
+                    <button type="submit" class="btn btn-primary">Details</button>
                 </form>
                 @if (this.User.Identity!.IsAuthenticated)
                 {
@@ -26,7 +26,7 @@
                     {
                         <form asp-controller="Class" asp-action="Edit" method="get">
                             <input type="hidden" name="classId" value="@Model.Id">
-                            <button type="submit" class="btn btn-warning me-4">Edit</button>
+                            <button type="submit" class="btn btn-warning">Edit</button>
                         </form>
                         <form asp-controller="Class" asp-action="Delete" method="get">
                             <input type="hidden" name="classId" value="@Model.Id">
