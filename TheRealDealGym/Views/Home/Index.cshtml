@@ -4,16 +4,18 @@
     var isFirstItem = true;
 }
 
+<link rel="stylesheet" href="~/css/HomeIndexStyle.css" />
+
 <div class="text-center">
-    <h2 class="display-4">The Real Deal Gym</h2>
+    <h1 class="display-4">The Real Deal Gym</h1>
     <h3>Get stronger faster!</h3>
 </div>
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
+    <div class="carousel-inner" >
         @foreach (var image in Model.Images)
         {
             <div class="carousel-item @(isFirstItem ? "active" : "")">
-                <img src="~/images/@image" class="d-block w-100" alt="Image description" />
+                <img src="~/images/@image" class="d-block w-95" alt="Image description" />
             </div>
             isFirstItem = false;
         }

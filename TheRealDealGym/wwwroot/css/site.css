@@ -14,5 +14,14 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #b59793
+}
+
+header {
+    background-color: #c2ab9f
+}
+
+footer {
+    background-color: #c2ab9f
 }

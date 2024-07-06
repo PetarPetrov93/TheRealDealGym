@@ -1,0 +1,17 @@
+﻿
+h1{
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 1rem;
+}
+
+#myCarousel {
+    margin-top: 5rem;
+}
+
+.carousel-inner {
+    margin-left: 16rem;
+}
+
+.d-block {
+    border-radius: 1rem;
+}
