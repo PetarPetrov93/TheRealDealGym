@@ -21,3 +21,8 @@ body {
 header, footer {
     background-color: #c2ab9f
 }
+
+#footer{
+    margin-left: 2rem;
+    color: black;
+}
