@@ -1,0 +1,31 @@
+﻿#main-div {
+    font-family: 'Times New Roman', Times, serif;
+}
+h1 {
+    font-size: 48px;
+    margin-bottom: 2.2rem;
+}
+
+.questions {
+    font-size: 32px;
+}
+
+.answers {
+    font-size: 24px;
+    margin-bottom: 3rem;
+    border-top: 2px solid #c2ab9f;
+}
+
+.card {
+    margin-top: 4rem;
+    width: 18rem;
+    margin-left: -230px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    background-color: #c2ab9f;
+}
+
+#motivation-message {
+    font-weight: 600;
+    padding-top: 1rem;
+}
