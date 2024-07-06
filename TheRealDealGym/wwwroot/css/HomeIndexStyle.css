@@ -15,3 +15,7 @@ h1{
 .d-block {
     border-radius: 1rem;
 }
+
+.carousel-item * {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
