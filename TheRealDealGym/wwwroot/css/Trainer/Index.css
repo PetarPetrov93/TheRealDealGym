@@ -1,0 +1,20 @@
+﻿/*Trainer Index*/
+
+h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 46px;
+}
+
+.card {
+    border-radius: 14px;
+}
+
+.card-body {
+    background-color: #c2ab9f;
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.btn {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
