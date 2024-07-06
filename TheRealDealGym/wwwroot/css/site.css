@@ -18,10 +18,6 @@ body {
     background-color: #b59793
 }
 
-header {
-    background-color: #c2ab9f
-}
-
-footer {
+header, footer {
     background-color: #c2ab9f
 }
