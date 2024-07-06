@@ -135,6 +135,17 @@ namespace TheRealDealGym.Core.Services
         }
 
         /// <summary>
+        /// This method returns the userId by trainerId.
+        /// </summary>
+        public async Task<Guid> GetUserIdByTrainerIdAsync(Guid trainerId)
+        {
+            return await repository.AllReadOnly<Trainer>()
+                .Where(t => t.Id == trainerId)
+                .Select(t => t.UserId)
+                .FirstOrDefaultAsync();
+        }
+
+        /// <summary>
         /// This method expires classes which due date and time has passed.
         /// </summary>
         private async Task ExpireClasses(Guid? trainerId)

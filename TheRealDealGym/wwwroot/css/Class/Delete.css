@@ -1,0 +1,26 @@
+﻿/*Class Delete*/
+
+h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 46px;
+}
+
+.row{
+    justify-content: center;
+}
+
+.form-control, .form-control:disabled {
+    background-color: #c2ab9f;
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.form-group:last-child{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn {
+    padding: 6px 22px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}

@@ -5,9 +5,11 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheRealDealGym", "TheRealDealGym\TheRealDealGym.csproj", "{7617C2AA-DA86-40FC-930D-4D2F90499621}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRealDealGym.Infrastructure", "TheRealDealGym.Infrastructure\TheRealDealGym.Infrastructure.csproj", "{0108ECD5-EDB0-4D3D-B066-004B15637B94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheRealDealGym.Infrastructure", "TheRealDealGym.Infrastructure\TheRealDealGym.Infrastructure.csproj", "{0108ECD5-EDB0-4D3D-B066-004B15637B94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRealDealGym.Core", "TheRealDealGym.Core\TheRealDealGym.Core.csproj", "{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheRealDealGym.Core", "TheRealDealGym.Core\TheRealDealGym.Core.csproj", "{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRealDealGym.UnitTests", "TheRealDealGym.UnitTests\TheRealDealGym.UnitTests.csproj", "{8EB07FD5-6F6E-418C-A5E3-52DFF480E062}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5953BD-27BF-4648-81D6-AAFA0BF3BF89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EB07FD5-6F6E-418C-A5E3-52DFF480E062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EB07FD5-6F6E-418C-A5E3-52DFF480E062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EB07FD5-6F6E-418C-A5E3-52DFF480E062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EB07FD5-6F6E-418C-A5E3-52DFF480E062}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

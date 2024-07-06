@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System.Globalization;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Class;
@@ -248,6 +246,13 @@ namespace TheRealDealGym.Core.Services
                     )
                     .ToListAsync();
 
+                var isClassBooked = await repository.AllReadOnly<Booking>()
+                    .AnyAsync(b => b.ClassId == classId);
+
+                if (isClassBooked)
+                {
+                    throw new Exception("You cannot edit this class because users have already booked for it!");
+                }
                 if (overlappingClasses.Any())
                 {
                     throw new Exception("Selected room is not available for the chosen time slot.");

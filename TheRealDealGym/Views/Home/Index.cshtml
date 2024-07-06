@@ -1,11 +1,24 @@
-﻿@{
+﻿@model HomeViewModel;
+@{
     ViewData["Title"] = "Home Page";
+    var isFirstItem = true;
 }
 
+<link rel="stylesheet" href="~/css/Home/Index.css" />
+
 <div class="text-center">
-    <h1 class="display-4">This will be the home page of the website</h1>
-    <p>It will have some slogan. Maybe a description and the backgrownd will be a photo. Could have a carousell with pictures fom the gym.</p>
-    <p>Slogan option: "Challenge yourself!"</p>
-    <p>Slogan option 2: "Make yourself better, start now!"</p>
-    <p>Slogan option 3: "Get stronger faster!"</p>
+    <h1 class="display-4">The Real Deal Gym</h1>
+    <hr />
+    <h3>Get stronger faster!</h3>
+</div>
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
+    <div class="carousel-inner" >
+        @foreach (var image in Model.Images)
+        {
+            <div class="carousel-item @(isFirstItem ? "active" : "")">
+                <img src="~/images/@image" class="d-block w-95" alt="Image description" />
+            </div>
+            isFirstItem = false;
+        }
+    </div>
 </div>

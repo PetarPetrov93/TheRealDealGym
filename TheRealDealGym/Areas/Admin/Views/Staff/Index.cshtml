@@ -1,4 +1,8 @@
 ﻿@model AllTrainersQueryModel
+@using Microsoft.AspNetCore.Identity;
+@using static TheRealDealGym.Core.Constants.AdminConstants;
+@inject UserManager<ApplicationUser> userManager;
+@inject ITrainerService trainerService;
 
 @{
     ViewBag.Title = "Staff";
@@ -71,6 +75,9 @@
     <tbody>
         @foreach (var trainer in Model.Trainers)
         {
+            var userId = await trainerService.GetUserIdByTrainerIdAsync(trainer.Id);
+            var user = await userManager.FindByIdAsync(userId.ToString());
+
             <tr>
                 <td><label>@trainer.FullName</label></td>
                 <td>
@@ -79,6 +86,19 @@
                         <button type="submit" class="btn btn-primary">Details</button>
                     </form>
                 </td>
+                @if (await userManager.IsInRoleAsync(user, AdminRole) == false)
+                {
+                    <td>
+                        <form asp-controller="Staff" asp-action="MakeAdmin" method="post">
+                            <input type="hidden" name="trainerId" value="@trainer.Id">
+                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to make @trainer.FullName Admin?')">Make Admin</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td><label>Admin</label></td>
+                }
             </tr>
         }
     </tbody>

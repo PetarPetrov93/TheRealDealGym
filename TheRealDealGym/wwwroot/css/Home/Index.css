@@ -1,0 +1,27 @@
+﻿/*Home Index*/
+
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 1.2rem;
+}
+
+h3 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 36px;
+}
+
+#myCarousel {
+    margin-top: 5rem;
+}
+
+.carousel-inner {
+    margin-left: 16rem;
+}
+
+.d-block {
+    border-radius: 8px;
+}
+
+.carousel-item * {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}

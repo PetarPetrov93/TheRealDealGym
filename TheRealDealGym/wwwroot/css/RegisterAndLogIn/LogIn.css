@@ -1,0 +1,24 @@
+﻿/*LogIn page*/
+
+h1, h2, h3 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    background-color: #c2ab9f
+}
+
+.form-floating {
+    margin-top: 6px;
+    border-radius: 14px;
+}
+
+#login-submit {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}

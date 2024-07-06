@@ -11,10 +11,12 @@
     var trainer = await trainerService.GetTrainerDetailsAsync(trainerId.Value);
 }
 
+<link rel="stylesheet" href="~/css/Trainer/Index.css" />
+
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 <div class="card" style="width: 18rem;">
-    <div class="card-body">
+    <div class="card-body" >
         <h5 class="card-title">Trainer Info</h5>
         <p class="card-text">Full name:  @fullName</p>
         <p class="card-text">Age: @trainer.Age</p>
@@ -46,11 +48,11 @@
                     <div class="d-flex">
                         <form asp-controller="Class" asp-action="Details" method="get">
                             <input type="hidden" name="classId" value="@item.Id">
-                            <button type="submit" class="btn btn-primary me-4">Details</button>
+                            <button type="submit" class="btn btn-primary">Details</button>
                         </form>
                         <form asp-controller="Class" asp-action="Edit" method="get">
                             <input type="hidden" name="classId" value="@item.Id">
-                            <button type="submit" class="btn btn-warning me-4">Edit</button>
+                            <button type="submit" class="btn btn-warning">Edit</button>
                         </form>
                         <form asp-controller="Class" asp-action="Delete" method="get">
                             <input type="hidden" name="classId" value="@item.Id">

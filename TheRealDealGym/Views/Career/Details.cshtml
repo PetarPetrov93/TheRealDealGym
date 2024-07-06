@@ -3,15 +3,17 @@
     ViewBag.Title = "Job Advert Details";
 }
 
+<link rel="stylesheet" href="~/css/Career/Details.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.Title</u></p>
-            <p>Job description: <b>@Model.Description</b></p>
-            <div>
+            <p id="title">@Model.Title</p>
+            <p>Job description: <span>@Model.Description</span></p>
+            <div id="btn-div">
                 <form asp-controller="Career" asp-action="Apply" method="get">
                     <input type="hidden" name="jobAdvertId" value="@Model.Id">
                     <button type="submit" class="btn btn-success">Apply</button>

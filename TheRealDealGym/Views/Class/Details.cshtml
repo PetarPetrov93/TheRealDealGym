@@ -6,25 +6,29 @@
     ViewBag.Title = "Class Details";
 }
 
+<link rel="stylesheet" href="~/css/Class/Details.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.Title</u></p>
-            <p>Class name: <b>@Model.Title</b></p>
+            <p id="class-title">@Model.Title</p>
+            <p>Class name: <span class="details">@Model.Title</span></p>
             <p>
                 Price:
-                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+                <span class="details">
+                    @String.Format("{0:f2}", Model.Price) BGN
+                </span>
             </p>
-            <p>@Model.Description</p>
-            <p>Category: <b>@Model.Sport</b></p>
-            <p>Trainer: <b>@Model.Trainer</b></p>
-            <p>Date: <b>@Model.Date</b></p>
-            <p>Time: <b>@Model.Time</b></p>
-            <p>Room: <b>@Model.Room</b></p>
-            <p>Spaces left: <b>@Model.AvaliableSpaces</b></p>
+            <p>Info: <span class="details">@Model.Description</span></p>
+            <p>Category: <span class="details">@Model.Sport</span></p>
+            <p>Trainer: <span class="details">@Model.Trainer</span></p>
+            <p>Date: <span class="details">@Model.Date</span></p>
+            <p>Time: <span class="details">@Model.Time</span></p>
+            <p>Room: <span class="details">@Model.Room</span></p>
+            <p>Spaces left: <span class="details">@Model.AvaliableSpaces</span></p>
             <div class="form-inline">
                 @if (this.User.Identity!.IsAuthenticated)
                 {
@@ -54,7 +58,7 @@
                         }
                         else
                         {
-                            <span>Class fully booked!</span>
+                            <div id="booked-msg"><span>Class fully booked!</span></div>
                         }
                     }
                     else if (await bookingService.ExistsByIdAsync(bookingId) && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
