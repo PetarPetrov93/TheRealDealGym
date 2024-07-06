@@ -1,4 +1,10 @@
-﻿#main-div {
+﻿
+#main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#main-div {
     font-family: 'Times New Roman', Times, serif;
 }
 h1 {
@@ -19,7 +25,6 @@ h1 {
 .card {
     margin-top: 4rem;
     width: 18rem;
-    margin-left: -230px;
     border-radius: 8px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
     background-color: #c2ab9f;
