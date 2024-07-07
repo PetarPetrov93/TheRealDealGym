@@ -1,0 +1,41 @@
+﻿/*Common Details settings*/
+
+h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 46px;
+}
+
+p {
+    margin-left: 18px;
+    font-size: 18px;
+}
+
+span {
+    font-weight: 600;
+}
+
+.card {
+    margin: 0 auto;
+    background-color: #c2ab9f;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.btn-success, .btn-warning, btn-danger {
+    padding: 6px 24px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    margin-bottom: 18px;
+}
+
+#btn-div {
+    margin: 0 auto;
+}
+
+#title {
+    margin: 0 auto;
+    font-size: 26px;
+    text-decoration: underline;
+    margin-bottom: 16px;
+    margin-top: 14px;
+}
