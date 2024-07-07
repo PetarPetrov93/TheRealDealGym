@@ -5,6 +5,7 @@
 }
 
 <link rel="stylesheet" href="~/css/Common/DropDown.css" />
+<link rel="stylesheet" href="~/css/Common/Buttons.css" />
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
@@ -87,7 +88,7 @@
                 <td>
                     <form asp-controller="Room" asp-action="Edit" method="get">
                         <input type="hidden" name="roomId" value="@room.Id">
-                        <button type="submit" class="btn btn-warning">Edit</button>
+                        <button type="submit" class="btn btn-warning cfg-edit">Edit</button>
                     </form>
                 </td>
                 <td>
