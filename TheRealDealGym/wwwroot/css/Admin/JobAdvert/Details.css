@@ -1,0 +1,11 @@
+﻿/*JobAdvert Details*/
+
+#btn-div {
+    display: flex;
+    gap: 24px;
+}
+
+.btn-warning{
+    padding-left: 34px;
+    padding-right: 34px;
+}
