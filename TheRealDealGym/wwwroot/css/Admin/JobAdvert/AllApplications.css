@@ -1,0 +1,16 @@
+﻿/*All Applications*/
+
+h3{
+    text-decoration: underline;
+}
+
+#btn-div {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+
+.btn-danger {
+    padding-left: 34px;
+    padding-right: 34px;
+}
