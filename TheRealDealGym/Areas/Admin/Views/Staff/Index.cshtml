@@ -9,6 +9,7 @@
 }
 
 <link rel="stylesheet" href="~/css/Common/DropDown.css" />
+<link rel="stylesheet" href="~/css/Common/Buttons.css" />
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
@@ -93,7 +94,7 @@
                     <td>
                         <form asp-controller="Staff" asp-action="MakeAdmin" method="post">
                             <input type="hidden" name="trainerId" value="@trainer.Id">
-                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to make @trainer.FullName Admin?')">Make Admin</button>
+                            <button type="submit" class="btn btn-success cfg-make-admin" onclick="return confirm('Are you sure you want to make @trainer.FullName Admin?')">Make Admin</button>
                         </form>
                     </td>
                 }
