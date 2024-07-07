@@ -19,3 +19,14 @@
     padding-left: 6px;
     padding-right: 6px;
 }
+
+.cfg-add {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 34px;
+    padding-right: 34px;
+}
+
+.add-btn-div {
+    text-align: center;
+}
