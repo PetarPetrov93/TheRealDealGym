@@ -1,0 +1,29 @@
+﻿/* Admin Index*/
+
+header {
+    background-color: #c2ab9f;
+}
+
+h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 46px;
+}
+
+.options{
+    font-weight: 600;
+}
+
+.btn-primary {
+    padding: 6px 26px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+#admin-card {
+    background-color: #c2ab9f;
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+#admin-msg{
+    color: red;
+}
