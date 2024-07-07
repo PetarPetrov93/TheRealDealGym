@@ -4,16 +4,18 @@
     ViewBag.Title = "Trainer Details";
 }
 
+<link rel="stylesheet" href="~/css/Common/Details.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.FullName</u></p>
-            <p>Age: <b>@Model.Age</b></p>
-            <p>Years Of Experience: <b>@Model.YearsOfExperience</b></p>
-            <p>Bio: <b>@Model.Bio</b></p>
+            <p id="title">@Model.FullName</span></p>
+            <p>Age: <span>@Model.Age</span></p>
+            <p>Years Of Experience: <span>@Model.YearsOfExperience</span></p>
+            <p>Bio: <span>@Model.Bio</span></p>
         </div>
     </div>
 </div>
