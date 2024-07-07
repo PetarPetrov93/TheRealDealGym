@@ -14,3 +14,7 @@ option {
     padding: 6px 22px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
+
+.btn:first-child{
+    box-shadow: none;
+}
