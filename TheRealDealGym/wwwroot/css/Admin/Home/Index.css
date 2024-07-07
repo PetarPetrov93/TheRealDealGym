@@ -18,6 +18,11 @@ h2 {
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
+.man-cfg{
+    padding-left: 34px;
+    padding-right: 34px;
+}
+
 #admin-card {
     background-color: #c2ab9f;
     border-radius: 14px;
