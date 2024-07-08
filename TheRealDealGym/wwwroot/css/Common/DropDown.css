@@ -1,0 +1,17 @@
+﻿/* DropDown */
+
+.form-control {
+    background-color: #c2ab9f;
+    border-radius: 14px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+option {
+    background-color: #c2ab9f;
+}
+
+.btn {
+    padding: 6px 22px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+

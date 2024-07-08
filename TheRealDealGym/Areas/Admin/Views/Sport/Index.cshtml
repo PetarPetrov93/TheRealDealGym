@@ -4,29 +4,34 @@
     ViewBag.Title = "Sports";
 }
 
+<link rel="stylesheet" href="~/css/Common/DropDown.css" />
+<link rel="stylesheet" href="~/css/Common/Buttons.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div>
+<div class="add-btn-div">
     <form asp-controller="Sport" asp-action="Add" method="get">
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-success cfg-add">Add</button>
     </form>
 </div>
 
 <form method="get">
-    <div class="form-group col-md-3">
-        <div class="form-group">
-            <label asp-for="OrderBy"></label>
-            <select asp-for="OrderBy" class="form-control">
-                <option value="0">Title Ascending</option>
-                <option value="1">Title Descending</option>
-            </select>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="OrderBy"></label>
+                <select asp-for="OrderBy" class="form-control">
+                    <option value="0">Title Ascending</option>
+                    <option value="1">Title Descending</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="form-group mt-4 p-2">
-            <input type="submit" value="Search" class="btn btn-primary" />
+        <div class="col-md-3">
+            <div class="form-group mt-3 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
         </div>
     </div>
 </form>
@@ -43,7 +48,7 @@
         Model.SportsPerPage);
 }
 
-<div class="row mb-5">
+<div class="row mb-3 mt-3">
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
            asp-controller="Sport"
@@ -71,6 +76,8 @@
     <thead>
         <tr>
             <th><label>Sport</label></th>
+            <th><label>Edit Sport</label></th>
+            <th><label>Delete Sport</label></th>
         </tr>
     </thead>
     <tbody>
@@ -81,7 +88,7 @@
                 <td>
                     <form asp-controller="Sport" asp-action="Edit" method="get">
                         <input type="hidden" name="sportId" value="@sport.Id">
-                        <button type="submit" class="btn btn-warning">Edit</button>
+                        <button type="submit" class="btn btn-warning cfg-edit">Edit</button>
                     </form>
                 </td>
                 <td>

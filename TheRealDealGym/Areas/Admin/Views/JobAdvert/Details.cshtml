@@ -3,14 +3,17 @@
     ViewBag.Title = "Job Advert Details";
 }
 
+<link rel="stylesheet" href="~/css/Common/Details.css" />
+<link rel="stylesheet" href="~/css/Admin/JobAdvert/Details.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="card col-8 border-0">
-            <p style="font-size:25px;"><u>@Model.Title</u></p>
-            <p>Job description: <b>@Model.Description</b></p>
+            <p id="title">@Model.Title</p>
+            <p>Job description: <span>@Model.Description</span></p>
             <p>
                 Status:
                 @if (Model.IsActive)
@@ -22,7 +25,7 @@
                     <b>Inactive</b>
                 }
             </p>
-            <div class="form-inline">
+            <div class="form-inline" id="btn-div">
                 <form asp-controller="JobAdvert" asp-action="Edit" method="get">
                     <input type="hidden" name="jobAdvertId" value="@Model.Id">
                     <button type="submit" class="btn btn-warning">Edit</button>

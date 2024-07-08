@@ -4,12 +4,15 @@
     ViewBag.Title = "Jobs";
 }
 
+<link rel="stylesheet" href="~/css/Common/DropDown.css" />
+<link rel="stylesheet" href="~/css/Common/Buttons.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div>
+<div class="add-btn-div">
     <form asp-controller="JobAdvert" asp-action="Add" method="get">
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-success cfg-add">Add</button>
     </form>
 </div>
 
@@ -39,7 +42,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="form-group mt-4 p-2">
+            <div class="form-group mt-3 p-2">
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
         </div>
@@ -58,7 +61,7 @@
         Model.JobsPerPage);
 }
 
-<div class="row mb-5">
+<div class="row mb-3 mt-3">
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
            asp-controller="JobAdvert"
@@ -88,6 +91,9 @@
     <thead>
         <tr>
             <th><label>Job Title</label></th>
+            <th><label>See Details</label></th>
+            <th><label>Edit Job Ad</label></th>
+            <th><label>Activate/Deactivate</label></th>
         </tr>
     </thead>
     <tbody>
@@ -104,7 +110,7 @@
                 <td>
                     <form asp-controller="JobAdvert" asp-action="Edit" method="get">
                         <input type="hidden" name="jobAdvertId" value="@job.Id">
-                        <button type="submit" class="btn btn-warning">Edit</button>
+                        <button type="submit" class="btn btn-warning cfg-edit">Edit</button>
                     </form>
                 </td>
                 @if (job.IsActive == true)
@@ -112,7 +118,7 @@
                     <td>
                         <form asp-controller="JobAdvert" asp-action="Deactivate" method="post">
                             <input type="hidden" name="jobAdvertId" value="@job.Id">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to deactivate: @job.Title?')">Deactivate</button>
+                            <button type="submit" class="btn btn-danger cfg-deactivate" onclick="return confirm('Are you sure you want to deactivate: @job.Title?')">Deactivate</button>
                         </form>
                     </td>
                 }
@@ -121,7 +127,7 @@
                     <td>
                         <form asp-controller="JobAdvert" asp-action="Activate" method="post">
                             <input type="hidden" name="jobAdvertId" value="@job.Id">
-                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to activate: @job.Title?')">Activate</button>
+                            <button type="submit" class="btn btn-success cfg-activate" onclick="return confirm('Are you sure you want to activate: @job.Title?')">Activate</button>
                         </form>
                     </td>
                 }

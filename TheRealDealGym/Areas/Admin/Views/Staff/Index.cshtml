@@ -8,23 +8,28 @@
     ViewBag.Title = "Staff";
 }
 
+<link rel="stylesheet" href="~/css/Common/DropDown.css" />
+<link rel="stylesheet" href="~/css/Common/Buttons.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <form method="get">
-    <div class="form-group col-md-3">
-        <div class="form-group">
-            <label asp-for="OrderBy"></label>
-            <select asp-for="OrderBy" class="form-control">
-                <option value="0">Name Ascending</option>
-                <option value="1">Name Descending</option>
-            </select>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="OrderBy"></label>
+                <select asp-for="OrderBy" class="form-control">
+                    <option value="0">Name Ascending</option>
+                    <option value="1">Name Descending</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="form-group mt-4 p-2">
-            <input type="submit" value="Search" class="btn btn-primary" />
+        <div class="col-md-3">
+            <div class="form-group mt-3 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
         </div>
     </div>
 </form>
@@ -41,7 +46,7 @@
         Model.TrainersPerPage);
 }
 
-<div class="row mb-5">
+<div class="row mb-3 mt-3">
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
            asp-controller="Staff"
@@ -70,6 +75,7 @@
         <tr>
             <th><label>Full Name</label></th>
             <th><label>Details</label></th>
+            <th><label>Status</label></th>
         </tr>
     </thead>
     <tbody>
@@ -91,7 +97,7 @@
                     <td>
                         <form asp-controller="Staff" asp-action="MakeAdmin" method="post">
                             <input type="hidden" name="trainerId" value="@trainer.Id">
-                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to make @trainer.FullName Admin?')">Make Admin</button>
+                            <button type="submit" class="btn btn-success cfg-make-admin" onclick="return confirm('Are you sure you want to make @trainer.FullName Admin?')">Make Admin</button>
                         </form>
                     </td>
                 }

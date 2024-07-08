@@ -27,7 +27,7 @@ namespace TheRealDealGym.Core.Services
             string? searchTerm = null,
             ClassSorting sorting = ClassSorting.DateAscending,
             int currentPage = 1,
-            int classesPerPage = 3)
+            int classesPerPage = 6)
         {
             await ExpireClasses();
             var classesToShow = repository.AllReadOnly<Class>();

@@ -2,22 +2,23 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="mt-4 p-5 bg-light text-center">
+<link rel="stylesheet" href="~/css/Admin/Home/Index.css" />
+
+<div id="admin-card" class="mt-4 p-5 text-center">
     <h2 class="display-4">Hello, Admin!</h2>
     <p class="lead mb-1 mt-3">
-        This is your administrator area - you can <b>read</b>, <b>create</b>,
-        <b>delete</b> and <b>edit</b> classes.
-        <br />You can <b>rent</b> and <b>leave</b> the free ones, too!
+        <span id="admin-msg">This is your administrator area!</span> You can manage <span class="options">Classes</span>, <span class="options">Jobs</span>,
+        <span class="options">Sports</span>, <span class="options">Rooms</span> and <span class="options" >Staff</span> from here.
     </p>
     <p class="lead mt-1">
-        You can also see <b>all users and agents</b> and <b>all rents</b> in the system.
+        You can <span class="options">review job applications</span> too!
     </p>
     <hr class="my-4">
     <a asp-area="" asp-controller="Class" asp-action="Index"
        class="btn btn-primary btn-lg">Classes</a>
     <span>  |   </span>
     <a asp-area="Admin" asp-controller="JobAdvert" asp-action="Index"
-       class="btn btn-primary btn-lg">Jobs</a>
+       class="btn btn-primary btn-lg man-cfg">Jobs</a>
     <span>  |   </span>
     <a asp-area="Admin" asp-controller="Sport" asp-action="Index"
        class="btn btn-primary btn-lg">Sports</a>
@@ -26,5 +27,5 @@
        class="btn btn-primary btn-lg">Rooms</a>
     <span>  |   </span>
     <a asp-area="Admin" asp-controller="Staff" asp-action="Index"
-       class="btn btn-primary btn-lg">Staff</a>
+       class="btn btn-primary btn-lg man-cfg" >Staff</a>
 </div>
