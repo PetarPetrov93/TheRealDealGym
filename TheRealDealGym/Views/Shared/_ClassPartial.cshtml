@@ -47,7 +47,7 @@
                         }
                         else
                         {
-                            <span>Class fully booked!</span>
+                            <span style="margin: 6px 52px">Class fully booked!</span>
                         }
                 }
                     else if (await bookingService.ExistsByIdAsync(bookingId) && await trainerService.ExistsByUserIdAsync(User.GetId()) == false)
