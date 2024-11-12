@@ -27,6 +27,15 @@ namespace Microsoft.Extensions.DependencyInjection
             
             var connectionString = config.GetConnectionString("DefaultConnection");
 
+            //The below code is implemented purely for presentaton purposes to display the diferences when in Production
+            var environmentName = config["ASPNETCORE_ENVIRONMENT"];
+
+            if (environmentName == "Production")
+            {
+                connectionString = "Server=.;Database=TheRealDealGym;Trusted_Connection=True;Trust Server Certificate=true;";
+            }
+            //
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 

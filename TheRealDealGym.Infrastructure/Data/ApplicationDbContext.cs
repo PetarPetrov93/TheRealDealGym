@@ -16,13 +16,13 @@ namespace TheRealDealGym.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new TrainerConfiguration());
-            builder.ApplyConfiguration(new SportConfiguration());
-            builder.ApplyConfiguration(new RoomConfiguration());
-            builder.ApplyConfiguration(new ClassConfiguration());
-            builder.ApplyConfiguration(new BookingConfiguration());
-            builder.ApplyConfiguration(new JobAdvertConfiguration());
-            builder.ApplyConfiguration(new JobApplicationConfiguration());
+            //builder.ApplyConfiguration(new TrainerConfiguration());
+            //builder.ApplyConfiguration(new SportConfiguration());
+            //builder.ApplyConfiguration(new RoomConfiguration());
+            //builder.ApplyConfiguration(new ClassConfiguration());
+            //builder.ApplyConfiguration(new BookingConfiguration());
+            //builder.ApplyConfiguration(new JobAdvertConfiguration());
+            //builder.ApplyConfiguration(new JobApplicationConfiguration());
             builder.ApplyConfiguration(new UserClaimsConfiguration());
 
             base.OnModelCreating(builder);
