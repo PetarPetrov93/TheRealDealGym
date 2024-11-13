@@ -249,8 +249,8 @@ namespace TheRealDealGym.UnitTests
             {
                 Title = "New Class - swimming",
                 Description = "This is a brand new swimming class",
-                Date = "15/11/2024",
-                Time = "19:14",
+                Date = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.AddHours(1).ToString("HH:mm:ss"),
                 Price = 14.50m,
                 SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
                 RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573")
