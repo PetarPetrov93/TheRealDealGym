@@ -2,6 +2,7 @@
 using Moq;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data;
 using TheRealDealGym.Infrastructure.Data.Common;
@@ -239,6 +240,28 @@ namespace TheRealDealGym.UnitTests
             var classTitle = classDetails.Title;
 
             Assert.That(classTitle, Is.EqualTo("Beginners Swimming"));
+        }
+
+        [Test]
+        public async Task CreateAsyncShouldCreateClass()
+        {
+            var classFormModel = new ClassFormModel()
+            {
+                Title = "New Class - swimming",
+                Description = "This is a brand new swimming class",
+                Date = "15/11/2024",
+                Time = "19:14",
+                Price = 14.50m,
+                SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
+                RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573")
+            };
+
+            var newClass = await classService.CreateAsync(classFormModel, Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"));
+
+            var allClasses = await classService.AllClassesAsync();
+            int classesCount = allClasses.Count();
+
+            Assert.That(classesCount, Is.EqualTo(3));
         }
 
         [TearDown]
