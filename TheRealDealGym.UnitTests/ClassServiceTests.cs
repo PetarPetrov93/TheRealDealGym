@@ -312,6 +312,16 @@ namespace TheRealDealGym.UnitTests
             }
         }
 
+        [Test]
+        public async Task DeleteAsync_ShouldDeleteAClass()
+        {
+            await classService.DeleteAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"));
+            var classesLeft = await classService.AllClassesAsync();
+            int classesCount = classesLeft.Count();
+
+            Assert.That(classesCount, Is.EqualTo(2));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
