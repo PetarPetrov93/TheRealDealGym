@@ -264,6 +264,30 @@ namespace TheRealDealGym.UnitTests
             Assert.That(classesCount, Is.EqualTo(3));
         }
 
+        [Test]
+        public async Task CreateAsync_ShouldReturnRoomNotAvailable()
+        {
+            var classFormModel = new ClassFormModel()
+            {
+                Title = "New Class - swimming",
+                Description = "This is a brand new swimming class",
+                Date = DateTime.Now.ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.AddMinutes(2).ToString("HH:mm:ss"),
+                Price = 14.50m,
+                SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
+                RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573")
+            };
+
+            try
+            {
+                var newClass = await classService.CreateAsync(classFormModel, Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"));
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("Selected room is not available for the chosen time slot."));
+            }
+        }
+
         [TearDown]
         public async Task TearDown()
         {
