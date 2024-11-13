@@ -179,6 +179,15 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
+        public async Task AllAsyncReturnsAllClassesSortedByTimeOfDayDesc()
+        {
+            var allClasses = await classService.AllAsync(null, null, ClassSorting.TimeDescending);
+            var classTitle = allClasses.Classes.First().Title;
+
+            Assert.That(classTitle, Is.EqualTo("Beginners Swimming"));
+        }
+
+        [Test]
         public async Task AllClassesAsyncReturnsAllClasses()
         {
             var allClasses = await classService.AllClassesAsync();
