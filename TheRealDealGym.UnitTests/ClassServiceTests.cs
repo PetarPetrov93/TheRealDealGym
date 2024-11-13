@@ -34,8 +34,8 @@ namespace TheRealDealGym.UnitTests
             {
                 Id = Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"),
                 Title = "Advanced MuayThai",
-                Description = "",
-                Price = 0,
+                Description = "this is advanced class for fighters",
+                Price = 20,
                 DateAndTime = DateTime.Now,
                 TrainerId = Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"),
                 RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
@@ -45,7 +45,7 @@ namespace TheRealDealGym.UnitTests
             {
                 Id = Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"),
                 Title = "Beginners Swimming",
-                Description = "some other class",
+                Description = "this is a begginers class for newcomers",
                 Price = 10,
                 DateAndTime = DateTime.Now.AddDays(1),
                 TrainerId = Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"),
@@ -136,7 +136,6 @@ namespace TheRealDealGym.UnitTests
             await repository.SaveChangesAsync();
         }
 
-        //AllAsync() method tests:
         [Test]
         public async Task AllAsyncReturnsAllClasses()
         {
@@ -156,9 +155,9 @@ namespace TheRealDealGym.UnitTests
         [Test]
         public async Task AllAsyncReturnsAllClassesFilteredBySearchTerm()
         {
-            var allClasses = await classService.AllAsync(null, "nothing");
+            var allClasses = await classService.AllAsync(null, "Thai");
 
-            Assert.That(allClasses.TotalClassesCount, Is.EqualTo(0));
+            Assert.That(allClasses.TotalClassesCount, Is.EqualTo(1));
         }
 
         [Test]
