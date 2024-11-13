@@ -138,7 +138,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClasses()
+        public async Task AllAsync_ReturnsAllClasses()
         {
             var allClasses = await classService.AllAsync();
 
@@ -146,7 +146,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClassesFilteredBySportTitle()
+        public async Task AllAsync_ReturnsAllClassesFilteredBySportTitle()
         {
             var allClasses = await classService.AllAsync("Swimming");
 
@@ -154,7 +154,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClassesFilteredBySearchTerm()
+        public async Task AllAsync_ReturnsAllClassesFilteredBySearchTerm()
         {
             var allClasses = await classService.AllAsync(null, "Thai");
 
@@ -162,7 +162,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClassesSortedByDateDesc()
+        public async Task AllAsync_ReturnsAllClassesSortedByDateDesc()
         {
             var allClasses = await classService.AllAsync(null, null, ClassSorting.DateDescending);
             var classTitle = allClasses.Classes.First().Title;
@@ -171,7 +171,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClassesSortedByDateAsc()
+        public async Task AllAsync_ReturnsAllClassesSortedByDateAsc()
         {
             var allClasses = await classService.AllAsync(null, null, ClassSorting.DateAscending);
             var classTitle = allClasses.Classes.First().Title;
@@ -180,7 +180,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClassesSortedByTimeOfDayDesc()
+        public async Task AllAsync_ReturnsAllClassesSortedByTimeOfDayDesc()
         {
             var allClasses = await classService.AllAsync(null, null, ClassSorting.TimeDescending);
             var classTitle = allClasses.Classes.First().Title;
@@ -189,7 +189,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllAsyncReturnsAllClassesSortedByTimeOfDayAsc()
+        public async Task AllAsync_ReturnsAllClassesSortedByTimeOfDayAsc()
         {
             var allClasses = await classService.AllAsync(null, null, ClassSorting.TimeAscending);
             var classTitle = allClasses.Classes.First().Title;
@@ -198,7 +198,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllClassesAsyncReturnsAllClasses()
+        public async Task AllClassesAsync_ReturnsAllClasses()
         {
             var allClasses = await classService.AllClassesAsync();
             var count = allClasses.Count();
@@ -207,7 +207,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllRoomsAsyncReturnsAllRooms()
+        public async Task AllRoomsAsync_ReturnsAllRooms()
         {
             var allRooms = await classService.AllRoomAsync();
             var count = allRooms.Count();
@@ -216,7 +216,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllSportNamesAsyncReturnsAllSportNames()
+        public async Task AllSportNamesAsync_ReturnsAllSportNames()
         {
             var allSportNames = await classService.AllSportNamesAsync();
             var count = allSportNames.Count();
@@ -225,7 +225,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllSportsAsyncReturnsAllSports()
+        public async Task AllSportsAsync_ReturnsAllSports()
         {
             var allSports = await classService.AllSportAsync();
             var count = allSports.Count();
@@ -234,7 +234,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task ClassDetailsByIdAsyncReturnsClassDetails()
+        public async Task ClassDetailsByIdAsync_ReturnsClassDetails()
         {
             var classDetails = await classService.ClassDetailsByIdAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"));
             var classTitle = classDetails.Title;
@@ -243,7 +243,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task CreateAsyncShouldCreateClass()
+        public async Task CreateAsync_ShouldCreateClass()
         {
             var classFormModel = new ClassFormModel()
             {
