@@ -30,57 +30,112 @@ namespace TheRealDealGym.UnitTests
             repository = new Repository(applicationDbContext);
             classService = new ClassService(repository);
 
-            await repository.AddAsync(new Class()
+            var muayThaiClass = new Class()
             {
+                Id = Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"),
                 Title = "Advanced MuayThai",
-                Description = "",
-                Price = 0,
+                Description = "this is advanced class for fighters",
+                Price = 20,
                 DateAndTime = DateTime.Now,
                 TrainerId = Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"),
                 RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
                 SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
-            });
-            await repository.AddAsync(new Class()
+            };
+            var swimmingClass = new Class()
             {
+                Id = Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"),
                 Title = "Beginners Swimming",
-                Description = "some other class",
+                Description = "this is a begginers class for newcomers",
                 Price = 10,
                 DateAndTime = DateTime.Now.AddDays(1),
                 TrainerId = Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"),
                 RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
                 SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8")
-            });
-
-            await repository.AddAsync(new Sport()
-            {
-                Id = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
-                Title = "Swimming"
-            });
-
-            await repository.AddAsync(new Sport()
+            };
+            
+            var muayThaiSport = new Sport()
             {
                 Id = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"),
                 Title = "MuayThai"
-            });
+            };
 
-            await repository.AddAsync(new Room()
+            var swimmingSport = new Sport()
             {
-                Id = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
-                Type = "Pool",
-                Capacity = 16
-            });
+                Id = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
+                Title = "Swimming"
+            };
 
-            await repository.AddAsync(new Room()
+            var fightingRoom = new Room()
             {
                 Id = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
                 Type = "Fighting room",
                 Capacity = 40
-            });
+            };
+
+            var swimmingPool = new Room()
+            {
+                Id = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
+                Type = "Pool",
+                Capacity = 16,
+
+            };
+
+            var userMuayThaiTrainer = new ApplicationUser()
+            {
+                Id = Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"),
+                FirstName = "Petar",
+                LastName = "Petrov",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            };
+
+            var userSwimmingTrainer = new ApplicationUser()
+            {
+                Id = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"),
+                FirstName = "Gorgi",
+                LastName = "Georgiev",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            };
+
+            var muayThaiTrainer = new Trainer()
+            {
+                Id = Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"),
+                Bio = "Muay Thai Trainer",
+                YearsOfExperience = 10,
+                Age = 45,
+                UserId = Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2")
+            };
+
+            var swimmingTrainer = new Trainer()
+            {
+                Id = Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"),
+                Bio = "Swimming Trainer",
+                YearsOfExperience = 5,
+                Age = 30,
+                UserId = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86")
+            };
+
+            await repository.AddAsync(muayThaiSport);
+            await repository.AddAsync(swimmingSport);
+            await repository.AddAsync(fightingRoom);
+            await repository.AddAsync(swimmingPool);
+            await repository.AddAsync(userMuayThaiTrainer);
+            await repository.AddAsync(userSwimmingTrainer);
+            await repository.AddAsync(muayThaiTrainer);
+            await repository.AddAsync(swimmingTrainer);
+            await repository.AddAsync(muayThaiClass);
+            await repository.AddAsync(swimmingClass);
 
             await repository.SaveChangesAsync();
         }
 
-        //AllAsync() method tests:
         [Test]
         public async Task AllAsyncReturnsAllClasses()
         {
@@ -100,9 +155,9 @@ namespace TheRealDealGym.UnitTests
         [Test]
         public async Task AllAsyncReturnsAllClassesFilteredBySearchTerm()
         {
-            var allClasses = await classService.AllAsync(null, "nothing");
+            var allClasses = await classService.AllAsync(null, "Thai");
 
-            Assert.That(allClasses.TotalClassesCount, Is.EqualTo(0));
+            Assert.That(allClasses.TotalClassesCount, Is.EqualTo(1));
         }
 
         [Test]
@@ -112,6 +167,33 @@ namespace TheRealDealGym.UnitTests
             var classTitle = allClasses.Classes.First().Title;
 
             Assert.That(classTitle, Is.EqualTo("Beginners Swimming"));
+        }
+
+        [Test]
+        public async Task AllAsyncReturnsAllClassesSortedByDateAsc()
+        {
+            var allClasses = await classService.AllAsync(null, null, ClassSorting.DateAscending);
+            var classTitle = allClasses.Classes.First().Title;
+
+            Assert.That(classTitle, Is.EqualTo("Advanced MuayThai"));
+        }
+
+        [Test]
+        public async Task AllAsyncReturnsAllClassesSortedByTimeOfDayDesc()
+        {
+            var allClasses = await classService.AllAsync(null, null, ClassSorting.TimeDescending);
+            var classTitle = allClasses.Classes.First().Title;
+
+            Assert.That(classTitle, Is.EqualTo("Beginners Swimming"));
+        }
+
+        [Test]
+        public async Task AllAsyncReturnsAllClassesSortedByTimeOfDayAsc()
+        {
+            var allClasses = await classService.AllAsync(null, null, ClassSorting.TimeAscending);
+            var classTitle = allClasses.Classes.First().Title;
+
+            Assert.That(classTitle, Is.EqualTo("Advanced MuayThai"));
         }
 
         [Test]
@@ -148,6 +230,15 @@ namespace TheRealDealGym.UnitTests
             var count = allSports.Count();
 
             Assert.That(count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task ClassDetailsByIdAsyncReturnsClassDetails()
+        {
+            var classDetails = await classService.ClassDetailsByIdAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"));
+            var classTitle = classDetails.Title;
+
+            Assert.That(classTitle, Is.EqualTo("Beginners Swimming"));
         }
 
         [TearDown]
