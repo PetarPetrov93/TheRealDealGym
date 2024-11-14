@@ -181,6 +181,15 @@ namespace TheRealDealGym.UnitTests
             Assert.That(firstTrainerName, Is.EqualTo("Georgi Georgiev"));
         }
 
+        [Test]
+        public async Task AllTrainersAsync_ShouldReturnAllTrainers_NameDesc()
+        {
+            var allTrainersNameDesc = await trainerService.AllTrainersAsync(StaffSorting.NameDescending);
+            var firstTrainerName = allTrainersNameDesc.Trainers.First().FullName;
+
+            Assert.That(firstTrainerName, Is.EqualTo("Petar Petrov"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
