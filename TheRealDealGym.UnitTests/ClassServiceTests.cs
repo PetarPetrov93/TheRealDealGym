@@ -96,7 +96,7 @@ namespace TheRealDealGym.UnitTests
             var userSwimmingTrainer = new ApplicationUser()
             {
                 Id = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"),
-                FirstName = "Gorgi",
+                FirstName = "Georgi",
                 LastName = "Georgiev",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
