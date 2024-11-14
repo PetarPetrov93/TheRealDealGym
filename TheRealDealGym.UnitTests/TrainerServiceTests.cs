@@ -222,6 +222,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(trainerByTrainerIdDoesntExist, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task GetTrainerIdAsync_ShouldReturnTrainerId()
+        {
+            var trainerId = await trainerService.GetTrainerIdAsync(Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"));
+
+            Assert.That(trainerId, Is.EqualTo(Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42")));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
