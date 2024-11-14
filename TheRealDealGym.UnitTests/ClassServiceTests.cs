@@ -464,6 +464,17 @@ namespace TheRealDealGym.UnitTests
             Assert.That(doesClassExist, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task GetClassFormModelByIdAsync_ShouldReturnClassFormModel()
+        {
+            var classFormModel = await classService.GetClassFormModelByIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+            var classTitle = classFormModel.Title;
+            var classDescription = classFormModel.Description;
+
+            Assert.That(classTitle, Is.EqualTo("Advanced MuayThai"));
+            Assert.That(classDescription, Is.EqualTo("this is advanced class for fighters"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
