@@ -523,6 +523,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(sportExists, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task HasAvailableSpacesAsync_ShouldReturnTrue()
+        {
+            var hasAvailableSpaces = await classService.HasAvailableSpacesAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+
+            Assert.That(hasAvailableSpaces, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
