@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
+using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data;
 using TheRealDealGym.Infrastructure.Data.Common;
@@ -118,7 +119,7 @@ namespace TheRealDealGym.UnitTests
             var userSwimmingTrainer = new ApplicationUser()
             {
                 Id = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"),
-                FirstName = "Gorgi",
+                FirstName = "Georgi",
                 LastName = "Georgiev",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
@@ -169,6 +170,15 @@ namespace TheRealDealGym.UnitTests
 
             Assert.That(muayThaiClasses.Count(), Is.EqualTo(3));
             Assert.That(swimmingClasses.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task AllTrainersAsync_ShouldReturnAllTrainers_NameAsc()
+        {
+            var allTrainersNameAsc = await trainerService.AllTrainersAsync(StaffSorting.NameAscending);
+            var firstTrainerName = allTrainersNameAsc.Trainers.First().FullName;
+
+            Assert.That(firstTrainerName, Is.EqualTo("Georgi Georgiev"));
         }
 
         [TearDown]
