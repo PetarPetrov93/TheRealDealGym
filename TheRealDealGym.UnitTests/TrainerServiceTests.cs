@@ -230,6 +230,15 @@ namespace TheRealDealGym.UnitTests
             Assert.That(trainerId, Is.EqualTo(Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42")));
         }
 
+        [Test]
+        public async Task GetTrainerDetailsAsync_ShouldReturnTrainerDetails()
+        {
+            var trainerId = await trainerService.GetTrainerDetailsAsync(Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
+
+            Assert.That(trainerId.Age, Is.EqualTo(45));
+            Assert.That(trainerId.YearsOfExperience, Is.EqualTo(10));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
