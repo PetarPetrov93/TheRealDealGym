@@ -70,7 +70,7 @@ namespace TheRealDealGym.UnitTests
             {
                 Id = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
                 Type = "Fighting room",
-                Capacity = 40
+                Capacity = 1
             };
 
             var swimmingPool = new Room()
@@ -96,7 +96,7 @@ namespace TheRealDealGym.UnitTests
             var userSwimmingTrainer = new ApplicationUser()
             {
                 Id = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"),
-                FirstName = "Gorgi",
+                FirstName = "Georgi",
                 LastName = "Georgiev",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
@@ -320,6 +320,215 @@ namespace TheRealDealGym.UnitTests
             int classesCount = classesLeft.Count();
 
             Assert.That(classesCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldEditAClass()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(5).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+            await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+
+            var editedClass = await classService.GetClassFormModelByIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+            var editedTitle = editedClass.Title;
+            var editedDescription = editedClass.Description;
+
+            Assert.That(editedTitle, Is.EqualTo("Edited Advanced Muay Thai Class"));
+            Assert.That(editedDescription, Is.EqualTo("This class is dited"));
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_UsersHaveBooked()
+        {
+            var booking = new Booking()
+            {
+                Id = Guid.Parse("4ae01d59-dba9-4b9a-a6f8-48fd88aa9c25"),
+                ClassId = Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"),
+                UserId = Guid.Parse("649fe967-dbfe-4679-864f-43c81a17ad61")
+            };
+
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(5).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("You cannot edit this class because users have already booked for it!"));
+            }
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_RoomNotAvailable()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("Selected room is not available for the chosen time slot."));
+            }
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_InvalidDate()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(-5).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("Please set a valid date and time for this class."));
+            }
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_InvalidTime()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.AddHours(-8).ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("Please set a valid date and time for this class."));
+            }
+        }
+
+        [Test]
+        public async Task ExistsAsync_ShouldReturnTrue()
+        {
+            var doesClassExist = await classService.ExistsAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"));
+
+            Assert.That(doesClassExist, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task ExistsAsync_ShouldReturnFalse()
+        {
+            var doesClassExist = await classService.ExistsAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134eB"));
+
+            Assert.That(doesClassExist, Is.EqualTo(false));
+        }
+
+        [Test]
+        public async Task GetClassFormModelByIdAsync_ShouldReturnClassFormModel()
+        {
+            var classFormModel = await classService.GetClassFormModelByIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+            var classTitle = classFormModel.Title;
+            var classDescription = classFormModel.Description;
+
+            Assert.That(classTitle, Is.EqualTo("Advanced MuayThai"));
+            Assert.That(classDescription, Is.EqualTo("this is advanced class for fighters"));
+        }
+
+        [Test]
+        public async Task HasTrainerWithIdAsync_ShouldReturnTrue()
+        {
+            var hasTrainer = await classService.HasTrainerWithIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"));
+
+            Assert.That(hasTrainer, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task HasTrainerWithIdAsync_ShouldReturnFalse()
+        {
+            var hasTrainer = await classService.HasTrainerWithIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba1"));
+
+            Assert.That(hasTrainer, Is.EqualTo(false));
+        }
+
+        [Test]
+        public async Task RoomExistsAsync_ShouldReturnTrue()
+        {
+            var roomExists = await classService.RoomExistsAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"));
+
+            Assert.That(roomExists, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task RoomExistsAsync_ShouldReturnFalse()
+        {
+            var roomExists = await classService.RoomExistsAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9572"));
+
+            Assert.That(roomExists, Is.EqualTo(false));
+        }
+
+        [Test]
+        public async Task SportExistsAsync_ShouldReturnTrue()
+        {
+            var sportExists = await classService.SportExistsAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"));
+
+            Assert.That(sportExists, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task SportExistsAsync_ShouldReturnFalse()
+        {
+            var sportExists = await classService.SportExistsAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba4"));
+
+            Assert.That(sportExists, Is.EqualTo(false));
+        }
+
+        [Test]
+        public async Task HasAvailableSpacesAsync_ShouldReturnTrue()
+        {
+            var hasAvailableSpaces = await classService.HasAvailableSpacesAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+
+            Assert.That(hasAvailableSpaces, Is.EqualTo(true));
         }
 
         [TearDown]
