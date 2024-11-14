@@ -475,6 +475,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(classDescription, Is.EqualTo("this is advanced class for fighters"));
         }
 
+        [Test]
+        public async Task HasTrainerWithIdAsync_ShouldReturnTrue()
+        {
+            var hasTrainer = await classService.HasTrainerWithIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"));
+
+            Assert.That(hasTrainer, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
