@@ -448,6 +448,14 @@ namespace TheRealDealGym.UnitTests
             }
         }
 
+        [Test]
+        public async Task ExistsAsync_ShouldReturnTrue()
+        {
+            var doesClassExist = await classService.ExistsAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"));
+
+            Assert.That(doesClassExist, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
