@@ -190,6 +190,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(firstTrainerName, Is.EqualTo("Petar Petrov"));
         }
 
+        [Test]
+        public async Task ExistsByUserIdAsync_ShouldReturnTrue()
+        {
+            var trainerByUserIdExists = await trainerService.ExistsByUserIdAsync(Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"));
+
+            Assert.That(trainerByUserIdExists, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
