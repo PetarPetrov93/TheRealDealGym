@@ -78,33 +78,6 @@ namespace TheRealDealGym.UnitTests
                 SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8")
             };
 
-            //var muayThaiSport = new Sport()
-            //{
-            //    Id = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"),
-            //    Title = "MuayThai"
-            //};
-
-            //var swimmingSport = new Sport()
-            //{
-            //    Id = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
-            //    Title = "Swimming"
-            //};
-
-            //var fightingRoom = new Room()
-            //{
-            //    Id = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
-            //    Type = "Fighting room",
-            //    Capacity = 1
-            //};
-
-            //var swimmingPool = new Room()
-            //{
-            //    Id = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
-            //    Type = "Pool",
-            //    Capacity = 16,
-
-            //};
-
             var userMuayThaiTrainer = new ApplicationUser()
             {
                 Id = Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"),
@@ -146,11 +119,6 @@ namespace TheRealDealGym.UnitTests
                 Age = 30,
                 UserId = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86")
             };
-
-            //await repository.AddAsync(muayThaiSport);
-            //await repository.AddAsync(swimmingSport);
-            //await repository.AddAsync(fightingRoom);
-            //await repository.AddAsync(swimmingPool);
             await repository.AddAsync(userMuayThaiTrainer);
             await repository.AddAsync(userSwimmingTrainer);
             await repository.AddAsync(muayThaiTrainer);
@@ -259,6 +227,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(editedTrainer.YearsOfExperience, Is.EqualTo(7));
             Assert.That(editedTrainer.Age, Is.EqualTo(32));
             Assert.That(editedTrainer.Bio, Is.EqualTo("Edited bio of the trainer"));
+        }
+
+        [Test]
+        public async Task GetUserIdByTrainerIdAsync_ShouldReturnUserId()
+        {
+            var trainerId = await trainerService.GetUserIdByTrainerIdAsync(Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
+
+            Assert.That(trainerId, Is.EqualTo(Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2")));
         }
 
         [TearDown]
