@@ -491,6 +491,22 @@ namespace TheRealDealGym.UnitTests
             Assert.That(hasTrainer, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task RoomExistsAsync_ShouldReturnTrue()
+        {
+            var roomExists = await classService.RoomExistsAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"));
+
+            Assert.That(roomExists, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task RoomExistsAsync_ShouldReturnFalse()
+        {
+            var roomExists = await classService.RoomExistsAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9572"));
+
+            Assert.That(roomExists, Is.EqualTo(false));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
