@@ -507,6 +507,22 @@ namespace TheRealDealGym.UnitTests
             Assert.That(roomExists, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task SportExistsAsync_ShouldReturnTrue()
+        {
+            var sportExists = await classService.SportExistsAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"));
+
+            Assert.That(sportExists, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task SportExistsAsync_ShouldReturnFalse()
+        {
+            var sportExists = await classService.SportExistsAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba4"));
+
+            Assert.That(sportExists, Is.EqualTo(false));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
