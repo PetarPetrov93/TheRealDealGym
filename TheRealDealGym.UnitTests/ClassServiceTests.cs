@@ -345,6 +345,37 @@ namespace TheRealDealGym.UnitTests
             Assert.That(editedDescription, Is.EqualTo("This class is dited"));
         }
 
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_UsersHaveBooked()
+        {
+            var booking = new Booking()
+            {
+                Id = Guid.Parse("4ae01d59-dba9-4b9a-a6f8-48fd88aa9c25"),
+                ClassId = Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"),
+                UserId = Guid.Parse("649fe967-dbfe-4679-864f-43c81a17ad61")
+            };
+
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(5).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("You cannot edit this class because users have already booked for it!"));
+            }
+        }
+
         [TearDown]
         public async Task TearDown()
         {
