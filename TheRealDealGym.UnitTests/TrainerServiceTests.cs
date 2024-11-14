@@ -201,9 +201,25 @@ namespace TheRealDealGym.UnitTests
         [Test]
         public async Task ExistsByUserIdAsync_ShouldReturnFalse()
         {
-            var trainerByUserIdExists = await trainerService.ExistsByUserIdAsync(Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea85"));
+            var trainerByUserIdDoesntExist = await trainerService.ExistsByUserIdAsync(Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea85"));
 
-            Assert.That(trainerByUserIdExists, Is.EqualTo(false));
+            Assert.That(trainerByUserIdDoesntExist, Is.EqualTo(false));
+        }
+
+        [Test]
+        public async Task ExistsByTrainerIdAsync_ShouldReturnTrue()
+        {
+            var trainerByTrainerIdExists = await trainerService.ExistsByTrainerIdAsync(Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
+
+            Assert.That(trainerByTrainerIdExists, Is.EqualTo(true));
+        }
+
+        [Test]
+        public async Task ExistsByTrainerIdAsync_ShouldReturnFalse()
+        {
+            var trainerByTrainerIdDoesntExist = await trainerService.ExistsByTrainerIdAsync(Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de40"));
+
+            Assert.That(trainerByTrainerIdDoesntExist, Is.EqualTo(false));
         }
 
         [TearDown]
