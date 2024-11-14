@@ -376,6 +376,30 @@ namespace TheRealDealGym.UnitTests
             }
         }
 
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_RoomNotAvailable()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("Selected room is not available for the chosen time slot."));
+            }
+        }
+
         [TearDown]
         public async Task TearDown()
         {
