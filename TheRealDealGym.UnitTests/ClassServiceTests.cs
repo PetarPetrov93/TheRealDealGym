@@ -70,7 +70,7 @@ namespace TheRealDealGym.UnitTests
             {
                 Id = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
                 Type = "Fighting room",
-                Capacity = 40
+                Capacity = 1
             };
 
             var swimmingPool = new Room()
