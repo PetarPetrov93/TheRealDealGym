@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Trainer;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data;
 using TheRealDealGym.Infrastructure.Data.Common;
@@ -237,6 +238,27 @@ namespace TheRealDealGym.UnitTests
 
             Assert.That(trainerId.Age, Is.EqualTo(45));
             Assert.That(trainerId.YearsOfExperience, Is.EqualTo(10));
+        }
+
+        [Test]
+        public async Task EditTrainerAsync_ShouldEditTrainerDetails()
+        {
+            var trainerModel = new TrainerDetailsModel()
+            {
+                FullName = "",
+                YearsOfExperience = 7,
+                Age = 32,
+                Bio = "Edited bio of the trainer",
+                UserId = Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86")
+            };
+
+            await trainerService.EditAsync(Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"), trainerModel);
+
+            var editedTrainer = await trainerService.GetTrainerDetailsAsync(Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"));
+
+            Assert.That(editedTrainer.YearsOfExperience, Is.EqualTo(7));
+            Assert.That(editedTrainer.Age, Is.EqualTo(32));
+            Assert.That(editedTrainer.Bio, Is.EqualTo("Edited bio of the trainer"));
         }
 
         [TearDown]
