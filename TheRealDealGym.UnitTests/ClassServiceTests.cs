@@ -322,6 +322,29 @@ namespace TheRealDealGym.UnitTests
             Assert.That(classesCount, Is.EqualTo(2));
         }
 
+        [Test]
+        public async Task EditAsync_ShouldEditAClass()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.AddDays(5).ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+            await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+
+            var editedClass = await classService.GetClassFormModelByIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+            var editedTitle = editedClass.Title;
+            var editedDescription = editedClass.Description;
+
+            Assert.That(editedTitle, Is.EqualTo("Edited Advanced Muay Thai Class"));
+            Assert.That(editedDescription, Is.EqualTo("This class is dited"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
