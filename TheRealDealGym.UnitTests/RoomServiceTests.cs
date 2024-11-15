@@ -4,6 +4,7 @@ using TheRealDealGym.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data.Models;
+using TheRealDealGym.Core.Enums;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -46,6 +47,42 @@ namespace TheRealDealGym.UnitTests
             await repository.AddAsync(swimmingPool);
 
             await repository.SaveChangesAsync();
+        }
+
+        [Test]
+        public async Task AllRoomAsync_ShouldReturnAllRoomsByTitleAsc()
+        {
+            var allRoomsByTitleAsc = await roomService.AllRoomsAsync(RoomSotring.TitleAscending);
+            var firstRoomTitle = allRoomsByTitleAsc.Rooms.First().Type;
+
+            Assert.That(firstRoomTitle, Is.EqualTo("Fighting room"));
+        }
+
+        [Test]
+        public async Task AllRoomAsync_ShouldReturnAllRoomsByTitleDesc()
+        {
+            var allRoomsByTitleDesc = await roomService.AllRoomsAsync(RoomSotring.TitleDescending);
+            var firstRoomTitle = allRoomsByTitleDesc.Rooms.First().Type;
+
+            Assert.That(firstRoomTitle, Is.EqualTo("Pool"));
+        }
+
+        [Test]
+        public async Task AllRoomAsync_ShouldReturnAllRoomsByCapacityAsc()
+        {
+            var allRoomsByCapacityAsc = await roomService.AllRoomsAsync(RoomSotring.CapacityAscending);
+            var firstRoomTitle = allRoomsByCapacityAsc.Rooms.First().Type;
+
+            Assert.That(firstRoomTitle, Is.EqualTo("Fighting room"));
+        }
+
+        [Test]
+        public async Task AllRoomAsync_ShouldReturnAllRoomsByCapacityDesc()
+        {
+            var allRoomsByCapacityDesc = await roomService.AllRoomsAsync(RoomSotring.CapacityDescending);
+            var firstRoomTitle = allRoomsByCapacityDesc.Rooms.First().Type;
+
+            Assert.That(firstRoomTitle, Is.EqualTo("Pool"));
         }
 
         [TearDown]
