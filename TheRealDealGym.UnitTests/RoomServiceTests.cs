@@ -47,5 +47,12 @@ namespace TheRealDealGym.UnitTests
 
             await repository.SaveChangesAsync();
         }
+
+        [TearDown]
+        public async Task TearDown()
+        {
+            await applicationDbContext.Database.EnsureDeletedAsync();
+            await applicationDbContext.DisposeAsync();
+        }
     }
 }
