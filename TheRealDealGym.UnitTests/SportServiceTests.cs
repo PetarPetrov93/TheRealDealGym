@@ -109,6 +109,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(editedSport.Title, Is.EqualTo("Swimming edited"));
         }
 
+        [Test]
+        public async Task ExistsByIdAsync_ShouldReturnTrue()
+        {
+            var sportExistsById = await sportService.ExistsByIdAsync(Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"));
+
+            Assert.That(sportExistsById, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
