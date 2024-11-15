@@ -7,6 +7,7 @@ using TheRealDealGym.Infrastructure.Data.Models;
 using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Room;
+using TheRealDealGym.Core.Models.Trainer;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -103,6 +104,34 @@ namespace TheRealDealGym.UnitTests
             int roomsCount = allRooms.Rooms.Count();
 
             Assert.That(roomsCount, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task DeleteAsync_ShouldDeleteARoom()
+        {
+            await roomService.DeleteAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"));
+            var roomsLeft = await roomService.AllRoomsAsync();
+            int roomsCount = roomsLeft.Rooms.Count();
+
+            Assert.That(roomsCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task EditRoomAsync_ShouldEditRoomDetails()
+        {
+            var roomModel = new RoomServiceModel()
+            {
+                Id = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                Capacity = 17,
+                Type = "Edited Fighting room"
+            };
+
+            await roomService.EditAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"), roomModel);
+
+            var editedRoom = await roomService.GetByIdAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"));
+
+            Assert.That(editedRoom.Capacity, Is.EqualTo(17));
+            Assert.That(editedRoom.Type, Is.EqualTo("Edited Fighting room"));
         }
 
         [TearDown]
