@@ -125,6 +125,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(sportDoesNotExistById, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task GetByIdAsync_ShouldReturnSportById()
+        {
+            var sport = await sportService.GetByIdAsync(Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"));
+
+            Assert.That(sport.Title, Is.EqualTo("MuayThai"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
