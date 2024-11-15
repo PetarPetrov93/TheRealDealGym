@@ -4,6 +4,7 @@ using TheRealDealGym.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data.Models;
+using TheRealDealGym.Core.Enums;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -45,7 +46,14 @@ namespace TheRealDealGym.UnitTests
             await repository.SaveChangesAsync();
         }
 
+        [Test]
+        public async Task AllSportsAsync_ShouldReturnAllSportsByTitleAsc()
+        {
+            var allSportsByTitleAsc = await sportService.AllSportsAsync(SportSorting.TitleAscending);
+            var firstSportTitle = allSportsByTitleAsc.Sports.First().Title;
 
+            Assert.That(firstSportTitle, Is.EqualTo("MuayThai"));
+        }
 
         [TearDown]
         public async Task TearDown()
