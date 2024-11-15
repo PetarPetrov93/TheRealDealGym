@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data.Models;
 using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Class;
+using TheRealDealGym.Core.Models.Room;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -83,6 +85,24 @@ namespace TheRealDealGym.UnitTests
             var firstRoomTitle = allRoomsByCapacityDesc.Rooms.First().Type;
 
             Assert.That(firstRoomTitle, Is.EqualTo("Pool"));
+        }
+
+        [Test]
+        public async Task CreateAsync_ShouldCreateRoom()
+        {
+            var roomFormModel = new RoomServiceModel()
+            {
+                Id = Guid.Parse("0262254b-0b3d-439e-a543-d6e06c7a5717"),
+                Capacity = 30,
+                Type = "Table tennis room"
+            };
+
+            var newRoom = await roomService.CreateAsync(roomFormModel);
+
+            var allRooms = await roomService.AllRoomsAsync();
+            int roomsCount = allRooms.Rooms.Count();
+
+            Assert.That(roomsCount, Is.EqualTo(3));
         }
 
         [TearDown]
