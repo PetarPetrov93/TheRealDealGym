@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data.Models;
 using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Room;
+using TheRealDealGym.Core.Models.Sport;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -62,6 +64,23 @@ namespace TheRealDealGym.UnitTests
             var firstSportTitle = allSportsByTitleDesc.Sports.First().Title;
 
             Assert.That(firstSportTitle, Is.EqualTo("Swimming"));
+        }
+
+        [Test]
+        public async Task CreateAsync_ShouldCreateSport()
+        {
+            var sportInfoModel = new SportInfoModel()
+            {
+                Id = Guid.Parse("ddbe138c-ef3e-48d7-b025-5316685304ed"),
+                Title = "Table tennis"
+            };
+
+            var newSport = await sportService.CreateAsync(sportInfoModel);
+
+            var allSports = await sportService.AllSportsAsync();
+            int sportsCount = allSports.Sports.Count();
+
+            Assert.That(sportsCount, Is.EqualTo(3));
         }
 
         [TearDown]
