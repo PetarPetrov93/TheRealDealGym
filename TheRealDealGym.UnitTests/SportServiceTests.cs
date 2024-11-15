@@ -93,7 +93,21 @@ namespace TheRealDealGym.UnitTests
             Assert.That(sportsCount, Is.EqualTo(2));
         }
 
+        [Test]
+        public async Task EditSportAsync_ShouldEditSportDetails()
+        {
+            var sportInfoModel = new SportInfoModel()
+            {
+                Id = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
+                Title = "Swimming edited"
+            };
 
+            await sportService.EditAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"), sportInfoModel);
+
+            var editedSport = await sportService.GetByIdAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"));
+
+            Assert.That(editedSport.Title, Is.EqualTo("Swimming edited"));
+        }
 
         [TearDown]
         public async Task TearDown()
