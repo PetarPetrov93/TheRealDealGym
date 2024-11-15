@@ -55,6 +55,15 @@ namespace TheRealDealGym.UnitTests
             Assert.That(firstSportTitle, Is.EqualTo("MuayThai"));
         }
 
+        [Test]
+        public async Task AllSportsAsync_ShouldReturnAllSportsByTitleDesc()
+        {
+            var allSportsByTitleDesc = await sportService.AllSportsAsync(SportSorting.TitleDescending);
+            var firstSportTitle = allSportsByTitleDesc.Sports.First().Title;
+
+            Assert.That(firstSportTitle, Is.EqualTo("Swimming"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
