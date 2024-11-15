@@ -134,6 +134,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(editedRoom.Type, Is.EqualTo("Edited Fighting room"));
         }
 
+        [Test]
+        public async Task ExistsByIdAsync_ShouldReturnTrue()
+        {
+            var roomExistsById = await roomService.ExistsByIdAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"));
+
+            Assert.That(roomExistsById, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
