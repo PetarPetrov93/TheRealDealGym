@@ -83,6 +83,18 @@ namespace TheRealDealGym.UnitTests
             Assert.That(sportsCount, Is.EqualTo(3));
         }
 
+        [Test]
+        public async Task DeleteAsync_ShouldDeleteASport()
+        {
+            await sportService.DeleteAsync(Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"));
+            var sportsLeft = await sportService.AllSportsAsync();
+            int sportsCount = sportsLeft.Sports.Count();
+
+            Assert.That(sportsCount, Is.EqualTo(2));
+        }
+
+
+
         [TearDown]
         public async Task TearDown()
         {
