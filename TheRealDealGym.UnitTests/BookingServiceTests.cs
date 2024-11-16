@@ -92,6 +92,16 @@ namespace TheRealDealGym.UnitTests
             await repository.SaveChangesAsync();
         }
 
+        [Test]
+        public async Task AllUserBookingsAsync_ReturnsAllBooklingsOfAGivenUser()
+        {
+            var allBookingsUserOne = await bookingService.AllUserBookingsAsync(Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"));
+            var allBookingsUserTwo = await bookingService.AllUserBookingsAsync(Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"));
+
+            Assert.That(allBookingsUserOne.Count(), Is.EqualTo(1));
+            Assert.That(allBookingsUserTwo.Count(), Is.EqualTo(0));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
