@@ -152,6 +152,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(userHasBooked, Is.EqualTo(true));
         }
 
+        [Test]
+        public async Task HasUserBookedForThisClass_ReturnsFalse()
+        {
+            var userHasNotBooked = await bookingService.HasUserBookedForThisClass(Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"), Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd13"));
+
+            Assert.That(userHasNotBooked, Is.EqualTo(false));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
