@@ -144,6 +144,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(bookingId, Is.EqualTo(Guid.Parse("c929f48d-ccd4-43a4-a429-1345a4701e33")));
         }
 
+        [Test]
+        public async Task HasUserBookedForThisClass_ReturnsTrue()
+        {
+            var userHasBooked = await bookingService.HasUserBookedForThisClass(Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"), Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
+
+            Assert.That(userHasBooked, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
