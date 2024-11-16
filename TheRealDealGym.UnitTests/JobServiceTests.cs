@@ -247,6 +247,26 @@ namespace TheRealDealGym.UnitTests
             Assert.That(jobAdvert.Description, Is.EqualTo("We are looking for a motivated and experienced powerlifting coach for a position in our great team."));
         }
 
+        [Test]
+        public async Task CreateJobApplicationAsync_ShouldCreateJobApplication()
+        {
+            var jobApplicationFormModel = new ApplicationFormModel()
+            {
+                Age = 23,
+                YearsOfExperience = 3,
+                Bio = "New and ambitious coach. Perfect fit for the job!"
+            };
+
+            await jobService.CreateJobApplicationAsync(Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393"), Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"), jobApplicationFormModel);
+
+            var allJobApplications = await jobService.AllApplicationsAsync();
+            var newJobApplication = allJobApplications.First(ja => ja.JobAdvertId == Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393") && ja.UserId == Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"));
+
+            Assert.That(newJobApplication.YearsOfExperience, Is.EqualTo(3));
+            Assert.That(newJobApplication.Age, Is.EqualTo(23));
+            Assert.That(newJobApplication.Bio, Is.EqualTo("New and ambitious coach. Perfect fit for the job!"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
