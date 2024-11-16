@@ -267,6 +267,35 @@ namespace TheRealDealGym.UnitTests
             Assert.That(newJobApplication.Bio, Is.EqualTo("New and ambitious coach. Perfect fit for the job!"));
         }
 
+        [Test]
+        public async Task HireTrainerAsync_ShouldHireUser()
+        {
+            await jobService.HireTrainerAsync(Guid.Parse("ab139913-bcfe-4a60-af9c-cea8dd0a16c2"));
+
+            var allApplications = await jobService.AllApplicationsAsync();
+
+            Assert.That(allApplications.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task RejectApplicantAsync_ShouldRejectUser()
+        {
+            await jobService.RejectApplicantAsync(Guid.Parse("ab139913-bcfe-4a60-af9c-cea8dd0a16c2"));
+
+            var allApplications = await jobService.AllApplicationsAsync();
+
+            Assert.That(allApplications.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task AllApplicationsAsync_ReturnsAllApplications()
+        {
+            var allApplications = await jobService.AllApplicationsAsync();
+            var count = allApplications.Count();
+
+            Assert.That(count, Is.EqualTo(1));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
