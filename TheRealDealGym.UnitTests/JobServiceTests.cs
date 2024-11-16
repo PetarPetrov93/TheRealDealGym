@@ -1,13 +1,11 @@
-﻿using TheRealDealGym.Core.Contracts;
-using TheRealDealGym.Infrastructure.Data.Common;
-using TheRealDealGym.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using TheRealDealGym.Core.Services;
-using TheRealDealGym.Infrastructure.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
-using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Job;
-using TheRealDealGym.Core.Models.Trainer;
+using TheRealDealGym.Core.Services;
+using TheRealDealGym.Infrastructure.Data;
+using TheRealDealGym.Infrastructure.Data.Common;
+using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.UnitTests
 {
