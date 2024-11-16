@@ -4,6 +4,7 @@ using TheRealDealGym.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data.Models;
+using TheRealDealGym.Core.Enums;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -110,6 +111,15 @@ namespace TheRealDealGym.UnitTests
             var allActiveJobAdverts = await jobService.AllJobAdvertsForAdminAsync("Inactive");
 
             Assert.That(allActiveJobAdverts.TotalJobAdvertsCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllJobAdvertsSortedByDateDesc()
+        {
+            var allJobAdverts = await jobService.AllJobAdvertsForAdminAsync(null, JobAdvertSorting.TitleAscending);
+            var firstJobAdvertTitle = allJobAdverts.JobAdverts.First().Title;
+
+            Assert.That(firstJobAdvertTitle, Is.EqualTo("CrossFit coach full time"));
         }
 
         [TearDown]
