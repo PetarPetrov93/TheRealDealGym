@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using TheRealDealGym.Core.Services;
 using TheRealDealGym.Infrastructure.Data.Models;
 using TheRealDealGym.Core.Enums;
+using TheRealDealGym.Core.Models.Class;
+using TheRealDealGym.Core.Models.Job;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -160,6 +162,24 @@ namespace TheRealDealGym.UnitTests
             Assert.That(firstJobAd.Id, Is.EqualTo(Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393")));
             Assert.That(firstJobAd.Title, Is.EqualTo("Powerlifting coach"));
             Assert.That(allJobAdsWhichTheUserHasNotAppliedFor.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task CreateAsync_ShouldCreateJobAdvert()
+        {
+            var jobAdvertModel = new JobAdvertModel()
+            {
+                Id = Guid.Parse("c7cfc9d5-73c5-4ce8-9714-afc289e3751f"),
+                Title = "New Job Ad - Yoga coach",
+                Description = "We are looking for a new Yoga coach."
+            };
+
+            var newJobAd = await jobService.CreateAsync(jobAdvertModel);
+
+            var allJobAds = await jobService.AllJobAdvertsForAdminAsync();
+            int jobAdsCount = allJobAds.TotalJobAdvertsCount;
+
+            Assert.That(jobAdsCount, Is.EqualTo(4));
         }
 
         [TearDown]
