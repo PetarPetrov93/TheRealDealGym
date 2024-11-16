@@ -102,6 +102,15 @@ namespace TheRealDealGym.UnitTests
             Assert.That(allBookingsUserTwo.Count(), Is.EqualTo(0));
         }
 
+        [Test]
+        public async Task BookAsync_ShouldCreateANewBookingForAUser()
+        {
+             await bookingService.BookAsync(Guid.Parse("c618d5f4-4597-4920-9104-3d1bc92134ea"), Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"));
+            var allBookingsUserTwo = await bookingService.AllUserBookingsAsync(Guid.Parse("b4922f34-d4be-478f-9828-f207d277ea86"));
+
+            Assert.That(allBookingsUserTwo.Count(), Is.EqualTo(1));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
