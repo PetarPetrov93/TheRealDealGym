@@ -7,6 +7,7 @@ using TheRealDealGym.Infrastructure.Data.Models;
 using TheRealDealGym.Core.Enums;
 using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Job;
+using TheRealDealGym.Core.Models.Trainer;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -202,6 +203,23 @@ namespace TheRealDealGym.UnitTests
 
             Assert.That(currJob.IsActive, Is.EqualTo(false));
             Assert.That(currJob.Title, Is.EqualTo("Powerlifting coach"));
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldEditJobAdvert()
+        {
+            var jobAdvertModel = new JobAdvertModel()
+            {
+                Title = "Edited Powerlifting coach",
+                Description = "Edited powerlifting coach job advert"
+            };
+
+            await jobService.EditAsync(Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393"), jobAdvertModel);
+
+            var editedJobAdvert = await jobService.GetJobAdvertByIdAsync(Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393"));
+
+            Assert.That(editedJobAdvert.Title, Is.EqualTo("Edited Powerlifting coach"));
+            Assert.That(editedJobAdvert.Description, Is.EqualTo("Edited powerlifting coach job advert"));
         }
 
         [TearDown]
