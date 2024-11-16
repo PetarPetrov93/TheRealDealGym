@@ -114,7 +114,7 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
-        public async Task AllJobAdvertsForAdminAsync_ReturnsAllJobAdvertsSortedByDateDesc()
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllJobAdvertsSortedByDateAsc()
         {
             var allJobAdverts = await jobService.AllJobAdvertsForAdminAsync(null, JobAdvertSorting.TitleAscending);
             var firstJobAdvertTitle = allJobAdverts.JobAdverts.First().Title;
