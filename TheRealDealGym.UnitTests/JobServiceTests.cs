@@ -104,6 +104,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(allActiveJobAdverts.TotalJobAdvertsCount, Is.EqualTo(2));
         }
 
+        [Test]
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllInActiveJobAdverts()
+        {
+            var allActiveJobAdverts = await jobService.AllJobAdvertsForAdminAsync("Inactive");
+
+            Assert.That(allActiveJobAdverts.TotalJobAdvertsCount, Is.EqualTo(1));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
