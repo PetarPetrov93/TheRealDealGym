@@ -131,6 +131,26 @@ namespace TheRealDealGym.UnitTests
             Assert.That(firstJobAdvertTitle, Is.EqualTo("Powerlifting coach"));
         }
 
+        [Test]
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllActiveJobAdvertsSortedByDateAsc()
+        {
+            var allActiveJobAdverts = await jobService.AllJobAdvertsForAdminAsync("Active", JobAdvertSorting.TitleAscending);
+            var firstJobAdvertTitle = allActiveJobAdverts.JobAdverts.First().Title;
+
+            Assert.That(firstJobAdvertTitle, Is.EqualTo("Fitness coach full time"));
+            Assert.That(allActiveJobAdverts.JobAdverts.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllInactiveJobAdvertsSortedByDateAsc()
+        {
+            var allInactiveJobAdverts = await jobService.AllJobAdvertsForAdminAsync("Inactive", JobAdvertSorting.TitleDescending);
+            var firstJobAdvertTitle = allInactiveJobAdverts.JobAdverts.First().Title;
+
+            Assert.That(firstJobAdvertTitle, Is.EqualTo("CrossFit coach full time"));
+            Assert.That(allInactiveJobAdverts.JobAdverts.Count(), Is.EqualTo(1));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
