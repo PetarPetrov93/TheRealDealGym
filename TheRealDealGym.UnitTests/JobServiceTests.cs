@@ -296,6 +296,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(count, Is.EqualTo(1));
         }
 
+        [Test]
+        public async Task JobApplicationExistsByIdAsync_ReturnsTrue()
+        {
+            var jobApplicationExists = await jobService.JobApplicationExistsByIdAsync(Guid.Parse("ab139913-bcfe-4a60-af9c-cea8dd0a16c2"));
+
+            Assert.That(jobApplicationExists, Is.EqualTo(true));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
