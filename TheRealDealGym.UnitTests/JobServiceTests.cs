@@ -238,6 +238,15 @@ namespace TheRealDealGym.UnitTests
             Assert.That(jobAdvertDoesNotExist, Is.EqualTo(false));
         }
 
+        [Test]
+        public async Task GetJobAdvertByIdAsync_ShouldReturnJobAdvertById()
+        {
+            var jobAdvert = await jobService.GetJobAdvertByIdAsync(Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393"));
+
+            Assert.That(jobAdvert.Title, Is.EqualTo("Powerlifting coach"));
+            Assert.That(jobAdvert.Description, Is.EqualTo("We are looking for a motivated and experienced powerlifting coach for a position in our great team."));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
