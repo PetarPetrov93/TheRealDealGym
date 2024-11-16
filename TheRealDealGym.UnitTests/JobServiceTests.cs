@@ -151,6 +151,17 @@ namespace TheRealDealGym.UnitTests
             Assert.That(allInactiveJobAdverts.JobAdverts.Count(), Is.EqualTo(1));
         }
 
+        [Test]
+        public async Task AllActiveJobAdvertsForUsersAsync_ShouldReturnJobAdsWhichTheUserHasNotAppliedFor()
+        {
+            var allJobAdsWhichTheUserHasNotAppliedFor = await jobService.AllActiveJobAdvertsForUsersAsync(Guid.Parse("79b39756-e15f-41fe-8a96-123beb6c8ba2"));
+            var firstJobAd = allJobAdsWhichTheUserHasNotAppliedFor.First();
+
+            Assert.That(firstJobAd.Id, Is.EqualTo(Guid.Parse("f7e314b1-060e-4a4d-94f0-2a6b7d39e393")));
+            Assert.That(firstJobAd.Title, Is.EqualTo("Powerlifting coach"));
+            Assert.That(allJobAdsWhichTheUserHasNotAppliedFor.Count(), Is.EqualTo(1));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
