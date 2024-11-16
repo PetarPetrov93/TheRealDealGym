@@ -32,7 +32,16 @@ namespace TheRealDealGym.UnitTests
             {
                 Id = new Guid("4990319a-041d-4d42-80ae-4e07849a29aa"),
                 Title = "Fitness coach full time",
-                Description = "We are looking for a motivated and experienced fitness coach for a position in our great team."
+                Description = "We are looking for a motivated and experienced fitness coach for a position in our great team.",
+                IsActive = true
+            };
+
+            var jobAdvertActive2 = new JobAdvert()
+            {
+                Id = new Guid("f7e314b1-060e-4a4d-94f0-2a6b7d39e393"),
+                Title = "Powerlifting coach",
+                Description = "We are looking for a motivated and experienced powerlifting coach for a position in our great team.",
+                IsActive = true
             };
 
             var jobAdvertInactive = new JobAdvert()
@@ -78,6 +87,7 @@ namespace TheRealDealGym.UnitTests
             };
 
             await repository.AddAsync(jobAdvertActive);
+            await repository.AddAsync(jobAdvertActive2);
             await repository.AddAsync(jobAdvertInactive);
             await repository.AddAsync(jobApplication);
             await repository.AddAsync(userOne);
@@ -86,7 +96,13 @@ namespace TheRealDealGym.UnitTests
             await repository.SaveChangesAsync();
         }
 
+        [Test]
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllActiveJobAdverts()
+        {
+            var allActiveJobAdverts = await jobService.AllJobAdvertsForAdminAsync("Active");
 
+            Assert.That(allActiveJobAdverts.TotalJobAdvertsCount, Is.EqualTo(2));
+        }
 
         [TearDown]
         public async Task TearDown()
