@@ -182,6 +182,17 @@ namespace TheRealDealGym.UnitTests
             Assert.That(jobAdsCount, Is.EqualTo(4));
         }
 
+        [Test]
+        public async Task ActivateAsync_ShouldActivateTheJobAd()
+        {
+            await jobService.ActivateAsync(Guid.Parse("5d2f453e-1cc7-47d5-94ae-a58868b76b52"));
+            var allJobs = await jobService.AllJobAdvertsForAdminAsync();
+            var currJob = allJobs.JobAdverts.First(j => j.Id == Guid.Parse("5d2f453e-1cc7-47d5-94ae-a58868b76b52"));
+
+            Assert.That(currJob.IsActive, Is.EqualTo(true));
+            Assert.That(currJob.Title, Is.EqualTo("CrossFit coach full time"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
