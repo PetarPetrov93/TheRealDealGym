@@ -122,6 +122,15 @@ namespace TheRealDealGym.UnitTests
             Assert.That(firstJobAdvertTitle, Is.EqualTo("CrossFit coach full time"));
         }
 
+        [Test]
+        public async Task AllJobAdvertsForAdminAsync_ReturnsAllJobAdvertsSortedByDateDesc()
+        {
+            var allJobAdverts = await jobService.AllJobAdvertsForAdminAsync(null, JobAdvertSorting.TitleDescending);
+            var firstJobAdvertTitle = allJobAdverts.JobAdverts.First().Title;
+
+            Assert.That(firstJobAdvertTitle, Is.EqualTo("Powerlifting coach"));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
