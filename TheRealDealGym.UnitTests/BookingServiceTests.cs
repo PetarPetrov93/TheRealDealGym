@@ -128,6 +128,14 @@ namespace TheRealDealGym.UnitTests
             Assert.That(bookingExists, Is.EqualTo(true));
         }
 
+        [Test]
+        public async Task ExistsByIdAsync_ReturnsFalse()
+        {
+            var bookingDoeNotExist = await bookingService.ExistsByIdAsync(Guid.Parse("c929f48d-ccd4-43a4-a429-1345a4701e32"));
+
+            Assert.That(bookingDoeNotExist, Is.EqualTo(false));
+        }
+
         [TearDown]
         public async Task TearDown()
         {
