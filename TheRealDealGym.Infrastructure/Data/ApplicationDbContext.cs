@@ -15,6 +15,7 @@ namespace TheRealDealGym.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // COMMENT THE BELOW CONFIGURATIONS BEFORE RUNNING THE UNIT TESTS, UNCOMMENT BEFORE RUNNING THE APP:
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new TrainerConfiguration());
             builder.ApplyConfiguration(new SportConfiguration());
