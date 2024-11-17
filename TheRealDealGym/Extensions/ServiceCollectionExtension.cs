@@ -43,11 +43,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 { 
                     options.SignIn.RequireConfirmedAccount = config.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
 
-                    options.Password.RequireNonAlphanumeric = config.GetValue<bool>("Identity:SignIn:RequireNonAlphanumeric");
-                    options.Password.RequireDigit = config.GetValue<bool>("Identity:SignIn:RequireDigit");
-                    options.Password.RequireLowercase = config.GetValue<bool>("Identity:SignIn:RequireLowercase");
-                    options.Password.RequireUppercase = config.GetValue<bool>("Identity:SignIn:RequireUppercase");
-                    options.Password.RequiredLength = config.GetValue<int>("Identity:SignIn:RequiredLength");
+                    options.Password.RequireNonAlphanumeric = config.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+                    options.Password.RequireDigit = config.GetValue<bool>("Identity:Password:RequireDigit");
+                    options.Password.RequireLowercase = config.GetValue<bool>("Identity:Password:RequireLowercase");
+                    options.Password.RequireUppercase = config.GetValue<bool>("Identity:Password:RequireUppercase");
+                    options.Password.RequiredLength = config.GetValue<int>("Identity:Password:RequiredLength");
                 })
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
