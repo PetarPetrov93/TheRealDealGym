@@ -42,8 +42,22 @@ namespace TheRealDealGym.UnitTests
                 Id = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
                 Title = "Swimming"
             };
+
+            var muayThaiClass = new Class()
+            {
+                Id = Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"),
+                Title = "Advanced MuayThai",
+                Description = "this is advanced class for fighters",
+                Price = 20,
+                DateAndTime = DateTime.Now,
+                TrainerId = Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"),
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
             await repository.AddAsync(muayThaiSport);
             await repository.AddAsync(swimmingSport);
+            await repository.AddAsync(muayThaiClass);
 
             await repository.SaveChangesAsync();
         }
@@ -94,6 +108,20 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
+        public async Task DeleteAsync_ShouldNotDeleteASport()
+        {
+            try
+            {
+                await sportService.DeleteAsync(Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"));
+            }
+            catch (Exception ex)
+            {
+
+                Assert.That(ex.Message, Is.EqualTo("You cannot delete this sport because there's currently classes, scheduled for it!"));
+            }
+        }
+
+        [Test]
         public async Task EditSportAsync_ShouldEditSportDetails()
         {
             var sportInfoModel = new SportInfoModel()
@@ -108,6 +136,7 @@ namespace TheRealDealGym.UnitTests
 
             Assert.That(editedSport.Title, Is.EqualTo("Swimming edited"));
         }
+
 
         [Test]
         public async Task ExistsByIdAsync_ShouldReturnTrue()
