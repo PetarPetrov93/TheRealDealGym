@@ -176,6 +176,13 @@ namespace TheRealDealGym.Controllers
                 ModelState.AddModelError(nameof(model.SportId), "Sport does not exist!");
             }
 
+            Guid? trainerId = await trainerService.GetTrainerIdAsync(User.GetId());
+
+            if (trainerId.HasValue == false)
+            {
+                return BadRequest();
+            }
+
             if (ModelState.IsValid == false)
             {
                 model.Rooms = await classService.AllRoomAsync();
@@ -186,7 +193,7 @@ namespace TheRealDealGym.Controllers
 
             try
             {
-                await classService.EditAsync(classId, model);
+                await classService.EditAsync(classId, model, trainerId.Value);
 
                 TempData[MessageWarning] = "You have successfully edited this class!";
                 return RedirectToAction(nameof(Details), new { classId });

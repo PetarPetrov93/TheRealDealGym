@@ -235,7 +235,7 @@ namespace TheRealDealGym.Core.Services
         /// <summary>
         /// This method edits a selected by the trainer class.
         /// </summary>
-        public async Task EditAsync(Guid classId, ClassFormModel model)
+        public async Task EditAsync(Guid classId, ClassFormModel model, Guid trainerId)
         {
             var classToEdit = await repository.GetByIdAsync<Class>(classId);
 
@@ -250,7 +250,7 @@ namespace TheRealDealGym.Core.Services
 
                 var newClassDateTime = classToEdit.DateAndTime;
 
-                var overlappingClasses = await repository.AllReadOnly<Class>()
+                var overlappingClassesInThisRoom = await repository.AllReadOnly<Class>()
                     .Where(c => c.RoomId == model.RoomId &&
                            c.Id != classId &&
                         (
@@ -260,6 +260,15 @@ namespace TheRealDealGym.Core.Services
                     )
                     .ToListAsync();
 
+                var overlappingClassesForThisTrainer = await repository.AllReadOnly<Class>()
+                .Where(c => c.TrainerId == trainerId &&
+                    (
+                     (c.DateAndTime < newClassDateTime && c.DateAndTime.AddMinutes(60) > newClassDateTime) ||
+                     (c.DateAndTime >= newClassDateTime && c.DateAndTime < newClassDateTime.AddMinutes(60))
+                    )
+                )
+                .ToListAsync();
+
                 var isClassBooked = await repository.AllReadOnly<Booking>()
                     .AnyAsync(b => b.ClassId == classId);
 
@@ -267,9 +276,14 @@ namespace TheRealDealGym.Core.Services
                 {
                     throw new Exception("You cannot edit this class because users have already booked for it!");
                 }
-                if (overlappingClasses.Any())
+                if (overlappingClassesInThisRoom.Any())
                 {
                     throw new Exception("Selected room is not available for the chosen time slot.");
+                }
+
+                if (overlappingClassesForThisTrainer.Any())
+                {
+                    throw new Exception("For this date you already have another class around this time, please select different time.");
                 }
 
                 if (newClassDateTime <= DateTimeOffset.Now)
