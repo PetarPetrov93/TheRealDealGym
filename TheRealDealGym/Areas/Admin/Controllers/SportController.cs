@@ -95,10 +95,19 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return View(model);
             }
 
-            await sportService.EditAsync(sportId, model);
+            try
+            {
+                await sportService.EditAsync(sportId, model);
 
-            TempData[MessageWarning] = "You have successfully edited this sport!";
-            return RedirectToAction(nameof(Index), "Sport");
+                TempData[MessageWarning] = "You have successfully edited this sport!";
+                return RedirectToAction(nameof(Index), "Sport");
+            }
+            catch (Exception ex)
+            {
+                TempData[MessageError] = ex.Message;
+                return RedirectToAction(nameof(Index), "Sport");
+            }
+            
         }
 
         /// <summary>
@@ -112,10 +121,18 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
-            await sportService.DeleteAsync(sportId);
+            try
+            {
+                await sportService.DeleteAsync(sportId);
 
-            TempData[MessageError] = "You have successfully deleted this sport!";
-            return RedirectToAction(nameof(Index), "Sport");
+                TempData[MessageError] = "You have successfully deleted this sport!";
+                return RedirectToAction(nameof(Index), "Sport");
+            }
+            catch (Exception ex)
+            {
+                TempData[MessageError] = ex.Message;
+                return RedirectToAction(nameof(Index), "Sport");
+            }
         }
     }
 }
