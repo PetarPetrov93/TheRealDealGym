@@ -1,13 +1,11 @@
-﻿using TheRealDealGym.Core.Contracts;
-using TheRealDealGym.Infrastructure.Data.Common;
-using TheRealDealGym.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using TheRealDealGym.Core.Services;
-using TheRealDealGym.Infrastructure.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Enums;
-using TheRealDealGym.Core.Models.Class;
 using TheRealDealGym.Core.Models.Room;
-using TheRealDealGym.Core.Models.Trainer;
+using TheRealDealGym.Core.Services;
+using TheRealDealGym.Infrastructure.Data;
+using TheRealDealGym.Infrastructure.Data.Common;
+using TheRealDealGym.Infrastructure.Data.Models;
 
 namespace TheRealDealGym.UnitTests
 {
@@ -46,8 +44,22 @@ namespace TheRealDealGym.UnitTests
                 Capacity = 16,
 
             };
+
+            var muayThaiClass = new Class()
+            {
+                Id = Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"),
+                Title = "Advanced MuayThai",
+                Description = "this is advanced class for fighters",
+                Price = 20,
+                DateAndTime = DateTime.Now,
+                TrainerId = Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"),
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
             await repository.AddAsync(fightingRoom);
             await repository.AddAsync(swimmingPool);
+            await repository.AddAsync(muayThaiClass);
 
             await repository.SaveChangesAsync();
         }
@@ -109,7 +121,7 @@ namespace TheRealDealGym.UnitTests
         [Test]
         public async Task DeleteAsync_ShouldDeleteARoom()
         {
-            await roomService.DeleteAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"));
+            await roomService.DeleteAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"));
             var roomsLeft = await roomService.AllRoomsAsync();
             int roomsCount = roomsLeft.Rooms.Count();
 
@@ -117,21 +129,55 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
+        public async Task DeleteAsync_ShouldNotDeleteARoom()
+        {
+            try
+            {
+                await roomService.DeleteAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"));
+            }
+            catch (Exception ex)
+            {
+
+                Assert.That(ex.Message, Is.EqualTo("You cannot delete this room because there's currently classes, scheduled for it!"));
+            }
+        }
+
+        [Test]
         public async Task EditRoomAsync_ShouldEditRoomDetails()
         {
             var roomModel = new RoomServiceModel()
             {
-                Id = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
+                Id = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
                 Capacity = 17,
                 Type = "Edited Fighting room"
             };
 
-            await roomService.EditAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"), roomModel);
+            await roomService.EditAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"), roomModel);
 
-            var editedRoom = await roomService.GetByIdAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"));
+            var editedRoom = await roomService.GetByIdAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"));
 
             Assert.That(editedRoom.Capacity, Is.EqualTo(17));
             Assert.That(editedRoom.Type, Is.EqualTo("Edited Fighting room"));
+        }
+
+        [Test]
+        public async Task EditRoomAsync_ShouldNotEditRoomDetails()
+        {
+            var roomModel = new RoomServiceModel()
+            {
+                Id = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
+                Capacity = 17,
+                Type = "Edited Fighting room"
+            };
+
+            try
+            {
+                await roomService.EditAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"), roomModel);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("You cannot edit this room because there's currently classes, scheduled for it!"));
+            }
         }
 
         [Test]

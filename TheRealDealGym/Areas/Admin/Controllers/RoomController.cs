@@ -3,6 +3,7 @@ using TheRealDealGym.Core.Contracts;
 using TheRealDealGym.Core.Models.Job;
 using TheRealDealGym.Core.Models.Room;
 using TheRealDealGym.Core.Services;
+using TheRealDealGym.Infrastructure.Data.Models;
 using static TheRealDealGym.Core.Constants.MessageConstants;
 
 namespace TheRealDealGym.Areas.Admin.Controllers
@@ -96,10 +97,19 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return View(model);
             }
 
-            await roomService.EditAsync(roomId, model);
+            try
+            {
+                await roomService.EditAsync(roomId, model);
 
-            TempData[MessageWarning] = "You have successfully edited this room!";
-            return RedirectToAction(nameof(Index), "Room");
+                TempData[MessageWarning] = "You have successfully edited this room!";
+                return RedirectToAction(nameof(Index), "Room");
+            }
+            catch (Exception ex)
+            {
+                TempData[MessageError] = ex.Message;
+                return RedirectToAction(nameof(Index), "Room");
+            }
+            
         }
 
         /// <summary>
@@ -113,10 +123,18 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return BadRequest();
             }
 
-            await roomService.DeleteAsync(roomId);
+            try
+            {
+                await roomService.DeleteAsync(roomId);
 
-            TempData[MessageError] = "You have successfully deleted this room!";
-            return RedirectToAction(nameof(Index), "Room");
+                TempData[MessageError] = "You have successfully deleted this room!";
+                return RedirectToAction(nameof(Index), "Room");
+            }
+            catch (Exception ex)
+            {
+                TempData[MessageError] = ex.Message;
+                return RedirectToAction(nameof(Index), "Room");
+            }
         }
     }
 }

@@ -78,6 +78,14 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         public async Task DeleteAsync(Guid sportId)
         {
+            var classesInForThisSport = await repository.AllReadOnly<Class>()
+                .Where(c => c.SportId == sportId)
+                .ToListAsync();
+
+            if (classesInForThisSport.Any())
+            {
+                throw new Exception("You cannot delete this sport because there's currently classes, scheduled for it!");
+            }
             await repository.DeleteAsync<Sport>(sportId);
             await repository.SaveChangesAsync();
         }
@@ -91,6 +99,15 @@ namespace TheRealDealGym.Core.Services
 
             if (sport != null)
             {
+                var classesInForThisSport = await repository.AllReadOnly<Class>()
+                .Where(c => c.SportId == sportId)
+                .ToListAsync();
+
+                if (classesInForThisSport.Any())
+                {
+                    throw new Exception("You cannot edit this sport because there's currently classes, scheduled for it!");
+                }
+
                 sport.Title = model.Title;
                 await repository.SaveChangesAsync();
             }

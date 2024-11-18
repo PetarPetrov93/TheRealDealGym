@@ -25,7 +25,7 @@ namespace TheRealDealGym.Core.Contracts
 
         Task<ClassDetailsModel> ClassDetailsByIdAsync(Guid classId);
 
-        Task EditAsync(Guid classId, ClassFormModel model);
+        Task EditAsync(Guid classId, ClassFormModel model, Guid trainerId);
 
         Task<ClassFormModel> GetClassFormModelByIdAsync(Guid classId);
 
