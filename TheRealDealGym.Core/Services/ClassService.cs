@@ -184,7 +184,7 @@ namespace TheRealDealGym.Core.Services
 
             var newClassDateTime = classToCreate.DateAndTime;
 
-            var overlappingClasses = await repository.AllReadOnly<Class>()
+            var overlappingClassesInThisRoom = await repository.AllReadOnly<Class>()
                 .Where(c => c.RoomId == model.RoomId &&
                     (
                      (c.DateAndTime < newClassDateTime && c.DateAndTime.AddMinutes(60) > newClassDateTime) ||
@@ -193,7 +193,16 @@ namespace TheRealDealGym.Core.Services
                 )
                 .ToListAsync();
 
-            if (overlappingClasses.Any())
+            var overlappingClassesForThisTrainer = await repository.AllReadOnly<Class>()
+                .Where(c => c.TrainerId == trainerId &&
+                    (
+                     (c.DateAndTime < newClassDateTime && c.DateAndTime.AddMinutes(60) > newClassDateTime) ||
+                     (c.DateAndTime >= newClassDateTime && c.DateAndTime < newClassDateTime.AddMinutes(60))
+                    )
+                )
+                .ToListAsync();
+
+            if (overlappingClassesInThisRoom.Any())
             {
                 throw new Exception("Selected room is not available for the chosen time slot.");
             }
@@ -201,6 +210,11 @@ namespace TheRealDealGym.Core.Services
             if (newClassDateTime <= DateTimeOffset.Now)
             {
                 throw new Exception("Please set a valid date and time for this class.");
+            }
+
+            if (overlappingClassesForThisTrainer.Any())
+            {
+                throw new Exception("For this date you already have another class around this time, please select different time.");
             }
 
             await repository.AddAsync(classToCreate);
