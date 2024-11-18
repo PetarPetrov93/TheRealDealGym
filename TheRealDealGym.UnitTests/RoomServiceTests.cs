@@ -163,6 +163,27 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
+        public async Task EditRoomAsync_ShouldNotEditRoomDetails()
+        {
+            var roomModel = new RoomServiceModel()
+            {
+                Id = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"),
+                Capacity = 17,
+                Type = "Edited Fighting room"
+            };
+
+            try
+            {
+                await roomService.EditAsync(Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"), roomModel);
+            }
+            catch (Exception ex)
+            {
+
+                Assert.That(ex.Message, Is.EqualTo("You cannot edit this room because there's currently classes, scheduled for it!"));
+            }
+        }
+
+        [Test]
         public async Task ExistsByIdAsync_ShouldReturnTrue()
         {
             var roomExistsById = await roomService.ExistsByIdAsync(Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9573"));
