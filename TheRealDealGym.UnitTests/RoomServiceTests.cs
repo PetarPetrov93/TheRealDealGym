@@ -176,7 +176,6 @@ namespace TheRealDealGym.UnitTests
             }
             catch (Exception ex)
             {
-
                 Assert.That(ex.Message, Is.EqualTo("You cannot edit this room because there's currently classes, scheduled for it!"));
             }
         }

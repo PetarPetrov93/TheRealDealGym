@@ -137,6 +137,25 @@ namespace TheRealDealGym.UnitTests
             Assert.That(editedSport.Title, Is.EqualTo("Swimming edited"));
         }
 
+        [Test]
+        public async Task EditSportAsync_ShouldNotEditSportDetails()
+        {
+            var sportInfoModel = new SportInfoModel()
+            {
+                Id = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"),
+                Title = "MuayThai edited"
+            };
+
+            try
+            {
+                await sportService.EditAsync(Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e"), sportInfoModel);
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("You cannot edit this sport because there's currently classes, scheduled for it!"));
+            }
+
+        }
 
         [Test]
         public async Task ExistsByIdAsync_ShouldReturnTrue()
