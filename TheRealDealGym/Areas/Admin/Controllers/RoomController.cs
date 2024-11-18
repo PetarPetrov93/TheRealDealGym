@@ -97,10 +97,19 @@ namespace TheRealDealGym.Areas.Admin.Controllers
                 return View(model);
             }
 
-            await roomService.EditAsync(roomId, model);
+            try
+            {
+                await roomService.EditAsync(roomId, model);
 
-            TempData[MessageWarning] = "You have successfully edited this room!";
-            return RedirectToAction(nameof(Index), "Room");
+                TempData[MessageWarning] = "You have successfully edited this room!";
+                return RedirectToAction(nameof(Index), "Room");
+            }
+            catch (Exception ex)
+            {
+                TempData[MessageError] = ex.Message;
+                return RedirectToAction(nameof(Index), "Room");
+            }
+            
         }
 
         /// <summary>

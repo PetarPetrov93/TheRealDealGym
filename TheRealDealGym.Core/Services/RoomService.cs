@@ -88,7 +88,7 @@ namespace TheRealDealGym.Core.Services
 
             if (classesInThisRoom.Any())
             {
-                throw new Exception("You cannot delete this room because there's currently classes, schduled for it!");
+                throw new Exception("You cannot delete this room because there's currently classes, scheduled for it!");
             }
 
             await repository.DeleteAsync<Room>(roomId);
@@ -104,6 +104,15 @@ namespace TheRealDealGym.Core.Services
 
             if (room != null)
             {
+                var classesInThisRoom = await repository.AllReadOnly<Class>()
+                .Where(c => c.RoomId == roomId)
+                .ToListAsync();
+
+                if (classesInThisRoom.Any())
+                {
+                    throw new Exception("You cannot edit this room because there's currently classes, scheduled for it!");
+                }
+
                 room.Type = model.Type;
                 room.Capacity = model.Capacity;
                 await repository.SaveChangesAsync();
