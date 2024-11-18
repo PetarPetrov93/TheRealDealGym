@@ -82,6 +82,15 @@ namespace TheRealDealGym.Core.Services
         /// </summary>
         public async Task DeleteAsync(Guid roomId)
         {
+            var classesInThisRoom = await repository.AllReadOnly<Class>()
+                .Where(c => c.RoomId == roomId)
+                .ToListAsync();
+
+            if (classesInThisRoom.Any())
+            {
+                throw new Exception("You cannot delete this room because there's currently classes, schduled for it!");
+            }
+
             await repository.DeleteAsync<Room>(roomId);
             await repository.SaveChangesAsync();
         }
