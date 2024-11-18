@@ -289,6 +289,30 @@ namespace TheRealDealGym.UnitTests
         }
 
         [Test]
+        public async Task CreateAsync_ShouldReturnTrainerNotAvailable()
+        {
+            var classFormModel = new ClassFormModel()
+            {
+                Title = "New Class - swimming",
+                Description = "This is a brand new swimming class",
+                Date = DateTime.Now.ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.AddMinutes(17).ToString("HH:mm:ss"),
+                Price = 14.50m,
+                SportId = Guid.Parse("4af95cd3-3829-4553-b6df-5d6b130a4ba8"),
+                RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d301")
+            };
+
+            try
+            {
+                var newClass = await classService.CreateAsync(classFormModel, Guid.Parse("04feea53-473b-44b0-8987-685eedfd862c"));
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("For this date you already have another class around this time, please select different time."));
+            }
+        }
+
+        [Test]
         public async Task CreateAsync_ShouldReturnSelectValidDateAndTime()
         {
             var classFormModel = new ClassFormModel()
@@ -335,7 +359,7 @@ namespace TheRealDealGym.UnitTests
                 RoomId = Guid.Parse("b62f8c2e-f842-4812-ae27-70be5e24d309"),
                 SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
             };
-            await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+            await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit, Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
 
             var editedClass = await classService.GetClassFormModelByIdAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"));
             var editedTitle = editedClass.Title;
@@ -368,7 +392,7 @@ namespace TheRealDealGym.UnitTests
 
             try
             {
-                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit, Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
             }
             catch (Exception ex)
             {
@@ -392,11 +416,35 @@ namespace TheRealDealGym.UnitTests
 
             try
             {
-                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit, Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
             }
             catch (Exception ex)
             {
                 Assert.That(ex.Message, Is.EqualTo("Selected room is not available for the chosen time slot."));
+            }
+        }
+
+        [Test]
+        public async Task EditAsync_ShouldNotBeEdited_TrainerNotAvailable()
+        {
+            var classToEdit = new ClassFormModel()
+            {
+                Title = "Edited Advanced Muay Thai Class",
+                Description = "This class is dited",
+                Date = DateTime.Now.ToString("yyyy-MM-dd"),
+                Time = DateTime.Now.AddMinutes(15).ToString("HH:mm:ss"),
+                Price = 12m,
+                RoomId = Guid.Parse("07c92ab2-93a1-43dd-8fc8-3e16541a9570"),
+                SportId = Guid.Parse("91458b63-8fc3-479b-b3b8-a7a920ec984e")
+            };
+
+            try
+            {
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit, Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
+            }
+            catch (Exception ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("For this date you already have another class around this time, please select different time."));
             }
         }
 
@@ -416,7 +464,7 @@ namespace TheRealDealGym.UnitTests
 
             try
             {
-                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit, Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
             }
             catch (Exception ex)
             {
@@ -440,7 +488,7 @@ namespace TheRealDealGym.UnitTests
 
             try
             {
-                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit);
+                await classService.EditAsync(Guid.Parse("ad61a644-76c7-4366-9686-82b65a42fd14"), classToEdit, Guid.Parse("10c4a0b0-16ca-464a-bdc4-6f8fe432de42"));
             }
             catch (Exception ex)
             {
