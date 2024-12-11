@@ -16,17 +16,10 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-    app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error/500");
-    app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
-    app.UseHsts();
-}
+app.UseMigrationsEndPoint();
+app.UseExceptionHandler("/Home/Error/500");
+app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+app.UseHsts();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
